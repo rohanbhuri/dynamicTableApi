@@ -1,0 +1,158 @@
+.header {
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+}
+
+
+/* small header css */
+
+.logo-small {
+  min-width: 2.5rem;
+  max-width: 2.5rem;
+}
+
+.background {
+  background: transparent;
+}
+
+.menu.vertical>li>.menu-button-small {
+  color: #006838;
+  justify-content: center;
+  margin: 0rem -1rem;
+  padding: 2rem 0rem;
+  border-bottom: 1px solid;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.menu.vertical>li:nth-child(1)>.menu-button-small {
+  border-top: 1px solid;
+  margin-top: 5rem;
+  padding-top: 2rem;
+}
+
+.header-small {
+  width: 100%;
+  top: 0;
+  z-index: 98;
+  height: 3rem;
+  transition-duration: .2s;
+}
+
+.bg-small {
+  background: #eeefef;
+  transition-duration: .2s;
+  height: 100vh
+}
+
+.ham-burger {
+  top: .4rem;
+  right: 1.4rem;
+}
+
+.hamburger {
+  width: 30px;
+  height: 35px;
+  position: relative;
+  /* margin: .5rem 0rem 0rem 7rem; */
+  cursor: pointer;
+}
+
+.hamburger span {
+  background: #006838;
+  display: block;
+  position: absolute;
+  height: 5px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: all .25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  -moz-transition: all .25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  -o-transition: all .25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: all .25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  opacity: 1;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.hamburger3 span {
+  left: 0;
+}
+
+.hamburger3 span:nth-child(1) {
+  top: 5px;
+}
+
+.hamburger3 span:nth-child(2),
+.hamburger3 span:nth-child(3) {
+  top: 15px;
+}
+
+.hamburger3 span:nth-child(4) {
+  top: 25px;
+}
+
+.hamburger3.open span:nth-child(1) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+  background: #006838;
+}
+
+.hamburger3.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: #006838;
+}
+
+.hamburger3.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  background: #006838;
+}
+
+.hamburger3.open span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+  background: #006838;
+}
+
+
+/* large header scc */
+
+.header-large {
+  padding: 1rem 2rem;
+}
+
+.logo {
+  max-height: 3.5rem;
+}
+
+.menu>li>a {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.3em;
+}
+
+.menu>li>a:hover {
+  color: #fff
+}
+
+.menu>li>.active {
+  color: #fff;
+}
+
+.custom-padding-large {
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+.home-btn {
+  padding: .2rem;
+}

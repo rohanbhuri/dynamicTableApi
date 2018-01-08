@@ -1,1 +1,86 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300');
+html {
+  body {
+    background-color: #eeefef;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  a {}
+  a:hover,
+  a:active,
+  a:focus {}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span {
+    font-family: 'Lato', sans-serif;
+  }
+  [type='text']:focus,
+  [type='password']:focus,
+  [type='date']:focus,
+  [type='datetime']:focus,
+  [type='datetime-local']:focus,
+  [type='month']:focus,
+  [type='week']:focus,
+  [type='email']:focus,
+  [type='number']:focus,
+  [type='search']:focus,
+  [type='tel']:focus,
+  [type='time']:focus,
+  [type='url']:focus,
+  [type='color']:focus,
+  textarea:focus {
+    border: 1px solid #e2e4e4;
+    background-color: #eeefef;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0);
+    color: #2b2e3c;
+  }
+  [type='text'],
+  [type='password'],
+  [type='date'],
+  [type='datetime'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='week'],
+  [type='email'],
+  [type='number'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='url'],
+  [type='color'],
+  textarea {
+    border: 1px solid #e2e4e4;
+    background-color: #eeefef;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0);
+    border-radius: 3px;
+  }
+  .full-width-row {
+    min-width: 100%;
+  }
+  .relative {
+    position: relative;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .fixed {
+    position: fixed;
+  }
+  ul,
+  ol {
+    list-style: none;
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+}

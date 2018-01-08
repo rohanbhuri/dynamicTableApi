@@ -1,0 +1,12 @@
+<div class="slider">
+  <ul [style.top.%]="-100*slideNumber">
+    <li [ngClass]="{'active': slideNumber == 0}"><img src="./assets/images/carousel_1_gtxs.jpg" alt=""></li>
+    <li [ngClass]="{'active': slideNumber == 1}"><img src="./assets/images/carousel_2_gtxs.jpg" alt=""></li>
+    <li [ngClass]="{'active': slideNumber == 2}"><img src="./assets/images/carousel_3_gtxs.jpg" alt=""></li>
+  </ul>
+  <ol>
+    <li [ngClass]="{'active': slideNumber == 0}" (click)="slideNumber = 0;"></li>
+    <li [ngClass]="{'active': slideNumber == 1}" (click)="slideNumber = 1;"></li>
+    <li [ngClass]="{'active': slideNumber == 2}" (click)="slideNumber = 2;"></li>
+  </ol>
+</div>
