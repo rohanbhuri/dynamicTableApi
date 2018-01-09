@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -18,11 +19,16 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+
     RouterModule.forRoot(appRoutes),
 
   ],

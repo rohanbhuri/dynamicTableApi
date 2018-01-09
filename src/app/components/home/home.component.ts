@@ -12,4 +12,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  scrollDown() {
+    document.getElementById('body').scrollTop = 100;
+  }
+
 }

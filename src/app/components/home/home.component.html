@@ -1,12 +1,188 @@
-<div class="slider">
-  <ul [style.top.%]="-100*slideNumber">
-    <li [ngClass]="{'active': slideNumber == 0}"><img src="./assets/images/carousel_1_gtxs.jpg" alt=""></li>
-    <li [ngClass]="{'active': slideNumber == 1}"><img src="./assets/images/carousel_2_gtxs.jpg" alt=""></li>
-    <li [ngClass]="{'active': slideNumber == 2}"><img src="./assets/images/carousel_3_gtxs.jpg" alt=""></li>
-  </ul>
-  <ol>
-    <li [ngClass]="{'active': slideNumber == 0}" (click)="slideNumber = 0;"></li>
-    <li [ngClass]="{'active': slideNumber == 1}" (click)="slideNumber = 1;"></li>
-    <li [ngClass]="{'active': slideNumber == 2}" (click)="slideNumber = 2;"></li>
-  </ol>
-</div>
+<section class="section-1">
+  <div class="slider">
+    <ul [style.top.%]="-100*slideNumber">
+      <li [ngClass]="{'active': slideNumber == 0}">
+        <img src="./assets/images/carousel_1_gtxs.jpg" alt="">
+      </li>
+      <li [ngClass]="{'active': slideNumber == 1}">
+        <img src="./assets/images/carousel_2_gtxs.jpg" alt="">
+      </li>
+      <li [ngClass]="{'active': slideNumber == 2}">
+        <img src="./assets/images/carousel_3_gtxs.jpg" alt="">
+      </li>
+    </ul>
+    <ol>
+      <li [ngClass]="{'active': slideNumber == 0}" (click)="slideNumber = 0;"></li>
+      <li [ngClass]="{'active': slideNumber == 1}" (click)="slideNumber = 1;"></li>
+      <li [ngClass]="{'active': slideNumber == 2}" (click)="slideNumber = 2;"></li>
+    </ol>
+    <div class="description-box">
+      <h2 class="title-label">
+        <strong>Trust the Chef</strong>
+      </h2>
+      <hr>
+      <h4 class="description-label">WaltzIn: Your Ticket to the Insider's Restaurant Experience</h4>
+    </div>
+
+    <mat-icon class="down-arrow show-for-medium" (click)="scrollDown()">keyboard_arrow_down</mat-icon>
+  </div>
+
+
+
+
+
+</section>
+<section class="section-2">
+  <div class="heading-box margin-bottom-4">
+    <h2 class="title-label">
+      <strong>RESTAURANT PARTNERS</strong>
+    </h2>
+    <hr>
+    <h4 class="description-label">Book Your Experience.</h4>
+  </div>
+
+
+  <div class="row align-spaced margin-bottom-4">
+    <div class="small-12 medium-3 columns">
+      <mat-form-field>
+        <mat-select placeholder="City">
+          <mat-option value="LOS ANGELES">LOS ANGELES</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="small-12 medium-3 columns">
+      <mat-form-field>
+        <mat-select placeholder="Party Size">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">1</mat-option>
+          <mat-option value="option2">2</mat-option>
+          <mat-option value="option3">3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="small-12 medium-3 columns">
+      <mat-form-field>
+        <mat-select placeholder="Date">
+          <mat-option>TODAY</mat-option>
+          <mat-option value="option1">TOMORROW</mat-option>
+          <mat-option value="option2">SOME DATE</mat-option>
+          <mat-option value="option3">SOME DATE</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row align-spaced margin-bottom-4">
+    <div class="small-12 medium-4 columns">
+
+      <div class="feed-cell">
+        <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+        <div class="dimmer">
+          <div class="foot">
+            <div class="description-box">
+              <h5 class="title-label">
+                MARDI
+              </h5>
+              <div class="row align-center">
+                <div class="small-4 no-col-pad columns">
+                  <hr>
+                </div>
+                <div class="small-2 custom-pad columns">
+                  $50
+                </div>
+                <div class="small-4 no-col-pad columns">
+                  <hr>
+                </div>
+              </div>
+              <div class="row align-center bottom-text">
+                <div class="small-6  columns">
+                  <mat-icon>restaurant_menu</mat-icon>
+                  <strong>Californian</strong>
+                </div>
+                <div class="small-6 columns">
+                  <mat-icon>pin_drop</mat-icon>
+                  <strong>West Hollywood</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-12 medium-4 columns">
+      <div class="feed-cell">
+        <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+        <div class="dimmer">
+          <div class="foot">
+            <div class="description-box">
+              <h5 class="title-label">
+                MARDI
+              </h5>
+              <div class="row align-center">
+                <div class="small-4 no-col-pad columns">
+                  <hr>
+                </div>
+                <div class="small-2 custom-pad columns">
+                  $50
+                </div>
+                <div class="small-4 no-col-pad columns">
+                  <hr>
+                </div>
+              </div>
+              <div class="row align-center bottom-text">
+                <div class="small-6  columns">
+                  <mat-icon>restaurant_menu</mat-icon>
+                  <strong>Californian</strong>
+                </div>
+                <div class="small-6 columns">
+                  <mat-icon>pin_drop</mat-icon>
+                  <strong>West Hollywood</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-12 medium-4 columns">
+      <div class="feed-cell">
+        <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+        <div class="dimmer">
+          <div class="foot">
+            <div class="description-box">
+              <h5 class="title-label">
+                MARDI
+              </h5>
+              <div class="row align-center">
+                <div class="small-4 no-col-pad columns">
+                  <hr>
+                </div>
+                <div class="small-2 custom-pad columns">
+                  $50
+                </div>
+                <div class="small-4 no-col-pad columns">
+                  <hr>
+                </div>
+              </div>
+              <div class="row align-center bottom-text">
+                <div class="small-6  columns">
+                  <mat-icon>restaurant_menu</mat-icon>
+                  <strong>Californian</strong>
+                </div>
+                <div class="small-6 columns">
+                  <mat-icon>pin_drop</mat-icon>
+                  <strong>West Hollywood</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
