@@ -127,11 +127,16 @@
     .mat-form-field {
       width: 100%
     }
+    .custom-col-pad{
+      padding: .5rem;
+    }
     .feed-cell {
       height: auto;
       position: relative;
+      transition-duration: .5s;
+      overflow: hidden;
       img {
-        transition: all 3s ease-in-out
+        transition-duration: .5s;
       }
       .dimmer {
         position: absolute;
@@ -168,11 +173,9 @@
         }
       }
     }
-    .feed-cell:hover {
-      .img {
-        transform: scale(1.2);
+    .feed-cell:hover  img {
+      transform: scale(1.2); 
       }
-    }
   } // 
   // 
   // 
