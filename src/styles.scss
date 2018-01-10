@@ -92,6 +92,17 @@ html {
     padding-left: 0rem;
     padding-right: 0rem;
   }
+  .content-center{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .si-content-wrapper {
+    padding: 0px;
+    .si-content {
+      overflow: hidden;
+    }
+  }
 }
 
 

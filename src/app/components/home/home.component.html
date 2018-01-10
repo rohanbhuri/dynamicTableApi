@@ -27,12 +27,15 @@
     <mat-icon class="down-arrow show-for-medium" (click)="scrollDown()">keyboard_arrow_down</mat-icon>
   </div>
 
-
-
-
-
 </section>
-<section class="section-2">
+
+
+
+
+
+
+
+<section id="section-2" class="section-2">
   <div class="heading-box margin-bottom-4">
     <h2 class="title-label">
       <strong>RESTAURANT PARTNERS</strong>
@@ -111,6 +114,262 @@
       </div>
     </div>
 
+  </div>
+
+  <div class="row">
+    <div class="small-12 content-center">
+      <button class="btn-hollow" mat-button color="primary">Show More</button>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+
+<section class="section-3">
+
+  <div class="row">
+    <div class="small-12 content-center">
+      <button class="map-btn" mat-fab color="primary">
+        <img src="./assets/images/map_icon_white.png">
+      </button>
+    </div>
+  </div>
+
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng">
+      <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="500" [closeWhenOthersOpen]="true">
+        <ng-template>
+          <div class="feed-cell">
+            <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+            <div class="dimmer">
+              <div class="foot">
+                <div class="description-box">
+                  <h5 class="title-label">
+                    MARDI
+                  </h5>
+                  <div class="row align-center">
+                    <div class="small-4 no-col-pad columns">
+                      <hr>
+                    </div>
+                    <div class="small-2 custom-pad columns">
+                      $50
+                    </div>
+                    <div class="small-4 no-col-pad columns">
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row align-center bottom-text">
+                    <div class="small-6  columns">
+                      <mat-icon>restaurant_menu</mat-icon>
+                      <strong>Californian</strong>
+                    </div>
+                    <div class="small-6 columns">
+                      <mat-icon>pin_drop</mat-icon>
+                      <strong>West Hollywood</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
+
+    <agm-marker [latitude]="51.418418" [longitude]="7.606007">
+      <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="500" [closeWhenOthersOpen]="true">
+        <ng-template>
+          <div class="feed-cell">
+            <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+            <div class="dimmer">
+              <div class="foot">
+                <div class="description-box">
+                  <h5 class="title-label">
+                    MARDI
+                  </h5>
+                  <div class="row align-center">
+                    <div class="small-4 no-col-pad columns">
+                      <hr>
+                    </div>
+                    <div class="small-2 custom-pad columns">
+                      $50
+                    </div>
+                    <div class="small-4 no-col-pad columns">
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row align-center bottom-text">
+                    <div class="small-6  columns">
+                      <mat-icon>restaurant_menu</mat-icon>
+                      <strong>Californian</strong>
+                    </div>
+                    <div class="small-6 columns">
+                      <mat-icon>pin_drop</mat-icon>
+                      <strong>West Hollywood</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
+
+    <agm-marker [latitude]="51.118418" [longitude]="7.906007">
+      <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="500" [closeWhenOthersOpen]="true">
+        <ng-template>
+          <div class="feed-cell">
+            <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+            <div class="dimmer">
+              <div class="foot">
+                <div class="description-box">
+                  <h5 class="title-label">
+                    MARDI
+                  </h5>
+                  <div class="row align-center">
+                    <div class="small-4 no-col-pad columns">
+                      <hr>
+                    </div>
+                    <div class="small-2 custom-pad columns">
+                      $50
+                    </div>
+                    <div class="small-4 no-col-pad columns">
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row align-center bottom-text">
+                    <div class="small-6  columns">
+                      <mat-icon>restaurant_menu</mat-icon>
+                      <strong>Californian</strong>
+                    </div>
+                    <div class="small-6 columns">
+                      <mat-icon>pin_drop</mat-icon>
+                      <strong>West Hollywood</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
+
+  </agm-map>
+</section>
+
+
+<section class="section-4 content-center">
+  <iframe src="https://player.vimeo.com/video/207865727" width="1080px" height="610px" frameborder="0" webkitallowfullscreen
+    mozallowfullscreen allowfullscreen></iframe>
+</section>
+
+<section class="section-5">
+  <div class="row">
+    <div class="medium-3"></div>
+    <div class="small-12 medium-6">
+      <div class="description-box">
+        <h2 class="title-label">
+          <strong>HOW IT WORKS</strong>
+        </h2>
+        <h3 class="title-label">
+          <strong>THE WALTZIN EXPERIENCE</strong>
+        </h3>
+        <h4 class="description-label">Buy tickets to a chef’s table experience exclusively for your table. No menus. No decisions. No Food Bill. Your ticket
+          covers the entire meal from starters to dessert. Drinks are paid for at the end.</h4>
+      </div>
+    </div>
+    <div class="medium-3"></div>
+    <div class="small-12 content-center">
+      <button class="FAQ-btn" mat-raised-button color="primary">FAQ</button>
+    </div>
+  </div>
+</section>
+
+<section class="section-6">
+  <div class="description-box">
+    <h4 class="description-label">PRESS</h4>
+    <hr>
+  </div>
+  <div class="row align-center">
+    <div class="small-12 medium-3 content-center margin-bottom-2">
+      <img src="https://www.waltzin.com/assets/img/press/blogtown.png" alt="">
+    </div>
+    <div class="small-12 medium-3 content-center margin-bottom-2">
+      <img src="https://www.waltzin.com/assets/img/press/eater.png" alt="">
+    </div>
+    <div class="small-12 medium-3 content-center margin-bottom-2">
+      <img src="https://www.waltzin.com/assets/img/press/LACanvas.png" alt="">
+    </div>
+    <div class="small-12 medium-3 content-center margin-bottom-2">
+      <img src="https://www.waltzin.com/assets/img/press/revere.png" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="section-7 show-for-medium">
+
+  <div class="slider">
+    <ul [style.top.%]="-100*slideNumber">
+      <li [ngClass]="{'active': slideNumber == 0}">
+
+        <div class="row">
+          <div class="small-12 medium-9 text-right">
+            <h5 class="margin-bottom-2">Dining with WaltzIn made me feel like I was out with my very connected chef friend, without her having to be
+              there! I didn't have to make any decisions and was always pleasantly surprised with each course that came out
+              for us!’</h5>
+            <h5 class="color-primary">Gasia Kazanian Strategy</h5>
+            <h5 class="color-primary">Director at DB5</h5>
+          </div>
+          <div class="small-12 medium-3">
+            <img class="profile-img" src="https://www.waltzin.com/assets/img/testimonials/reviewer3.jpg" alt="">
+          </div>
+        </div>
+
+      </li>
+      <li [ngClass]="{'active': slideNumber == 1}">
+
+        <div class="row">
+          <div class="small-12 medium-9 text-right">
+            <h5 class="margin-bottom-2">Dining with WaltzIn made me feel like I was out with my very connected chef friend, without her having to be
+              there! I didn't have to make any decisions and was always pleasantly surprised with each course that came out
+              for us!’</h5>
+            <h5 class="color-primary">Gasia Kazanian Strategy</h5>
+            <h5 class="color-primary">Director at DB5</h5>
+          </div>
+          <div class="small-12 medium-3">
+            <img class="profile-img" src="https://www.waltzin.com/assets/img/testimonials/reviewer3.jpg" alt="">
+          </div>
+        </div>
+
+      </li>
+      <li [ngClass]="{'active': slideNumber == 2}">
+
+        <div class="row">
+          <div class="small-12 medium-9 text-right">
+            <h5 class="margin-bottom-2">Dining with WaltzIn made me feel like I was out with my very connected chef friend, without her having to be
+              there! I didn't have to make any decisions and was always pleasantly surprised with each course that came out
+              for us!’</h5>
+            <h5 class="color-primary">Gasia Kazanian Strategy</h5>
+            <h5 class="color-primary">Director at DB5</h5>
+          </div>
+          <div class="small-12 medium-3">
+            <img class="profile-img" src="https://www.waltzin.com/assets/img/testimonials/reviewer3.jpg" alt="">
+          </div>
+        </div>
+
+      </li>
+    </ul>
+    <ol>
+      <li [ngClass]="{'active': slideNumber == 0}" (click)="slideNumber = 0;"></li>
+      <li [ngClass]="{'active': slideNumber == 1}" (click)="slideNumber = 1;"></li>
+      <li [ngClass]="{'active': slideNumber == 2}" (click)="slideNumber = 2;"></li>
+    </ol>
   </div>
 
 </section>
