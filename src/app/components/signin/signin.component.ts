@@ -3,23 +3,20 @@ import { FormControl, Validators } from '@angular/forms';
 import { RouterTransition } from '../../router.animations';
 
 
+
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss'],
   animations: [RouterTransition()],
-  host: { '[@routerTransition]': '' }
+  host: {'[@routerTransition]': ''}
 })
-export class SignupComponent implements OnInit {
+export class SigninComponent implements OnInit {
   user = {
-    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   };
   password;
-  confirmPassword = new FormControl('', [Validators.required]);
-  terms = new FormControl(false, [Validators.required]);
-
 
   constructor() { }
 

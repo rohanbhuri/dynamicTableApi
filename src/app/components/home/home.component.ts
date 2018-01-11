@@ -1,9 +1,12 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { RouterTransition } from '../../router.animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [RouterTransition()],
+  host: { '[@routerTransition]': '' }
 })
 export class HomeComponent implements OnInit {
   slideNumber = 0;

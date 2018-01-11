@@ -1,0 +1,28 @@
+<section class="content-center">
+  <form class="form">
+    <div class="header content-center">
+      <img src="./assets/images/logo.png" alt="">
+    </div>
+    <div class="fields text-center">
+
+      <mat-form-field class="margin-bottom-1">
+        <input matInput placeholder="Enter your email" [formControl]="user.email" required>
+        <mat-error *ngIf="user.email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="margin-bottom-2">
+        <input matInput placeholder="Password" [formControl]="user.password" [type]="password" required>
+        <mat-error *ngIf="user.password.invalid">This field is required</mat-error>
+      </mat-form-field>
+
+      <a class="forgotPassword margin-bottom-2">Forgot Password?</a>
+
+      <button class="margin-bottom-2" mat-raised-button color="primary">
+        <strong>SIGN IN</strong>
+      </button>
+
+      <span>Don't have an account?</span>
+      <a class="a-login" routerLink="/signup">Click here to create one</a>
+    </div>
+  </form>
+</section>

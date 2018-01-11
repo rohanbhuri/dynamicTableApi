@@ -13,12 +13,19 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { RouterTransition } from './router.animations';
+
+
+import { AuthService } from './services/auth.service';
+
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signup', component: SignupComponent },
+  { path: 'signin', component: SigninComponent }
 
 ];
 
@@ -29,6 +36,7 @@ const appRoutes: Routes = [
     HomeComponent,
     FooterComponent,
     SignupComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +57,7 @@ const appRoutes: Routes = [
     }),
     AgmSnazzyInfoWindowModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,27 +1,39 @@
 <section class="content-center">
   <form class="form">
-    <mat-form-field>
-      <input matInput placeholder="First & Last Name or Alias" [formControl]="user.name" required>
-      <mat-error *ngIf="user.name.invalid">This field is required</mat-error>
-    </mat-form-field>
+    <div class="header content-center">
+      <img src="./assets/images/logo.png" alt="">
+    </div>
+    <div class="fields text-center">
+      <mat-form-field class="margin-bottom-1">
+        <input matInput placeholder="First & Last Name or Alias" [formControl]="user.name" required>
+        <mat-error *ngIf="user.name.invalid">This field is required</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Enter your email" [formControl]="user.email" required>
-      <mat-error *ngIf="user.email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
+      <mat-form-field class="margin-bottom-1">
+        <input matInput placeholder="Enter your email" [formControl]="user.email" required>
+        <mat-error *ngIf="user.email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Password" [formControl]="user.password" [type]="password" required>
-      <mat-error *ngIf="user.password.invalid">This field is required</mat-error>
-    </mat-form-field>
+      <mat-form-field class="margin-bottom-1">
+        <input matInput placeholder="Password" [formControl]="user.password" [type]="password" required>
+        <mat-error *ngIf="user.password.invalid">This field is required</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Password(confirm)" [formControl]="confirmPassword" [type]="password" required>
-      <mat-error *ngIf="confirmPassword.invalid">This field is required</mat-error>
-    </mat-form-field>
+      <mat-form-field class="margin-bottom-3">
+        <input matInput placeholder="Password(confirm)" [formControl]="confirmPassword" [type]="password" required>
+        <mat-error *ngIf="confirmPassword.invalid">This field is required</mat-error>
+      </mat-form-field>
 
-    <mat-checkbox [formControl]="terms" required>I accept the terms and conditions.</mat-checkbox>
-    
+      <mat-checkbox class="margin-bottom-3" [formControl]="terms" required>
+        <span class="a-label">I accept the
+          <a class="terms-condition">terms and conditions.</a>
+        </span>
+      </mat-checkbox>
 
+      <button class="margin-bottom-3" mat-raised-button color="primary"><strong>JOIN</strong></button>
+
+      <span>Already have an account?</span>
+      <a class="a-login" routerLink="/signin">Sign in here</a>
+    </div>
   </form>
 </section>
