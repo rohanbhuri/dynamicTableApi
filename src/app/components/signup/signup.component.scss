@@ -1,0 +1,15 @@
+section {
+  .form {
+    background: #fff;
+    max-width: 380px;
+    width: 380px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    [type='text'] {
+      border: 1px solid #fff;
+      background-color: #fff;
+      height: 1rem;
+    }
+  }
+}

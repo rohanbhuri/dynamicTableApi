@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <section class="section-1">
   <div class="slider">
     <ul [style.top.%]="-100*slideNumber">
@@ -286,7 +288,9 @@
     </div>
     <div class="medium-3"></div>
     <div class="small-12 content-center">
-      <button class="FAQ-btn" mat-raised-button color="primary"><strong>FAQ</strong></button>
+      <button class="FAQ-btn" mat-raised-button color="primary">
+        <strong>FAQ</strong>
+      </button>
     </div>
   </div>
 </section>
@@ -313,7 +317,9 @@
 </section>
 
 <section class="section-7">
-  <div class="mark"><img class="quates" src="./assets/images/quate.png"></div>
+  <div class="mark">
+    <img class="quates" src="./assets/images/quate.png">
+  </div>
   <div class="slider">
     <ul [style.top.%]="-100*slideNumber">
       <li [ngClass]="{'active': slideNumber == 0}">
@@ -382,3 +388,5 @@
   </div>
 
 </section>
+
+<app-footer></app-footer>
