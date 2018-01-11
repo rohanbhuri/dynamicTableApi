@@ -9,22 +9,19 @@ import { RouterTransition } from '../../router.animations';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
   animations: [RouterTransition()],
-  host: {'[@routerTransition]': ''}
+  host: { '[@routerTransition]': '' }
 })
 export class SigninComponent implements OnInit {
-  user = {
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-  };
-  password;
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
 
   constructor() { }
 
   ngOnInit() {
   }
   getErrorMessage() {
-    return this.user.email.hasError('required') ? 'You must enter a value' :
-      this.user.email.hasError('email') ? 'Not a valid email' :
+    return this.email.hasError('required') ? 'You must enter a value' :
+      this.email.hasError('email') ? 'Not a valid email' :
         '';
   }
 

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpModule,
 
     MatIconModule,
     MatInputModule,

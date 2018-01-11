@@ -5,18 +5,18 @@
     </div>
     <div class="fields text-center">
       <mat-form-field class="margin-bottom-1">
-        <input matInput placeholder="First & Last Name or Alias" [formControl]="user.name" required>
-        <mat-error *ngIf="user.name.invalid">This field is required</mat-error>
+        <input matInput placeholder="First & Last Name or Alias" [formControl]="name" required>
+        <mat-error *ngIf="name.invalid">This field is required</mat-error>
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-1">
-        <input matInput placeholder="Enter your email" [formControl]="user.email" required>
-        <mat-error *ngIf="user.email.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput placeholder="Enter your email" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-1">
-        <input matInput placeholder="Password" [formControl]="user.password" [type]="password" required>
-        <mat-error *ngIf="user.password.invalid">This field is required</mat-error>
+        <input matInput placeholder="Password" [formControl]="password" [type]="password" required>
+        <mat-error *ngIf="password.invalid">This field is required</mat-error>
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-3">
@@ -30,7 +30,7 @@
         </span>
       </mat-checkbox>
 
-      <button class="margin-bottom-3" mat-raised-button color="primary"><strong>JOIN</strong></button>
+      <button class="margin-bottom-3" mat-raised-button color="primary" (click)="submit()"><strong>JOIN</strong></button>
 
       <span>Already have an account?</span>
       <a class="a-login" routerLink="/signin">Sign in here</a>

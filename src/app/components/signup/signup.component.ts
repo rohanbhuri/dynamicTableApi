@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { RouterTransition } from '../../router.animations';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,24 +11,27 @@ import { RouterTransition } from '../../router.animations';
   host: { '[@routerTransition]': '' }
 })
 export class SignupComponent implements OnInit {
-  user = {
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-  };
-  password;
+  name = new FormControl('', [Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
   confirmPassword = new FormControl('', [Validators.required]);
   terms = new FormControl(false, [Validators.required]);
 
 
-  constructor() { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
   }
   getErrorMessage() {
-    return this.user.email.hasError('required') ? 'You must enter a value' :
-      this.user.email.hasError('email') ? 'Not a valid email' :
+    return this.email.hasError('required') ? 'You must enter a value' :
+      this.email.hasError('email') ? 'Not a valid email' :
         '';
+  }
+
+  submit() {
+    // this.auth.registerUser(this.user).subscribe(res => {
+
+    // });
   }
 
 }

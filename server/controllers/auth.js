@@ -16,13 +16,13 @@ exports.allUsers = function (req, res) {
 };
 exports.login = function (req, res) {
     if (!valid.email(req.body.email)) {
-        return res.json({ status: false, message: 'Falsche Email Adresse oder falsches Passwort!' });
+        return res.json({ status: false, message: 'Invalid Email' });
     }
     if (!valid.emailLength(req.body.email)) {
-        return res.json({ status: false, message: 'Falsche Email Adresse oder falsches Passwort!' });
+        return res.json({ status: false, message: 'Invalid Email Length' });
     }
     if (!valid.passwordLength(req.body.password)) {
-        return res.json({ status: false, message: 'Falsche Email Adresse oder falsches Passwort!' });
+        return res.json({ status: false, message: 'Invalid Password Length' });
     }
     else {
         User.findOne({ 'email': req.body.email }, (err, user) => {
@@ -30,10 +30,10 @@ exports.login = function (req, res) {
                 return res.json({ status: false, message: err });
             }
             if (!user) {
-                return res.json({ status: false, message: 'Falsche Email Adresse oder falsches Passwort!' });
+                return res.json({ status: false, message: 'Wrong email address or Password!' });
             }
             if (!user.validPassword(req.body.password)) {
-                return res.json({ status: false, message: 'Falsche Email Adresse oder falsches Passwort!' });
+                return res.json({ status: false, message: 'Wrong email address or Password!' });
             }
             user.password='';
             Reflect.deleteProperty(user, 'password');
@@ -58,8 +58,8 @@ exports.signup = function (req, res) {
         var user = new User({
             username: req.body.username,
             password: req.body.password,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
+            // firstname: req.body.firstname,
+            // lastname: req.body.lastname,
             email: req.body.email
         });
         user.password = user.generateHash(user.password);

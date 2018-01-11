@@ -6,13 +6,13 @@
     <div class="fields text-center">
 
       <mat-form-field class="margin-bottom-1">
-        <input matInput placeholder="Enter your email" [formControl]="user.email" required>
-        <mat-error *ngIf="user.email.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput placeholder="Enter your email" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-2">
-        <input matInput placeholder="Password" [formControl]="user.password" [type]="password" required>
-        <mat-error *ngIf="user.password.invalid">This field is required</mat-error>
+        <input matInput placeholder="Password" [formControl]="password" [type]="password" required>
+        <mat-error *ngIf="password.invalid">This field is required</mat-error>
       </mat-form-field>
 
       <a class="forgotPassword margin-bottom-2">Forgot Password?</a>
