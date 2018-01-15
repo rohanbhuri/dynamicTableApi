@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { RouterTransition } from '../../router.animations';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class SigninComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
 
-  constructor(public auth: AuthService, public snackBar: MatSnackBar) { }
+  constructor(public auth: AuthService, public snackBar: MatSnackBar, public router: Router) { }
 
   ngOnInit() {
   }
@@ -33,14 +34,15 @@ export class SigninComponent implements OnInit {
         password: btoa(this.password.value)
       };
       this.auth.login(user).subscribe(res => {
-        console.log(res);
         if (res.status) {
           this.snackBar.open(res.message, 'OK', {
-            duration: 2000,
+            duration: 3000,
           });
+          localStorage.setItem('currentUser', JSON.stringify(res.user));
+          this.router.navigate(['/home']);
         } else {
           this.snackBar.open(res.message, 'OK', {
-            duration: 2000,
+            duration: 3000,
           });
         }
       });

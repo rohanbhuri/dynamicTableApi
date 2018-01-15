@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { RouterTransition } from '../../router.animations';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SignupComponent implements OnInit {
   terms = new FormControl(false, [Validators.required]);
 
 
-  constructor(public auth: AuthService, public snackBar: MatSnackBar) { }
+  constructor(public auth: AuthService, public snackBar: MatSnackBar,  public router: Router) { }
 
   ngOnInit() {
   }
@@ -42,11 +43,12 @@ export class SignupComponent implements OnInit {
         console.log(res);
         if (res.status) {
           this.snackBar.open(res.message, 'OK', {
-            duration: 2000,
+            duration: 3000,
           });
+          this.router.navigate(['/signin']);
         } else {
           this.snackBar.open(res.message, 'OK', {
-            duration: 2000,
+            duration: 3000,
           });
         }
       });

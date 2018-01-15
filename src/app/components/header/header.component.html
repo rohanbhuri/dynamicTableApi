@@ -6,16 +6,36 @@
     <div class="row full-width-row">
       <div class="columns medium-2 custom-padding-large">
         <ul class="menu">
-          <li><a class="home-btn" routerLink="/home"><img class="logo" src="./assets/images/logo.png"></a></li>
+          <li>
+            <a class="home-btn" routerLink="/home">
+              <img class="logo" src="./assets/images/logo.png">
+            </a>
+          </li>
         </ul>
       </div>
       <div class="columns medium-10 custom-padding-large">
         <ul class="menu align-right">
-            <li><a routerLink="/signup" routerLinkActive="active">Join</a></li>
-            <li><a routerLink="/signin" routerLinkActive="active">Sign In</a></li>
-            <li><a routerLink="/a" routerLinkActive="active">Blog</a></li>
-            <li><a routerLink="/contact-us" routerLinkActive="active">Contact Us</a></li>
-            <li><a routerLink="/faq" routerLinkActive="active">FAQ</a></li>
+          <li *ngIf="!user">
+            <a routerLink="/signup" routerLinkActive="active">Join</a>
+          </li>
+          <li *ngIf="!user">
+            <a routerLink="/signin" routerLinkActive="active">Sign In</a>
+          </li>
+          <li *ngIf="user">
+            <a routerLink="/profile" routerLinkActive="active">
+              <mat-icon>person</mat-icon>
+              <span class="username">{{user.username}}</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/p" routerLinkActive="active">Blog</a>
+          </li>
+          <li>
+            <a routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+          </li>
+          <li>
+            <a routerLink="/faq" routerLinkActive="active">FAQ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -28,7 +48,11 @@
   <div class="header-small background hide-for-large" [ngClass]="{'bg-small': openSmallMenu}">
     <div class="row full-width-row ">
       <div class="small-6 columns">
-        <div><a class="home-btn-small" routerLink="/home"><img class="logo-small" src="./assets/images/logo.png"></a></div>
+        <div>
+          <a class="home-btn-small" routerLink="/home">
+            <img class="logo-small" src="./assets/images/logo.png">
+          </a>
+        </div>
       </div>
       <div class="small-6 columns text-right relative">
         <div class="absolute ham-burger">
@@ -42,10 +66,18 @@
       </div>
       <div class="small-12 columns">
         <ul class="vertical menu" [ngClass]="{'hide': !openSmallMenu}">
-          <li><a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="signup" routerLinkActive="active">Sign Up</a></li>
-          <li><a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="login" routerLinkActive="active">Login</a></li>
-          <li><a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="features" routerLinkActive="active">Features</a></li>
-          <li><a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="pricing" routerLinkActive="active">Pricing</a></li>
+          <li>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="signup" routerLinkActive="active">Sign Up</a>
+          </li>
+          <li>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="login" routerLinkActive="active">Login</a>
+          </li>
+          <li>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="features" routerLinkActive="active">Features</a>
+          </li>
+          <li>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="pricing" routerLinkActive="active">Pricing</a>
+          </li>
         </ul>
         <div>
         </div>
@@ -54,4 +86,4 @@
   </div>
 
 
-</div>  
+</div>

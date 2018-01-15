@@ -17,6 +17,11 @@ import {
 } from '@angular/material';
 
 
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth.guard.service';
+
+
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
@@ -26,17 +31,18 @@ import { SigninComponent } from './components/signin/signin.component';
 import { RouterTransition } from './router.animations';
 
 
-import { AuthService } from './services/auth.service';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'signin', component: SigninComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'signup', component: SignupComponent, canActivate: [AuthGuardService] },
+  { path: 'signin', component: SigninComponent, canActivate: [AuthGuardService] },
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'faq', component: FaqComponent }
 
@@ -52,6 +58,7 @@ const appRoutes: Routes = [
     SigninComponent,
     ContactUsComponent,
     FaqComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +81,7 @@ const appRoutes: Routes = [
     }),
     AgmSnazzyInfoWindowModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

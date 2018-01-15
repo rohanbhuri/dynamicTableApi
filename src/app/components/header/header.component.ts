@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   openSmallMenu = false;
-  constructor() { }
+  user;
+  constructor() {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.user);
+   }
 
   ngOnInit() {
   }
