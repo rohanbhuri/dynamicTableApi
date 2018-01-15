@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { RouterTransition } from '../../router.animations';
 
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.scss']
+  styleUrls: ['./contact-us.component.scss'],
+  animations: [RouterTransition()],
+  host: { '[@routerTransition]': '' }
 })
 export class ContactUsComponent implements OnInit {
 

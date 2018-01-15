@@ -28,6 +28,7 @@ import { RouterTransition } from './router.animations';
 
 import { AuthService } from './services/auth.service';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 
 
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'contact-us', component: ContactUsComponent }
+  { path: 'contact-us', component: ContactUsComponent },
+  { path: 'faq', component: FaqComponent }
 
 ];
 
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     SignupComponent,
     SigninComponent,
     ContactUsComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
