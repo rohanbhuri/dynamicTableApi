@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
   host: { '[@routerTransition]': '' }
 })
 export class SignupComponent implements OnInit {
-  name = new FormControl('', [Validators.required]);
+  username = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
   confirmPassword = new FormControl('', [Validators.required]);
@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
   }
+
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
       this.email.hasError('email') ? 'Not a valid email' :
@@ -29,9 +30,20 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
-    // this.auth.registerUser(this.user).subscribe(res => {
+    if (this.checkFormValid()) {
+      const user = {
+        username: this.username.value,
+        email: this.email.value,
+        password: btoa(this.password.value)
+      };
+      this.auth.registerUser(user).subscribe(res => {
+        console.log(res);
+      });
+    }
+  }
 
-    // });
+  checkFormValid() {
+
   }
 
 }
