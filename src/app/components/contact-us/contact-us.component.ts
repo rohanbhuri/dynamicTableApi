@@ -31,4 +31,8 @@ export class ContactUsComponent implements OnInit {
     return this.email.valid && this.name.valid && this.subject.valid && this.message.valid;
   }
 
+  submit() {
+
+  }
+
 }
