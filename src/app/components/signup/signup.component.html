@@ -1,7 +1,7 @@
 <section class="content-center">
   <form class="form">
     <div class="header content-center">
-      <img src="./assets/images/logo.png" alt="">
+      <img routerLink="/home" src="./assets/images/logo.png" alt="">
     </div>
     <div class="fields text-center">
       <mat-form-field class="margin-bottom-1">
@@ -15,13 +15,14 @@
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-1">
-        <input matInput placeholder="Password" [formControl]="password" [type]="password" required>
+        <input matInput placeholder="Password" [formControl]="password" type="password" required>
         <mat-error *ngIf="password.invalid">This field is required</mat-error>
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-3">
-        <input matInput placeholder="Password(confirm)" [formControl]="confirmPassword" [type]="password" required>
+        <input matInput placeholder="Password(confirm)" [formControl]="confirmPassword" type="password" required>
         <mat-error *ngIf="confirmPassword.invalid">This field is required</mat-error>
+        <mat-error *ngIf="checkConfirmPassword()">Password does not match</mat-error>        
       </mat-form-field>
 
       <mat-checkbox class="margin-bottom-3" [formControl]="terms" required>
@@ -30,7 +31,7 @@
         </span>
       </mat-checkbox>
 
-      <button class="margin-bottom-3" mat-raised-button color="primary" (click)="submit()"><strong>JOIN</strong></button>
+      <button class="margin-bottom-3" mat-raised-button color="primary" [disabled]="!checkFormValid()" (click)="submit()"><strong>JOIN</strong></button>
 
       <span>Already have an account?</span>
       <a class="a-login" routerLink="/signin">Sign in here</a>

@@ -4,11 +4,22 @@ section {
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  .title {
+    margin-bottom: 0px;
+    color: #fff;
+  }
   .form {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
     background: #fff;
     max-width: 380px;
     width: 380px;
-    height: 100vh;
+    height: auto;
+    .discription {
+      color: #222;
+      text-align: left;
+      font-size: 15px;
+    }
     .fields {
       padding: 24px 42px 42px;
       display: flex;
@@ -20,13 +31,8 @@ section {
           color: #4343a1;
         }
       }
-      span {
-        font-weight: bold;
-        color: #949494;
-      }
-      .a-login {
-        color: #4343a1;
-        font-weight: bold;
+      button {
+        width: 130px;
       }
     }
     .header {

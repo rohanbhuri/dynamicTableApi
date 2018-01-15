@@ -6,7 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule, MatInputModule, MatSelectModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatCheckboxModule,
+  MatSnackBarModule
+} from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -19,6 +27,7 @@ import { RouterTransition } from './router.animations';
 
 
 import { AuthService } from './services/auth.service';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 
 
@@ -26,7 +35,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'signin', component: SigninComponent }
+  { path: 'signin', component: SigninComponent },
+  { path: 'contact-us', component: ContactUsComponent }
 
 ];
 
@@ -38,6 +48,7 @@ const appRoutes: Routes = [
     FooterComponent,
     SignupComponent,
     SigninComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +63,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    MatSnackBarModule,
 
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({

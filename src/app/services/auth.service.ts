@@ -13,14 +13,14 @@ export class AuthService {
   registerUser(data) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(environment.apiUrl + '/api/auth/signup', data, { headers: headers })
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    return this.http.post(environment.apiUrl + 'auth/signup', data, { headers: headers })
+      .map((res: Response) => res.json());
+      // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
   login(data) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(environment.apiUrl + '/api/auth/login', data, { headers: headers })
+    return this.http.post(environment.apiUrl + 'auth/login', data, { headers: headers })
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

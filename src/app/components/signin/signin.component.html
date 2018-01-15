@@ -1,7 +1,7 @@
 <section class="content-center">
   <form class="form">
     <div class="header content-center">
-      <img src="./assets/images/logo.png" alt="">
+      <img routerLink="/home" src="./assets/images/logo.png" alt="">
     </div>
     <div class="fields text-center">
 
@@ -11,13 +11,13 @@
       </mat-form-field>
 
       <mat-form-field class="margin-bottom-2">
-        <input matInput placeholder="Password" [formControl]="password" [type]="password" required>
+        <input matInput placeholder="Password" [formControl]="password" type="password" required>
         <mat-error *ngIf="password.invalid">This field is required</mat-error>
       </mat-form-field>
 
       <a class="forgotPassword margin-bottom-2">Forgot Password?</a>
 
-      <button class="margin-bottom-2" mat-raised-button color="primary">
+      <button class="margin-bottom-2" [disabled]="!checkFormValid()" (click)="submit()" mat-raised-button color="primary">
         <strong>SIGN IN</strong>
       </button>
 

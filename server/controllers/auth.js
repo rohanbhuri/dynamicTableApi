@@ -65,7 +65,7 @@ exports.signup = function (req, res) {
         user.password = user.generateHash(user.password);
         user.save((err) => {
             if (err) {
-                return res.send(err);
+                return res.json({ status: false, message: 'Email already exist',errmsg: err.errmsg });
             }
             return res.json({ status: true, message: 'New User Created!' });
         });

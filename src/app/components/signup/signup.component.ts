@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { RouterTransition } from '../../router.animations';
 import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +20,7 @@ export class SignupComponent implements OnInit {
   terms = new FormControl(false, [Validators.required]);
 
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -38,12 +40,26 @@ export class SignupComponent implements OnInit {
       };
       this.auth.registerUser(user).subscribe(res => {
         console.log(res);
+        if (res.status) {
+          this.snackBar.open(res.message, 'OK', {
+            duration: 2000,
+          });
+        } else {
+          this.snackBar.open(res.message, 'OK', {
+            duration: 2000,
+          });
+        }
       });
     }
   }
 
-  checkFormValid() {
+  checkConfirmPassword(): boolean {
+    return this.confirmPassword.value === this.password.value;
+  }
 
+  checkFormValid(): boolean {
+    // tslint:disable-next-line:max-line-length
+    return this.username.valid && this.email.valid && this.password.valid && this.terms.valid && this.checkConfirmPassword() && this.confirmPassword.valid;
   }
 
 }
