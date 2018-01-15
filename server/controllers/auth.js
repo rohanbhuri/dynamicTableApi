@@ -115,3 +115,32 @@ exports.signup = function (req, res) {
     });
   }
 };
+
+exports.updateUser = function (req, res) {
+  User.findOne({
+    '_id': req.params.id
+  }, (err, user) => {
+    if (err) {
+      return res.json({
+        status: false,
+        message: err
+      });
+    }
+    if (user) {
+      User.findByIdAndUpdate(user._id, data, (err, user) => {
+        if (err) {
+          console.log(err)
+          return res.json({
+            status: false,
+            message: err
+          });
+        }
+        return res.json({
+          status: true,
+          message: 'User Updated',
+          user: user
+        });
+      });
+    }
+  });
+};

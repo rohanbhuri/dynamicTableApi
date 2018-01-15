@@ -12,9 +12,7 @@ router.get('/', (req, res) => {
 router.get('/auth/users', (req, res) => { auth.allUsers(req, res) });
 router.post('/auth/login', (req, res) => { auth.login(req, res) });
 router.post('/auth/signup', (req, res) => { auth.signup(req, res) });
-router.post('/auth/logout', (req, res) => { res.send('under dovelopment') });
-router.get('/auth/user', (req, res) => { res.send('under dovelopment') });
-router.delete('/auth/delete', (req, res) => { res.send('under dovelopment') });
+router.put('/auth/update/:id', (req, res) => { auth.updateUser(req, res) });
 
 router.get('/todo/tasks/:id', (req, res) => { todo.getTasks(req, res) });
 router.post('/todo/task', (req, res) => { todo.postTask(req, res) });

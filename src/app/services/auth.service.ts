@@ -15,12 +15,19 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(environment.apiUrl + 'auth/signup', data, { headers: headers })
       .map((res: Response) => res.json());
-      // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
   login(data) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(environment.apiUrl + 'auth/login', data, { headers: headers })
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+  updateUser(userId, data) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(environment.apiUrl + 'auth/update/' + userId, data, { headers: headers })
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

@@ -13,7 +13,8 @@ import {
   MatButtonModule,
   MatFormFieldModule,
   MatCheckboxModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule
 } from '@angular/material';
 
 
@@ -34,6 +35,7 @@ import { RouterTransition } from './router.animations';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent, canActivate: [AuthGuardService] },
   { path: 'signin', component: SigninComponent, canActivate: [AuthGuardService] },
   { path: 'contact-us', component: ContactUsComponent },
-  { path: 'faq', component: FaqComponent }
+  { path: 'faq', component: FaqComponent },
+  { path: 'logout', component: LogoutComponent }
 
 ];
 
@@ -59,6 +62,7 @@ const appRoutes: Routes = [
     ContactUsComponent,
     FaqComponent,
     ProfileComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +78,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatTabsModule,
 
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({

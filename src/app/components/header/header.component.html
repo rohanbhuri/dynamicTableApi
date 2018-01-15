@@ -2,7 +2,7 @@
 
 
   <!-- ////////////large header///////////// -->
-  <div class="header-large background show-for-large">
+  <div [ngClass]="{ 'background-color': colorHeader}" class="header-large background show-for-large">
     <div class="row full-width-row">
       <div class="columns medium-2 custom-padding-large">
         <ul class="menu">
@@ -26,6 +26,9 @@
               <mat-icon>person</mat-icon>
               <span class="username">{{user.username}}</span>
             </a>
+          </li>
+          <li *ngIf="user">
+            <a routerLink="/profile" routerLinkActive="active">MY BOOKINGS</a>
           </li>
           <li>
             <a routerLink="/p" routerLinkActive="active">Blog</a>

@@ -111,22 +111,22 @@ html {
   }
   input.mat-input-element {
     height: 1rem;
-    border: 1px solid #fff;
-    background-color: #fff;
+    border: 1px solid transparent;
+    background-color: transparent;
   }
   input.mat-input-element:focus {
     height: 1rem;
-    border: 1px solid #fff;
-    background-color: #fff;
+    border: 1px solid transparent;
+    background-color: transparent;
   }
   textarea.mat-input-element:focus {
     height: 1rem;
-    border: 1px solid #fff;
-    background-color: #fff;
+    border: 1px solid transparent;
+    background-color: transparent;
   }
   *:focus {
     outline: none;
-   }
+  }
 }
 
 // --------------------------------------loader css----------------------------------------------------

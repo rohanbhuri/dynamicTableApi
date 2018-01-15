@@ -1,3 +1,44 @@
 <app-header></app-header>
-<section></section>
+
+<section>
+  <div class="row profile">
+    <div class="small-12 columns">
+      <mat-tab-group>
+        <mat-tab label="PROFILE">
+          <div class="tab-profile-content">
+            <h5 class="margin-bottom-3">Edit Profile</h5>
+            <mat-form-field class="margin-bottom-1">
+              <input matInput placeholder="First & Last Name or Alias" [formControl]="username" required>
+              <mat-error *ngIf="username.invalid">This field is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="margin-bottom-1">
+              <input matInput placeholder="Enter your email" [formControl]="email" required>
+              <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="margin-bottom-2">
+              <input matInput placeholder="PhoneNumber" [formControl]="phone" type="number" required>
+              <mat-error *ngIf="phone.invalid">This field is required</mat-error>
+            </mat-form-field>
+
+            <div class="profile-btn">
+              <button class="margin-bottom-2" mat-raised-button color="primary" [disabled]="!checkFormValid()" (click)="submit()">
+                <strong>UPDATE PROFILE</strong>
+              </button>
+              <button class="margin-bottom-2" mat-raised-button color="primary" routerLink="/logout">
+                <strong>SIGN OUT</strong>
+              </button>
+            </div>
+
+          </div>
+        </mat-tab>
+        <mat-tab label="MY BOOKINGS">Content 2</mat-tab>
+        <mat-tab label="PAYMENT METHOD">Content 2</mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+
+</section>
+
 <app-footer></app-footer>

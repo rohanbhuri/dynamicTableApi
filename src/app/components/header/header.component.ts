@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   openSmallMenu = false;
+  colorHeader = false;
   user;
-  constructor() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.user);
-   }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (this.router.url === '/profile') {
+          this.colorHeader = true;
+        } else {
+          this.colorHeader = false;
+        }
+        this.user = JSON.parse(localStorage.getItem('currentUser'));
+      }
+    });
+  }
 
   ngOnInit() {
   }
