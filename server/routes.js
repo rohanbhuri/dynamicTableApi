@@ -20,6 +20,11 @@ router.get('/todo/task/:id', (req, res) => { todo.getTask(req, res) });
 router.put('/todo/task/:id', (req, res) => { todo.updateTask(req, res) });
 router.delete('/todo/task/:id', (req, res) => { todo.deleteTask(req, res) });
 
+router.get('/restaurants', (req, res) => { restaurant.allRestaurant(req, res) });
+router.get('/restaurant/:id', (req, res) => { restaurant.Restaurant(req, res) });
+router.post('/restaurant', (req, res) => { restaurant.addRestaurant(req, res) });
+router.put('/restaurant/:id', (req, res) => { restaurant.updateRestaurant(req, res) });
+router.delete('/restaurant/:id', (req, res) => { restaurant.deleteRestaurant(req, res) });
 
 module.exports = router;
 

@@ -21,7 +21,7 @@ exports.allRestaurant = function (req, res) {
 
       return res.json({
         status: true,
-        message: 'All Spielers',
+        message: 'All Restaurants',
         restaurant: restaurant
       });
     });
@@ -52,16 +52,8 @@ exports.restaurant = function (req, res) {
 exports.addRestaurant = function (req, res) {
   if (res.body.profileImage) {
     FMAS.savingImageAndCreatingNames(req, res, (imagePath) => {
-      const restaurant = new Restaurant({
-        profileImage: imagePath,
-        general: req.body.general,
-        contact: req.body.contact,
-        contactPersons: req.body.contactPersons,
-        address: req.body.address,
-        healthInformation: req.body.healthInformation,
-        memberInformation: req.body.memberInformation,
-        personalInformation: req.body.personalInformation
-      });
+      const restaurant = new Restaurant(req.body);
+      restaurant.image = imagePath;
       restaurant.save((err) => {
         if (err) {
           return res.json({
@@ -76,32 +68,6 @@ exports.addRestaurant = function (req, res) {
       });
     })
   }
-}
-
-exports.addMultipleRestaurant = function (req, res) {
-  let arrayLength = 1;
-  req.body.forEach(function (element) {
-    // console.log(element);
-    const restaurant = new Restaurant({
-      general: element.general,
-      contact: element.contact,
-    });
-    restaurant.save((err) => {
-      if (err) {
-        return res.json({
-          status: false,
-          message: err
-        });
-      }
-      if (req.body.length == arrayLength) {
-        return res.json({
-          status: true,
-          message: 'Spielers Added'
-        });
-      }
-      arrayLength++
-    });
-  });
 }
 
 exports.updateRestaurant = function (req, res) {
