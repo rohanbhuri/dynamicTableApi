@@ -2,16 +2,16 @@
 
 // dependencies
 const express = require('express');
-const Spieler = require('../models/spieler');
+const Restaurant = require('../models/restaurant');
 var mongoose = require('mongoose');
 const FMAS = require('../configs/fileManipulationAndSaving')
 
 
-exports.allSpielers = function (req, res) {
-  Spieler.find().sort({
+exports.allRestaurant = function (req, res) {
+  Restaurant.find().sort({
       createdAt: -1
     })
-    .exec((err, spieler) => {
+    .exec((err, restaurant) => {
       if (err) {
         return res.json({
           status: false,
@@ -22,18 +22,18 @@ exports.allSpielers = function (req, res) {
       return res.json({
         status: true,
         message: 'All Spielers',
-        spieler: spieler
+        restaurant: restaurant
       });
     });
 }
 
-exports.spieler = function (req, res) {
-  Spieler.findOne({
+exports.restaurant = function (req, res) {
+  Restaurant.findOne({
       _id: req.params.id
     }).sort({
       createdAt: -1
     })
-    .exec((err, spieler) => {
+    .exec((err, restaurant) => {
       if (err) {
         return res.json({
           status: false,
@@ -43,16 +43,16 @@ exports.spieler = function (req, res) {
 
       return res.json({
         status: true,
-        message: 'Single Spieler',
-        spieler: spieler
+        message: 'Single Restaurant',
+        restaurant: restaurant
       });
     });
 }
 
-exports.addSpieler = function (req, res) {
+exports.addRestaurant = function (req, res) {
   if (res.body.profileImage) {
     FMAS.savingImageAndCreatingNames(req, res, (imagePath) => {
-      const spieler = new Spieler({
+      const restaurant = new Restaurant({
         profileImage: imagePath,
         general: req.body.general,
         contact: req.body.contact,
@@ -62,7 +62,7 @@ exports.addSpieler = function (req, res) {
         memberInformation: req.body.memberInformation,
         personalInformation: req.body.personalInformation
       });
-      spieler.save((err) => {
+      restaurant.save((err) => {
         if (err) {
           return res.json({
             status: false,
@@ -71,22 +71,22 @@ exports.addSpieler = function (req, res) {
         }
         return res.json({
           status: true,
-          message: 'Spieler Added'
+          message: 'Restaurant Added'
         });
       });
     })
   }
 }
 
-exports.addMultipleSpieler = function (req, res) {
+exports.addMultipleRestaurant = function (req, res) {
   let arrayLength = 1;
   req.body.forEach(function (element) {
     // console.log(element);
-    const spieler = new Spieler({
+    const restaurant = new Restaurant({
       general: element.general,
       contact: element.contact,
     });
-    spieler.save((err) => {
+    restaurant.save((err) => {
       if (err) {
         return res.json({
           status: false,
@@ -104,18 +104,18 @@ exports.addMultipleSpieler = function (req, res) {
   });
 }
 
-exports.updateSpieler = function (req, res) {
-  Spieler.findOne({
+exports.updateRestaurant = function (req, res) {
+  Restaurant.findOne({
     '_id': req.params.id
-  }, (err, spieler) => {
+  }, (err, restaurant) => {
     if (err) {
       return res.json({
         status: false,
         message: err
       });
     }
-    if (spieler) {
-      FMAS.updateOldAndExistingImage(req, res, spieler.profileImage, (imagePath) => {
+    if (restaurant) {
+      FMAS.updateOldAndExistingImage(req, res, restaurant.profileImage, (imagePath) => {
         console.log("fmas working");
         const data = {
           profileImage: imagePath,
@@ -149,8 +149,8 @@ exports.updateSpieler = function (req, res) {
         }
 
         // console.log("data", data)
-        // console.log("spialer", spieler)
-        Spieler.findByIdAndUpdate(spieler._id, data, (err, spieler) => {
+        // console.log("spialer", restaurant)
+        Restaurant.findByIdAndUpdate(restaurant._id, data, (err, restaurant) => {
           if (err) {
             console.log(err)
             return res.json({
@@ -160,8 +160,8 @@ exports.updateSpieler = function (req, res) {
           }
           return res.json({
             status: true,
-            message: 'Spieler Updated',
-            spieler: spieler
+            message: 'Restaurant Updated',
+            restaurant: restaurant
           });
         });
       });
@@ -181,7 +181,7 @@ exports.deleteTask = function (req, res) {
     }
     return res.json({
       status: true,
-      message: 'Spieler Deleted'
+      message: 'Restaurant Deleted'
     });
   });
 };

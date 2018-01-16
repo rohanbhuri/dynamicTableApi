@@ -142,7 +142,7 @@
   </div>
 
   <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng" [label]="{color: '#CC0000'}">
       <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="500" [closeWhenOthersOpen]="true">
         <ng-template>
           <div class="feed-cell">

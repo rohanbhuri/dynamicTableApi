@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { RouterTransition } from '../../router.animations';
+import { AgmCoreModule, AgmDataLayer } from '@agm/core';
 
 @Component({
   selector: 'app-home',
