@@ -3,6 +3,13 @@
 }
 
 section {
+  min-height: 60vh;
+  .booking {
+    color: #777;
+  }
+  .payment {
+    color: #777;
+  }
   .profile {
     max-width: 960px;
     margin-top: 8rem;
@@ -14,11 +21,19 @@ section {
         display: flex;
         flex-direction: column;
         margin: 0 auto;
-        button{
-            max-width: 250px;
-            min-width: 250px;            
+        button {
+          max-width: 250px;
+          min-width: 250px;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  section {
+    .profile {
+      margin-top: 4rem;
     }
   }
 }

@@ -95,8 +95,7 @@ exports.signup = function (req, res) {
     var user = new User({
       username: req.body.username,
       password: req.body.password,
-      // firstname: req.body.firstname,
-      // lastname: req.body.lastname,
+      phone: req.body.phone,
       email: req.body.email
     });
     user.password = user.generateHash(user.password);
@@ -117,30 +116,33 @@ exports.signup = function (req, res) {
 };
 
 exports.updateUser = function (req, res) {
-  User.findOne({
-    '_id': req.params.id
-  }, (err, user) => {
+  User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
     if (err) {
+      console.log(err)
       return res.json({
         status: false,
-        message: err
+        message: 'Oops! something went wrong, Please try again later.',
+        errmsg: err.errmsg
       });
     }
-    if (user) {
-      User.findByIdAndUpdate(user._id, data, (err, user) => {
-        if (err) {
-          console.log(err)
-          return res.json({
-            status: false,
-            message: err
-          });
-        }
+    User.findOne({
+      '_id': user._id
+    }, (err, newUserData) => {
+      if (err) {
+        return res.json({
+          status: false,
+          message: 'User not found!',
+          errmsg: err.errmsg
+        });
+      }
+      if (newUserData) {
+        newUserData.password = undefined;
         return res.json({
           status: true,
           message: 'User Updated',
-          user: user
+          user: newUserData
         });
-      });
-    }
+      }
+    });
   });
 };

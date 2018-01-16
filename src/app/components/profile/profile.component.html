@@ -19,6 +19,7 @@
 
             <mat-form-field class="margin-bottom-2">
               <input matInput placeholder="PhoneNumber" [formControl]="phone" type="number" required>
+              <mat-hint>Enter your 10 digit mobile number.</mat-hint>
               <mat-error *ngIf="phone.invalid">This field is required</mat-error>
             </mat-form-field>
 
@@ -33,8 +34,19 @@
 
           </div>
         </mat-tab>
-        <mat-tab label="MY BOOKINGS">Content 2</mat-tab>
-        <mat-tab label="PAYMENT METHOD">Content 2</mat-tab>
+        <mat-tab label="MY BOOKINGS">
+          <div class="booking text-center margin-bottom-2 margin-top-2">
+            <h6 class="margin-bottom-2">No Bookings</h6>
+          </div>
+        </mat-tab>
+        <mat-tab label="PAYMENT METHOD">
+          <div class="payment text-center margin-bottom-2 margin-top-3">
+            <h6 class="margin-bottom-2">Please add payment card in order to complete booking</h6>
+            <button class="margin-bottom-2" mat-raised-button color="primary">
+              <strong>Add Debit / Credit Card</strong>
+            </button>
+          </div>
+        </mat-tab>
       </mat-tab-group>
     </div>
   </div>

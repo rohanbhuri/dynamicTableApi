@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterTransition } from '../../router.animations';
 import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,11 +18,11 @@ export class ProfileComponent implements OnInit {
   username = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required, Validators.email]);
   phone = new FormControl('', [Validators.required]);
-  constructor() {
+  constructor(public auth: AuthService, public snackBar: MatSnackBar, public router: Router) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    // this.username.value = this.user.username;
-    // this.email.value = this.user.email;
-    // this.phone.value = this.user.phone;
+    this.username.setValue(this.user.username);
+    this.email.setValue(this.user.email);
+    this.phone.setValue(this.user.phone);
   }
 
   ngOnInit() {
@@ -37,6 +40,27 @@ export class ProfileComponent implements OnInit {
   }
 
   submit() {
-
+    const data = {
+      username: this.username.value,
+      email: this.email.value,
+      phone: this.phone.value
+    };
+    this.auth.updateUser(this.user._id, data).subscribe(res => {
+      if (res.status) {
+        localStorage.setItem('currentUser', JSON.stringify(res.user));
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        console.log(res.user);
+        this.router.navigate(['/home']);
+      } else {
+        this.username.setValue(this.user.username);
+        this.email.setValue(this.user.email);
+        this.phone.setValue(this.user.phone);
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+      }
+    });
   }
 }

@@ -1,8 +1,8 @@
-<div class="header">
+<div class="header" [ngClass]="{ 'background-color': colorHeader}">
 
 
   <!-- ////////////large header///////////// -->
-  <div [ngClass]="{ 'background-color': colorHeader}" class="header-large background show-for-large">
+  <div class="header-large background show-for-large">
     <div class="row full-width-row">
       <div class="columns medium-2 custom-padding-large">
         <ul class="menu">
@@ -69,17 +69,29 @@
       </div>
       <div class="small-12 columns">
         <ul class="vertical menu" [ngClass]="{'hide': !openSmallMenu}">
-          <li>
-            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="signup" routerLinkActive="active">Sign Up</a>
+          <li *ngIf="!user">
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/signup" routerLinkActive="active">Join</a>
+          </li>
+          <li *ngIf="!user">
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/signin" routerLinkActive="active">Sign In</a>
+          </li>
+          <li *ngIf="user">
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/profile" routerLinkActive="active">
+              <mat-icon>person</mat-icon>
+              <span class="username">{{user.username}}</span>
+            </a>
+          </li>
+          <li *ngIf="user">
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/profile" routerLinkActive="active">MY BOOKINGS</a>
           </li>
           <li>
-            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="login" routerLinkActive="active">Login</a>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/p" routerLinkActive="active">Blog</a>
           </li>
           <li>
-            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="features" routerLinkActive="active">Features</a>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
           </li>
           <li>
-            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="pricing" routerLinkActive="active">Pricing</a>
+            <a class="menu-button-small" (click)="openSmallMenu=!openSmallMenu" routerLink="/faq" routerLinkActive="active">FAQ</a>
           </li>
         </ul>
         <div>

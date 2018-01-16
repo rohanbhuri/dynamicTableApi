@@ -18,10 +18,10 @@
 }
 
 .menu.vertical>li>.menu-button-small {
-  color: #006838;
+  color: #fff;
   justify-content: center;
   margin: 0rem -1rem;
-  padding: 2rem 0rem;
+  padding: 1.2rem 0rem;
   border-bottom: 1px solid;
   font-size: 1.3em;
   font-weight: bold;
@@ -29,8 +29,8 @@
 
 .menu.vertical>li:nth-child(1)>.menu-button-small {
   border-top: 1px solid;
-  margin-top: 5rem;
-  padding-top: 2rem;
+  margin-top: 1rem;
+  padding: 1.2rem;
 }
 
 .header-small {
@@ -42,9 +42,9 @@
 }
 
 .bg-small {
-  background: #eeefef;
+  background: #4343a1;
   transition-duration: .2s;
-  height: 100vh
+  height: auto;
 }
 
 .ham-burger {
@@ -99,7 +99,7 @@
   top: 18px;
   width: 0%;
   left: 50%;
-  background: #006838;
+  background: #fff;
 }
 
 .hamburger3.open span:nth-child(2) {
@@ -107,7 +107,7 @@
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
-  background: #006838;
+  background: #fff;
 }
 
 .hamburger3.open span:nth-child(3) {
@@ -115,14 +115,14 @@
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  background: #006838;
+  background: #fff;
 }
 
 .hamburger3.open span:nth-child(4) {
   top: 18px;
   width: 0%;
   left: 50%;
-  background: #006838;
+  background: #fff;
 }
 
 
