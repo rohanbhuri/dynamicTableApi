@@ -22,16 +22,18 @@ export class HomeComponent implements OnInit {
     public ngZone: NgZone,
     public restaurantService: RestaurantService
   ) {
-    this.sliderAuto();
   }
 
   ngOnInit() {
+    this.sliderAuto();
     this.searchAllRestaurant();
-  }
+  } 
 
   searchAllRestaurant() {
     this.restaurantService.searchAllRestaurant().subscribe(res => {
       this.restaurants = res.restaurants;
+      this.lat = this.restaurants[0].location.latitude;
+      this.lng = this.restaurants[0].location.longitude;
       console.log(this.restaurants);
     });
   }
