@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   lat: Number = 51.678418;
   lng: Number = 7.809007;
   restaurants = [];
+  loading = false;
   siteUrl = environment.siteUrl;
 
   constructor(
@@ -27,11 +28,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.sliderAuto();
     this.searchAllRestaurant();
-  } 
+  }
 
   searchAllRestaurant() {
+    this.loading = true;
+    this.restaurants = [];
     this.restaurantService.searchAllRestaurant().subscribe(res => {
       this.restaurants = res.restaurants;
+      this.loading = false;
       this.lat = this.restaurants[0].location.latitude;
       this.lng = this.restaurants[0].location.longitude;
       console.log(this.restaurants);
