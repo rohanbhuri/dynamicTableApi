@@ -20,6 +20,7 @@ import {
 
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth.guard.service';
+import { RestaurantService } from './services/restaurant.service';
 
 
 
@@ -86,7 +87,7 @@ const appRoutes: Routes = [
     }),
     AgmSnazzyInfoWindowModule
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, RestaurantService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

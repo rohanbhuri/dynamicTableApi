@@ -79,15 +79,15 @@
 
 
   <div class="row margin-bottom-4">
-    <div *ngFor="let item of [1,2,3,4,5,6,7,8,9]" class="small-12 medium-4 columns custom-col-pad">
+    <div *ngFor="let restaurant of restaurants" class="small-12 medium-4 columns custom-col-pad">
 
       <div class="feed-cell">
-        <img src="https://2for8-production.s3.amazonaws.com/A64D1E18-8C51-465E-B8B1-1729254FE1AD">
+        <img src="{{siteUrl}}{{restaurant.image}}">
         <div class="dimmer">
           <div class="foot">
             <div class="description-box">
               <h5 class="title-label">
-                MARDI
+                {{restaurant.name}}}
               </h5>
               <div class="row align-center">
                 <div class="small-4 no-col-pad columns">
@@ -142,7 +142,7 @@
   </div>
 
   <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng" [label]="{color: '#CC0000'}">
+    <agm-marker [latitude]="lat" [longitude]="lng">
       <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="500" [closeWhenOthersOpen]="true">
         <ng-template>
           <div class="feed-cell">

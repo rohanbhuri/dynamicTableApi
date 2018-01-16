@@ -6,7 +6,7 @@ var gm = require('gm').subClass({
 })
 
 exports.savingImageAndCreatingNames = function (req, res, assign) {
-  if (req.body.profileImage) {
+  if (req.body.image) {
     saveThisImage(req, res, (imagePath) => {
       assign(imagePath);
     });
@@ -16,7 +16,7 @@ exports.savingImageAndCreatingNames = function (req, res, assign) {
 }
 
 exports.updateOldAndExistingImage = function (req, res, imagePath, assign) {
-  if (req.body.profileImage) {
+  if (req.body.image) {
     if ((!(imagePath == null) || !(imagePath == undefined)) && req.body.profileImage.length > 100) {
       fs.unlinkSync(imagePath);
       saveThisImage(req, res, (imagePath) => {
@@ -38,7 +38,7 @@ exports.updateOldAndExistingImage = function (req, res, imagePath, assign) {
 
 
 let saveThisImage = function (req, res, assignImagePath) {
-  let base64Data = req.body.profileImage.replace(/^data:image\/[a-z]+;base64,/, "");
+  let base64Data = req.body.image.replace(/^data:image\/[a-z]+;base64,/, "");
   let img = new Buffer(base64Data, 'base64');
   let imageName = Math.random().toString(36).substring(7) + '.JPEG';
   let imagePath = imageDirectory + imageName

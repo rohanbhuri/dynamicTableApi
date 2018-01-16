@@ -22,7 +22,7 @@ exports.allRestaurant = function (req, res) {
       return res.json({
         status: true,
         message: 'All Restaurants',
-        restaurant: restaurant
+        restaurants: restaurant
       });
     });
 }
@@ -40,7 +40,6 @@ exports.restaurant = function (req, res) {
           message: err
         });
       }
-
       return res.json({
         status: true,
         message: 'Single Restaurant',
@@ -50,24 +49,23 @@ exports.restaurant = function (req, res) {
 }
 
 exports.addRestaurant = function (req, res) {
-  if (res.body.profileImage) {
-    FMAS.savingImageAndCreatingNames(req, res, (imagePath) => {
-      const restaurant = new Restaurant(req.body);
-      restaurant.image = imagePath;
-      restaurant.save((err) => {
-        if (err) {
-          return res.json({
-            status: false,
-            message: err
-          });
-        }
+  FMAS.savingImageAndCreatingNames(req, res, (imagePath) => {
+    const restaurant = new Restaurant(req.body);
+    restaurant.image = imagePath
+    restaurant.save((err) => {
+      if (err) {
         return res.json({
-          status: true, 
-          message: 'Restaurant Added'
+          status: false,
+          message: err.message,
+          error: err
         });
+      }
+      return res.json({
+        status: true,
+        message: 'Restaurant Added'
       });
-    })
-  }
+    });
+  })
 }
 
 exports.updateRestaurant = function (req, res) {

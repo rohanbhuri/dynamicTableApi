@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { RouterTransition } from '../../router.animations';
-import { AgmCoreModule, AgmDataLayer } from '@agm/core';
+import { RestaurantService } from '../../services/restaurant.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +11,29 @@ import { AgmCoreModule, AgmDataLayer } from '@agm/core';
   host: { '[@routerTransition]': '' }
 })
 export class HomeComponent implements OnInit {
+
   slideNumber = 0;
   lat: Number = 51.678418;
   lng: Number = 7.809007;
+  restaurants = [];
+  siteUrl = environment.siteUrl;
+
   constructor(
     public ngZone: NgZone,
+    public restaurantService: RestaurantService
   ) {
     this.sliderAuto();
   }
 
   ngOnInit() {
+    this.getAllRestaurant();
+  }
 
+  getAllRestaurant() {
+    this.restaurantService.getAllRestaurents().subscribe(res => {
+      this.restaurants = res.restaurants;
+      console.log(this.restaurants);
+    });
   }
 
   sliderAuto() {

@@ -62,7 +62,7 @@ const schema = new mongoose.Schema({
       type: String
     },
     location: {
-      typr: String
+      type: String
     }
   },
   location: {
@@ -72,7 +72,7 @@ const schema = new mongoose.Schema({
     longitude: {
       type: Number
     }
-  },
+  }
 });
 
 module.exports = mongoose.model('Restaurant', schema);
