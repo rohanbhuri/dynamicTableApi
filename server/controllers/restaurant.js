@@ -62,7 +62,7 @@ exports.addRestaurant = function (req, res) {
           });
         }
         return res.json({
-          status: true,
+          status: true, 
           message: 'Restaurant Added'
         });
       });
