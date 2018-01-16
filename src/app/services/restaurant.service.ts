@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class RestaurantService {
     constructor(private http: Http) { }
 
-    getAllRestaurents() {
+    searchAllRestaurant() {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.get(environment.apiUrl + 'restaurants', { headers: headers })

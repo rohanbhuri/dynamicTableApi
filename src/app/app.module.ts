@@ -14,7 +14,8 @@ import {
   MatFormFieldModule,
   MatCheckboxModule,
   MatSnackBarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
 
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({

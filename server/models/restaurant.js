@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  bookingPrize: {
+  bookingPrice: {
     type: Number
   },
   partySize: {

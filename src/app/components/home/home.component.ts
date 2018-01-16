@@ -26,11 +26,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllRestaurant();
+    this.searchAllRestaurant();
   }
 
-  getAllRestaurant() {
-    this.restaurantService.getAllRestaurents().subscribe(res => {
+  searchAllRestaurant() {
+    this.restaurantService.searchAllRestaurant().subscribe(res => {
       this.restaurants = res.restaurants;
       console.log(this.restaurants);
     });

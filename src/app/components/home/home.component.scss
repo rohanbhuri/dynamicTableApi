@@ -138,6 +138,8 @@
         position: relative;
         transition-duration: .5s;
         overflow: hidden;
+        max-height: 240px;
+        min-height: 240px;
         img {
           transition-duration: .5s;
         }
@@ -157,7 +159,7 @@
             .description-box {
               position: absolute;
               width: 100%;
-              top: 53px;
+              top: 85px;
               .title-label {
                 margin-bottom: 0px;
               }
