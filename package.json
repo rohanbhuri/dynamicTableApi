@@ -7,8 +7,6 @@
   },
   "private": true,
   "dependencies": {
-    "@agm/core": "^1.0.0-beta.2",
-    "@agm/snazzy-info-window": "^1.0.0-beta.2",
     "@angular/animations": "^5.0.0",
     "@angular/cdk": "^5.0.3",
     "@angular/common": "^5.0.0",
@@ -32,7 +30,6 @@
     "mongoose": "^4.4.13",
     "path": "^0.12.7",
     "rxjs": "^5.5.2",
-    "snazzy-info-window": "^1.1.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
