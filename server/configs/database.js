@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 
 // set the database name
-const databaseName = 'restaurant';
+const databaseName = 'dynamicTableApi';
 
 // connect to the database
 mongoose.connect(`mongodb://localhost/${databaseName}`);

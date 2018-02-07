@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('restaurant App', () => {
+describe('dynamic-table-api App', () => {
   let page: AppPage;
 
   beforeEach(() => {
