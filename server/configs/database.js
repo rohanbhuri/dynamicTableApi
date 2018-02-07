@@ -1,19 +1,14 @@
 'use strict';
 
-// dependencies
-const mongoose = require('mongoose');
+var MongoClient = require('mongodb').MongoClient;
 
-// set the database name
-const databaseName = 'dynamicTableApi';
+exports.databaseName = 'dynamicTableApi';
 
-// connect to the database
-mongoose.connect(`mongodb://localhost/${databaseName}`);
+exports.url = "mongodb://localhost:27017/" + databaseName;
 
-// get notified if connection was
-// successful or not
-const connection = mongoose.connection;
 
-connection.on('error', console.error.bind(console, 'connection error:'));
-connection.on('open', () => {
-  console.log(`Connected to the ${databaseName} database`);
+MongoClient.connect(url, function (err, db) {
+  if (err) throw err;
+  console.log("Database Connected!");
+  db.close();
 });

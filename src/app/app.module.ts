@@ -19,23 +19,29 @@ import {
 
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth.guard.service';
-import { RestaurantService } from './services/restaurant.service';
+import { TableService } from './services/table.service';
 
 
 
 import { AppComponent } from './app.component';
-
-
+import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CreateTableComponent } from './components/create-table/create-table.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  // { path: 'logout', component: LogoutComponent }
+  { path: 'home', component: HomeComponent },
+  { path: 'create-table', component: CreateTableComponent },
+
 
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    CreateTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,7 @@ const appRoutes: Routes = [
 
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [AuthService, AuthGuardService, RestaurantService],
+  providers: [AuthService, AuthGuardService, TableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

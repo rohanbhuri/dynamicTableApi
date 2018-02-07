@@ -7,13 +7,13 @@ import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class RestaurantService {
+export class TableService {
     constructor(private http: Http) { }
 
-    searchAllRestaurant() {
+    createTable() {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.get(environment.apiUrl + 'restaurants', { headers: headers })
+        return this.http.get(environment.apiUrl + 'create-table', { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
