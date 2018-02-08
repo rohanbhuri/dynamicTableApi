@@ -13,7 +13,12 @@ import {
   MatCheckboxModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatCardModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatDialogModule
 } from '@angular/material';
 
 
@@ -27,11 +32,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CreateTableComponent } from './components/create-table/create-table.component';
+import { TablesComponent } from './components/tables/tables.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'create-table', component: CreateTableComponent },
+  { path: 'tables', component: TablesComponent },
 
 
 ];
@@ -42,6 +48,7 @@ const appRoutes: Routes = [
     HomeComponent,
     HeaderComponent,
     CreateTableComponent,
+    TablesComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +66,16 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatCardModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
 
     RouterModule.forRoot(appRoutes),
+  ],
+  entryComponents: [
+    CreateTableComponent
   ],
   providers: [AuthService, AuthGuardService, TableService],
   bootstrap: [AppComponent]

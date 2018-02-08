@@ -1,0 +1,56 @@
+<mat-card>
+  <div class="table-header">
+    <div class="row">
+      <div class="colomns small-10">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+      <div class="colomns small-2 text-center">
+        <button mat-button (click)="createTable()">Create Table</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="tableName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Table Name</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.tableName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tableDescription">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Table Description</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.tableDescription}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="changedOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Changed On</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.changedOn}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="changedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Changed By</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.changedBy}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created On</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.createdOn}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.createdBy}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let item; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</mat-card>

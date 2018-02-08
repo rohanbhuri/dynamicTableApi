@@ -10,10 +10,18 @@ import { environment } from '../../environments/environment';
 export class TableService {
     constructor(private http: Http) { }
 
-    createTable() {
+    createTable(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.get(environment.apiUrl + 'create-table', { headers: headers })
+        return this.http.post(environment.apiUrl + 'createTable', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    allTablesSearch(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'tables', data, { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
