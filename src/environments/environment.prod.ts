@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://surmeal.istar.soccer/api/',
-  siteUrl: 'http://surmeal.istar.soccer/',
+  apiUrl: 'https://dynamic-table-api.herokuapp.com/api/',
+  siteUrl: 'https://dynamic-table-api.herokuapp.com/',
 };
