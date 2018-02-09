@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 var config = require('./database')
 
-exports.databaseName = 'dynamicTableApi';
+exports.databaseName = 'dynamictableapi';
 
-exports.url = "mongodb://localhost:27017/" + config.databaseName;
+exports.url = "mongodb://root:root@ds229878.mlab.com:29878/" + config.databaseName;
 
 // MongoClient.connect(config.url, function (err, db) {
 //   if (err) throw err;
