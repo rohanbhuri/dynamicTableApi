@@ -18,7 +18,8 @@ import {
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDividerModule
 } from '@angular/material';
 
 
@@ -31,7 +32,7 @@ import { TableService } from './services/table.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { CreateTableComponent } from './components/create-table/create-table.component';
+import { CreateUpdateTableComponent } from './components/create-update-table/create-update-table.component';
 import { TablesComponent } from './components/tables/tables.component';
 
 const appRoutes: Routes = [
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    CreateTableComponent,
+    CreateUpdateTableComponent,
     TablesComponent,
   ],
   imports: [
@@ -71,11 +72,12 @@ const appRoutes: Routes = [
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatDividerModule,
 
     RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [
-    CreateTableComponent
+    CreateUpdateTableComponent
   ],
   providers: [AuthService, AuthGuardService, TableService],
   bootstrap: [AppComponent]

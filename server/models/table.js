@@ -15,20 +15,14 @@ const schema = new mongoose.Schema({
     fieldName: {
       type: String
     },
-    Type: {
+    type: {
       type: String
     },
-    Length: {
+    length: {
       type: Number
     },
-    collation: {
-      type: String
-    },
     null: {
-      type: String
-    },
-    index: {
-      type: String
+      type: Boolean 
     },
     fieldDescription: {
       type: String

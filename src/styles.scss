@@ -5,10 +5,6 @@ html {
   body {
     background-color: #eeefef;
     font-family: 'Lato', sans-serif;
-    font-size: 13px;
-    position: absolute;
-    top: 0;
-    width: 100%;
   }
   a {}
   a:hover,
@@ -40,7 +36,8 @@ html {
   [type='color']:focus,
   textarea:focus {
     box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0);
-    color: #2b2e3c;
+    color: #222;
+    border: none;
   }
   [type='text'],
   [type='password'],
@@ -59,6 +56,7 @@ html {
   textarea {
     box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0);
     border-radius: 3px;
+    height: 16px;
   }
   .full-width-row {
     min-width: 100%;
@@ -126,5 +124,19 @@ html {
   }
   *:focus {
     outline: none;
+  }
+  .mat-dialog-container {
+    max-height: 100vh;
+    overflow: auto;
+  }
+  input:disabled,
+  input[readonly],
+  textarea:disabled,
+  textarea[readonly] {
+    background-color: #ffffff;
+  }
+  button.mat-button,
+  button.mat-raised-button {
+    font-weight: bold;
   }
 }
