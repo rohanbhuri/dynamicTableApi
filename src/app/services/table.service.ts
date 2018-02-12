@@ -10,10 +10,19 @@ import { environment } from '../../environments/environment';
 export class TableService {
     constructor(private http: Http) { }
 
+
+    allTablesSearch(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'table/list', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
     createTable(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(environment.apiUrl + 'createTable', data, { headers: headers })
+        return this.http.post(environment.apiUrl + 'table/create', data, { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -21,7 +30,7 @@ export class TableService {
     updateTable(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(environment.apiUrl + 'updateTable', data, { headers: headers })
+        return this.http.post(environment.apiUrl + 'table/update', data, { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -29,15 +38,7 @@ export class TableService {
     deleteTable(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(environment.apiUrl + 'deleteTable', data, { headers: headers })
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
-
-    allTablesSearch(data) {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(environment.apiUrl + 'tables', data, { headers: headers })
+        return this.http.post(environment.apiUrl + 'table/delete', data, { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
