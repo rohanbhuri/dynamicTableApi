@@ -19,7 +19,8 @@ import {
   MatSortModule,
   MatPaginatorModule,
   MatDialogModule,
-  MatDividerModule
+  MatDividerModule,
+  MatMenuModule
 } from '@angular/material';
 
 
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'tables', component: TablesComponent },
-
+  { path: 'add-table', component: CreateUpdateTableComponent },
+  { path: 'edit-table/:id', component: CreateUpdateTableComponent },
 
 ];
 
@@ -73,6 +75,7 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatDialogModule,
     MatDividerModule,
+    MatMenuModule,
 
     RouterModule.forRoot(appRoutes),
   ],

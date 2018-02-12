@@ -21,6 +21,9 @@ const schema = new mongoose.Schema({
     length: {
       type: Number
     },
+    unique: {
+      type: Boolean 
+    },
     null: {
       type: Boolean 
     },

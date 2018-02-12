@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { TableService } from '../../services/table.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -26,31 +27,51 @@ export class CreateUpdateTableComponent implements OnInit {
 
   fields = [];
 
+  id;
+  data;
+
   constructor(
     public tableService: TableService,
-    public dialogRef: MatDialogRef<CreateUpdateTableComponent>,
     public snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private route: ActivatedRoute,
+    private location: Location
   ) {
+    this.setEditValues();
   }
 
   ngOnInit() {
-    if (this.data) {
-      this.editing = true;
-      this.tableName.setValue(this.data.tableName);
-      this.tableName.disable();
-      this.tableDescription.setValue(this.data.tableDescription);
-      this.data._schema.forEach(element => {
-        this.fields.push({
-          fieldName: new FormControl(element.fieldName, [Validators.required]),
-          type: new FormControl(element.type, [Validators.required]),
-          length: new FormControl(element.length, [Validators.required]),
-          null: new FormControl(element.null),
-          fieldDescription: new FormControl(element.fieldDescription, [Validators.required])
-        });
-      });
-    }
+
   }
+
+  setEditValues() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.editing = true;
+        this.id = params['id'];
+        const data = {
+          id: this.id
+        };
+        this.tableService.getTable(data).subscribe(res => {
+          console.log(res);
+          this.data = res.table;
+          this.tableName.setValue(this.data.tableName);
+          this.tableName.disable();
+          this.tableDescription.setValue(this.data.tableDescription);
+          this.data._schema.forEach(element => {
+            this.fields.push({
+              fieldName: new FormControl(element.fieldName, [Validators.required]),
+              type: new FormControl(element.type, [Validators.required]),
+              length: new FormControl(element.length, [Validators.required]),
+              unique: new FormControl(element.unique),
+              null: new FormControl(element.null),
+              fieldDescription: new FormControl(element.fieldDescription, [Validators.required])
+            });
+          });
+        });
+      }
+    });
+  }
+
   createTable() {
     if (this.checkValid()) {
       const _schema = [];
@@ -59,6 +80,7 @@ export class CreateUpdateTableComponent implements OnInit {
           fieldName: element.fieldName.value,
           type: element.type.value,
           length: element.length.value,
+          unique: element.unique.value,
           null: element.null.value,
           fieldDescription: element.fieldDescription.value
         });
@@ -75,7 +97,7 @@ export class CreateUpdateTableComponent implements OnInit {
           this.snackBar.open(res.message, 'OK', {
             duration: 3000,
           });
-          this.dialogRef.close();
+          this.location.back();
         }
         if (res.error) {
           this.snackBar.open(res.message, 'OK', {
@@ -98,6 +120,7 @@ export class CreateUpdateTableComponent implements OnInit {
           fieldName: element.fieldName.value,
           type: element.type.value,
           length: element.length.value,
+          unique: element.unique.value,
           null: element.null.value,
           fieldDescription: element.fieldDescription.value
         });
@@ -115,7 +138,7 @@ export class CreateUpdateTableComponent implements OnInit {
           this.snackBar.open(res.message, 'OK', {
             duration: 3000,
           });
-          this.dialogRef.close();
+          this.location.back();
         }
         if (res.error) {
           this.snackBar.open(res.message, 'OK', {
@@ -135,10 +158,12 @@ export class CreateUpdateTableComponent implements OnInit {
       fieldName: new FormControl(undefined, [Validators.required]),
       type: new FormControl(undefined, [Validators.required]),
       length: new FormControl(undefined, [Validators.required]),
+      unique: new FormControl(undefined),
       null: new FormControl(undefined),
       fieldDescription: new FormControl(undefined, [Validators.required])
     });
   }
+
   removeField(i) {
     this.fields.splice(i, 1);
   }
@@ -154,13 +179,16 @@ export class CreateUpdateTableComponent implements OnInit {
           element.fieldDescription.valid &&
           element.type.valid &&
           element.length.valid &&
-          element.null.valid);
+          element.null.valid &&
+          element.unique.valid
+        );
         if (
           element.fieldName.valid &&
           element.fieldDescription.valid &&
           element.type.valid &&
           element.length.valid &&
-          element.null.valid
+          element.null.valid &&
+          element.unique.valid
         ) {
           valid = true;
         } else {
@@ -182,12 +210,14 @@ export class CreateUpdateTableComponent implements OnInit {
           element.fieldDescription.valid &&
           element.type.valid &&
           element.length.valid &&
+          element.unique.valid &&
           element.null.valid);
         if (
           element.fieldName.valid &&
           element.fieldDescription.valid &&
           element.type.valid &&
           element.length.valid &&
+          element.unique.valid &&
           element.null.valid
         ) {
           valid = true;

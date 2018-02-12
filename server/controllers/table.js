@@ -8,7 +8,7 @@ const FMAS = require('../configs/fileManipulationAndSaving')
 const config = require('../configs/database');
 
 
-exports.allTables = function (req, res) {
+exports.listTables = function (req, res) {
   console.log(req.body);
   if (req.body.search) {
     Table
@@ -80,6 +80,25 @@ exports.allTables = function (req, res) {
       });
   }
 }
+
+exports.readTable = function (req, res) {
+  Table.findOne({
+    _id: req.body.id
+  }).exec((err, table) => {
+    if (err) {
+      return res.json({
+        error: true,
+        message: err.message,
+        Info: err
+      });
+    }
+    return res.json({
+      success: true,
+      message: 'Table Data',
+      table: table
+    });
+  });
+};
 
 exports.createTable = function (req, res) {
 

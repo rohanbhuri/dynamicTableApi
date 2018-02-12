@@ -19,6 +19,14 @@ export class TableService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    getTable(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'table/read', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
     createTable(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

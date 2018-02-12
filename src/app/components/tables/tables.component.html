@@ -7,7 +7,7 @@
         </mat-form-field>
       </div>
       <div class="colomns small-2 text-center">
-        <button mat-raised-button color="primary" (click)="createTable()">Create Table</button>
+        <button mat-raised-button color="primary" [routerLink]="['/add-table']">Create Table</button>
       </div>
     </div>
   </div>
@@ -49,12 +49,23 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
         <mat-cell *matCellDef="let item">
-          <button mat-icon-button color="accent" (click)="editTable(item)">
-            <mat-icon>mode_edit</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteTable(item)">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>open_in_browser</mat-icon>
+              <span>Open</span>
+            </button>
+            <button mat-menu-item [routerLink]="['/edit-table', item._id]">
+              <mat-icon>mode_edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteTable(item)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
         </mat-cell>
       </ng-container>
 

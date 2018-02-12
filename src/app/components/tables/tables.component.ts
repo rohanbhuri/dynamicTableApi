@@ -77,22 +77,6 @@ export class TablesComponent implements AfterViewInit {
     this.getData();
   }
 
-  createTable() {
-    const dialogRef = this.dialog.open(CreateUpdateTableComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      this.getData();
-    });
-  }
-
-  editTable(item) {
-    const dialogRef = this.dialog.open(CreateUpdateTableComponent, {
-      data: item
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getData();
-    });
-  }
-
   deleteTable(table) {
     if (window.confirm('Are you sure you want to delete?')) {
       const data = {

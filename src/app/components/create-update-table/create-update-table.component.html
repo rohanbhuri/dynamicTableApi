@@ -1,12 +1,15 @@
-<div class="row">
-  <div class=" small-12 columns content-center">
-    <h5>
-      <span *ngIf="!editing">Create</span>
-      <span *ngIf="editing">Update</span> Table</h5>
+<mat-card class="content-card">
+  <div class="row">
+    <div class=" small-12 columns content-center">
+      <h5>
+        <span *ngIf="!editing">Create Table</span>
+        <span *ngIf="editing">Update Table
+          <span *ngIf="data">{{data.tableName}}</span>
+        </span>
+      </h5>
+    </div>
   </div>
-</div>
-<br>
-<mat-card>
+  <br>
   <div class="row small-up-1 medium-up-2 large-up-3">
     <div class="column">
       <mat-form-field class="full-width">
@@ -28,79 +31,146 @@
       <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
     </div>
   </div>
-</mat-card>
-<br>
-<div *ngFor="let field of fields let i = index">
-  <mat-card>
-
-    <mat-card-header>
-      <mat-card-title>Field {{i+1}}</mat-card-title>
-    </mat-card-header>
-
-    <div class="row small-up-1 medium-up-2 large-up-4">
-      <div class="column content-center">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Field Name" [formControl]="field.fieldName">
-          <mat-error *ngIf="field.fieldName.hasError('required')">
-            Please fill the required field
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="column content-center">
-        <mat-form-field>
-          <mat-select placeholder="Type" [formControl]="field.type">
-            <mat-option *ngFor="let type of Types" [value]="type">
-              {{ type }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="field.type.hasError('required')">
-            Please fill the required field
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="column content-center">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Length" type="number" [formControl]="field.length">
-          <mat-error *ngIf="field.length.hasError('required')">
-            Please fill the required field
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="column content-center">
-        <mat-checkbox [formControl]="field.null">Null</mat-checkbox>
-      </div>
-      <div class="column content-center">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Field Description" [formControl]="field.fieldDescription">
-          <mat-error *ngIf="field.fieldDescription.hasError('required')">
-            Please fill the required field
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="column content-center">
-        <button mat-icon-button (click)="removeField(i);">
-          <mat-icon color="warn">delete</mat-icon>
-        </button>
-      </div>
-    </div>
-  </mat-card>
   <br>
-</div>
+  <!-- <div *ngFor="let field of fields let i = index">
+    <mat-card>
 
-<div class="row" *ngIf="!editing">
-  <div class="small-6 content-center">
-    <button mat-raised-button color="primary" (click)="createTable()">Create</button>
-  </div>
-  <div class="small-6 content-center">
-    <button mat-raised-button color="primary" (click)="dialogRef.close();">Cancel</button>
-  </div>
-</div>
+      <mat-card-header>
+        <mat-card-title>Field {{i+1}}</mat-card-title>
+      </mat-card-header>
 
-<div class="row" *ngIf="editing">
-  <div class="small-6 content-center">
-    <button mat-raised-button color="primary" (click)="updateTable()">Update</button>
+      <div class="row small-up-1 medium-up-2 large-up-4">
+        <div class="column content-center">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Field Name" [formControl]="field.fieldName">
+            <mat-error *ngIf="field.fieldName.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="column content-center">
+          <mat-form-field>
+            <mat-select placeholder="Type" [formControl]="field.type">
+              <mat-option *ngFor="let type of Types" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="field.type.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="column content-center">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Length" type="number" [formControl]="field.length">
+            <mat-error *ngIf="field.length.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="column content-center">
+          <mat-checkbox [formControl]="field.null">Null</mat-checkbox>
+        </div>
+        <div class="column content-center">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Field Description" [formControl]="field.fieldDescription">
+            <mat-error *ngIf="field.fieldDescription.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="column content-center">
+          <button mat-icon-button (click)="removeField(i);">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card>
+    <br>
+  </div> -->
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Type</th>
+        <th>Length</th>
+        <th>Unique</th>
+        <th>Null</th>
+        <th>Field Description</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let field of fields let i = index">
+        <td>
+          <mat-form-field class="full-width">
+            <input matInput [formControl]="field.fieldName">
+            <mat-error *ngIf="field.fieldName.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-select [formControl]="field.type">
+              <mat-option *ngFor="let type of Types" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="field.type.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <input matInput type="number" [formControl]="field.length">
+            <mat-error *ngIf="field.length.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-checkbox [formControl]="field.unique"></mat-checkbox>
+        </td>
+        <td>
+          <mat-checkbox [formControl]="field.null"></mat-checkbox>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <input matInput [formControl]="field.fieldDescription">
+            <mat-error *ngIf="field.fieldDescription.hasError('required')">
+              Please fill the required field
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <button mat-icon-button (click)="removeField(i);">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="row" *ngIf="!editing">
+    <div class="small-6 content-center">
+      <button mat-raised-button color="primary" (click)="createTable()">Create</button>
+    </div>
+    <div class="small-6 content-center">
+      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+    </div>
   </div>
-  <div class="small-6 content-center">
-    <button mat-raised-button color="primary" (click)="dialogRef.close();">Cancel</button>
+
+  <div class="row" *ngIf="editing">
+    <div class="small-6 content-center">
+      <button mat-raised-button color="primary" (click)="updateTable()">Update</button>
+    </div>
+    <div class="small-6 content-center">
+      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+    </div>
   </div>
-</div>
+</mat-card>
