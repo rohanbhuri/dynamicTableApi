@@ -35,6 +35,10 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CreateUpdateTableComponent } from './components/create-update-table/create-update-table.component';
 import { TablesComponent } from './components/tables/tables.component';
+import { OpenTableComponent } from './components/open-table/open-table.component';
+import { DeleteTableComponent } from './components/delete-table/delete-table.component';
+
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -42,7 +46,8 @@ const appRoutes: Routes = [
   { path: 'tables', component: TablesComponent },
   { path: 'add-table', component: CreateUpdateTableComponent },
   { path: 'edit-table/:id', component: CreateUpdateTableComponent },
-
+  { path: 'open-table/:id', component: OpenTableComponent },
+  { path: 'delete-table/:id', component: DeleteTableComponent }
 ];
 
 @NgModule({
@@ -52,6 +57,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     CreateUpdateTableComponent,
     TablesComponent,
+    OpenTableComponent,
+    DeleteTableComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +87,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [
-    CreateUpdateTableComponent
   ],
   providers: [AuthService, AuthGuardService, TableService],
   bootstrap: [AppComponent]

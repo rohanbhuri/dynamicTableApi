@@ -77,17 +77,4 @@ export class TablesComponent implements AfterViewInit {
     this.getData();
   }
 
-  deleteTable(table) {
-    if (window.confirm('Are you sure you want to delete?')) {
-      const data = {
-        id: table._id
-      };
-      this.tableService.deleteTable(data).subscribe((res) => {
-        this.snackBar.open(res.message, 'OK', {
-          duration: 3000,
-        });
-        this.getData();
-      });
-    }
-  }
 }
