@@ -12,7 +12,11 @@
     </div>
   </div>
 
-  <div class="table-container mat-elevation-z8">
+  <div [ngClass]="{'display-none': tables}" class="full-width content-center margin-top-4 margin-bottom-4">
+    <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
+  </div>
+
+  <div [ngClass]="{'display-none': !tables}" class="table-container mat-elevation-z8">
 
     <mat-table [dataSource]="dataSource" matSort>
 
@@ -73,7 +77,9 @@
       <mat-row *matRowDef="let item; columns: displayedColumns;">
       </mat-row>
     </mat-table>
-
+    <div class="table-footer">
+    <button mat-raised-button color="accent" (click)="downloadTable()">Download</button>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
+  </div>
   </div>
 </mat-card>

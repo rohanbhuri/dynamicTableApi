@@ -6,6 +6,8 @@ const Table = require('../models/table');
 const express = require('express');
 const FMAS = require('../configs/fileManipulationAndSaving')
 const config = require('../configs/database');
+const json2csv = require('json2csv');
+
 
 
 exports.listTables = function (req, res) {
@@ -237,3 +239,115 @@ exports.deleteTable = function (req, res) {
     });
   });
 }
+
+exports.downloadTable = function (req, res) {
+  console.log(req.body);
+  Table.findOne({
+    '_id': req.body.id
+  }, (err, table) => {
+    if (err) {
+      return res.json({
+        error: true,
+        message: err.message,
+        Info: err
+      });
+    }
+
+
+    var fields = ['field1', 'field2', 'field3'];
+    try {
+      var result = json2csv({
+        data: myData,
+        fields: fields
+      });
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+      return res.json({
+        error: true,
+        message: err.message,
+        Info: err
+      });
+    }
+
+
+
+  })
+
+};
+
+exports.downloadTableList = function (req, res) {
+  console.log(req.body);
+  if (req.body.search) {
+    Table
+      .find({
+        $text: {
+          $search: req.body.search
+        }
+      })
+      .sort(req.body.sort)
+      .exec((err, tables) => {
+        if (err) {
+          return res.json({
+            error: true,
+            message: err.message,
+            Info: err
+          });
+        }
+        tables.forEach(element => {
+          console.log(typeof element.keys)
+        });
+        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+        try {
+          var result = json2csv({
+            data: tables,
+            fields: fields
+          });
+          return res.json({
+            success: true,
+            message: 'Table Downloaded',
+            result: result
+          });
+        } catch (err) {
+          console.error(err);
+          return res.json({
+            error: true,
+            message: err.message,
+            Info: err
+          });
+        }
+      });
+  } else {
+    Table
+      .find({})
+      .sort(req.body.sort)
+      .exec((err, tables) => {
+        if (err) {
+          return res.json({
+            error: true,
+            message: err.message,
+            Info: err
+          });
+        }
+        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+        try {
+          var result = json2csv({
+            data: tables,
+            fields: fields
+          });
+          return res.json({
+            success: true,
+            message: 'Table Downloaded',
+            result: result
+          });
+        } catch (err) {
+          console.error(err);
+          return res.json({
+            error: true,
+            message: err.message,
+            Info: err
+          });
+        }
+      });
+  }
+};

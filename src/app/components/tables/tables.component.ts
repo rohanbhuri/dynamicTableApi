@@ -14,7 +14,7 @@ export class TablesComponent implements AfterViewInit {
 
   displayedColumns = ['tableName', 'tableDescription', 'changedOn', 'changedBy', 'createdOn', 'createdBy', 'actions'];
   dataSource: MatTableDataSource<any>;
-  tables = [];
+  tables = undefined;
   total = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,6 +39,7 @@ export class TablesComponent implements AfterViewInit {
   }
 
   getData() {
+    this.tables = undefined;
     const params = {
       search: this.dataSource.filter,
       page: this.paginator.pageIndex,
@@ -75,6 +76,30 @@ export class TablesComponent implements AfterViewInit {
 
   onPageChange(event) {
     this.getData();
+  }
+
+  downloadTable() {
+    const params = {
+      search: this.dataSource.filter,
+      sort: { [this.sort.active]: this.sort.direction === 'desc' ? -1 : 1 }
+    };
+    this.tableService.downloadTableList(params).subscribe(res => {
+      console.log(res);
+      const parsedResponse = res.result;
+      const blob = new Blob([parsedResponse], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveBlob(blob, 'TableList.csv');
+      } else {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'TableList.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      window.URL.revokeObjectURL(url);
+    });
   }
 
 }

@@ -1,7 +1,14 @@
+<div *ngIf="!data" class="full-width content-center margin-top-4 margin-bottom-4">
+  <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
+</div>
+
+
 <mat-card class="content-card" *ngIf="data">
   <div class="row">
     <div class=" small-12 columns content-center">
-      <h5>Table {{data.tableName}}</h5>
+      <strong class="margin-top-2 margin-bottom-2">
+        <h4>Table {{data.tableName}}</h4>
+      </strong>
     </div>
   </div>
   <br>

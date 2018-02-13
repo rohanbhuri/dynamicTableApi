@@ -1,12 +1,14 @@
 <mat-card class="content-card">
   <div class="row">
     <div class=" small-12 columns content-center">
-      <h5>
-        <span *ngIf="!editing">Create Table</span>
-        <span *ngIf="editing">Update Table
-          <span *ngIf="data">{{data.tableName}}</span>
-        </span>
-      </h5>
+      <strong class="margin-top-2 margin-bottom-2">
+        <h4>
+          <span *ngIf="!editing">Create Table</span>
+          <span *ngIf="editing">Update Table
+            <span *ngIf="data">{{data.tableName}}</span>
+          </span>
+        </h4>
+      </strong>
     </div>
   </div>
   <br>
@@ -96,7 +98,6 @@
       </tr>
     </tbody>
   </table>
-
 
   <div class="row" *ngIf="!editing">
     <div class="small-6 content-center">

@@ -3,8 +3,6 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300');
 html {
   body {
-    background-color: #eeefef;
-    font-family: 'Lato', sans-serif;
   }
   a {}
   a:hover,
@@ -17,9 +15,7 @@ html {
   h5,
   h6,
   p,
-  span {
-    font-family: 'Lato', sans-serif;
-  }
+  span {}
   [type='text']:focus,
   [type='password']:focus,
   [type='date']:focus,
@@ -129,14 +125,20 @@ html {
     max-height: 100vh;
     overflow: auto;
   }
+  .display-none {
+    display: none;
+  }
   input:disabled,
   input[readonly],
   textarea:disabled,
   textarea[readonly] {
-    background-color: #ffffff;
+    background-color: transparent;
   }
   button.mat-button,
   button.mat-raised-button {
     font-weight: bold;
+  }
+  label {
+    color: rgba(0, 0, 0, 0.54);
   }
 }

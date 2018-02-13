@@ -37,6 +37,7 @@ import { CreateUpdateTableComponent } from './components/create-update-table/cre
 import { TablesComponent } from './components/tables/tables.component';
 import { OpenTableComponent } from './components/open-table/open-table.component';
 import { DeleteTableComponent } from './components/delete-table/delete-table.component';
+import { DownloadTableComponent } from './components/download-table/download-table.component';
 
 
 
@@ -47,7 +48,9 @@ const appRoutes: Routes = [
   { path: 'add-table', component: CreateUpdateTableComponent },
   { path: 'edit-table/:id', component: CreateUpdateTableComponent },
   { path: 'open-table/:id', component: OpenTableComponent },
-  { path: 'delete-table/:id', component: DeleteTableComponent }
+  { path: 'delete-table/:id', component: DeleteTableComponent },
+  { path: 'download-table/:id', component: DownloadTableComponent }
+
 ];
 
 @NgModule({
@@ -58,7 +61,8 @@ const appRoutes: Routes = [
     CreateUpdateTableComponent,
     TablesComponent,
     OpenTableComponent,
-    DeleteTableComponent
+    DeleteTableComponent,
+    DownloadTableComponent
   ],
   imports: [
     BrowserModule,
