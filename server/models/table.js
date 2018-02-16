@@ -18,9 +18,6 @@ const schema = new mongoose.Schema({
     type: {
       type: String
     },
-    length: {
-      type: Number
-    },
     unique: {
       type: Boolean
     },

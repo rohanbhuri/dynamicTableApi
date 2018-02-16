@@ -61,7 +61,6 @@ export class CreateUpdateTableComponent implements OnInit {
             this.fields.push({
               fieldName: new FormControl(element.fieldName, [Validators.required]),
               type: new FormControl(element.type, [Validators.required]),
-              length: new FormControl(element.length, [Validators.required]),
               unique: new FormControl(element.unique),
               null: new FormControl(element.null),
               fieldDescription: new FormControl(element.fieldDescription, [Validators.required])
@@ -79,7 +78,6 @@ export class CreateUpdateTableComponent implements OnInit {
         _schema.push({
           fieldName: element.fieldName.value,
           type: element.type.value,
-          length: element.length.value,
           unique: element.unique.value,
           null: element.null.value,
           fieldDescription: element.fieldDescription.value
@@ -119,7 +117,6 @@ export class CreateUpdateTableComponent implements OnInit {
         _schema.push({
           fieldName: element.fieldName.value,
           type: element.type.value,
-          length: element.length.value,
           unique: element.unique.value,
           null: element.null.value,
           fieldDescription: element.fieldDescription.value
@@ -157,7 +154,6 @@ export class CreateUpdateTableComponent implements OnInit {
     this.fields.push({
       fieldName: new FormControl(undefined, [Validators.required]),
       type: new FormControl(undefined, [Validators.required]),
-      length: new FormControl(undefined, [Validators.required]),
       unique: new FormControl(undefined),
       null: new FormControl(undefined),
       fieldDescription: new FormControl(undefined, [Validators.required])
@@ -178,7 +174,6 @@ export class CreateUpdateTableComponent implements OnInit {
         console.log(element.fieldName.valid &&
           element.fieldDescription.valid &&
           element.type.valid &&
-          element.length.valid &&
           element.null.valid &&
           element.unique.valid
         );
@@ -186,7 +181,6 @@ export class CreateUpdateTableComponent implements OnInit {
           element.fieldName.valid &&
           element.fieldDescription.valid &&
           element.type.valid &&
-          element.length.valid &&
           element.null.valid &&
           element.unique.valid
         ) {
@@ -209,14 +203,12 @@ export class CreateUpdateTableComponent implements OnInit {
         console.log(element.fieldName.valid &&
           element.fieldDescription.valid &&
           element.type.valid &&
-          element.length.valid &&
           element.unique.valid &&
           element.null.valid);
         if (
           element.fieldName.valid &&
           element.fieldDescription.valid &&
           element.type.valid &&
-          element.length.valid &&
           element.unique.valid &&
           element.null.valid
         ) {

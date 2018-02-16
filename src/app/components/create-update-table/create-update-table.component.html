@@ -39,7 +39,6 @@
       <tr>
         <th>Field Name</th>
         <th>Type</th>
-        <th>Length</th>
         <th>Unique</th>
         <th>Null</th>
         <th>Field Description</th>
@@ -64,14 +63,6 @@
               </mat-option>
             </mat-select>
             <mat-error *ngIf="field.type.hasError('required')">
-              Please fill the required field
-            </mat-error>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field class="full-width">
-            <input matInput type="number" [formControl]="field.length">
-            <mat-error *ngIf="field.length.hasError('required')">
               Please fill the required field
             </mat-error>
           </mat-form-field>
