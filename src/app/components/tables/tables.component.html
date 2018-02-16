@@ -10,7 +10,7 @@
         <button mat-raised-button color="primary" [routerLink]="['/add-table']">Create Table</button>
       </div>
       <div class="colomns small-2 text-center">
-        <input id="uploadTable" class="display-none" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        <input id="uploadTable" style="width: 0px;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
           (change)="uploadTable($event)" />
         <button mat-raised-button color="accent" (click)="document.getElementById('uploadTable').click();">Upload Tables</button>
       </div>

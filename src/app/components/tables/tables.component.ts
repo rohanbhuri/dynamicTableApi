@@ -109,6 +109,10 @@ export class TablesComponent implements AfterViewInit {
       const base64Data = e.target.result.replace(/^data:text\/[a-z]+;base64,/, '');
       this.tableService.uploadTable({ csv: atob(base64Data) }).subscribe(res => {
         console.log(res);
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.getData();
       });
     };
     reader.readAsDataURL(event.target.files[0]);

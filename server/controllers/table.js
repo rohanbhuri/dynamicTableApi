@@ -262,8 +262,8 @@ exports.downloadTableList = function (req, res) {
         tables.forEach(element => {
           console.log(typeof element.keys)
         });
-        var fields = ['tableName', 'tableDescription', '_schema', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
-        
+        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy', '_schema'];
+
         try {
           var result = json2csv({
             data: tables,
@@ -295,7 +295,7 @@ exports.downloadTableList = function (req, res) {
             Info: err
           });
         }
-        var fields = ['tableName', 'tableDescription', '_schema', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy', '_schema'];
         try {
           var result = json2csv({
             data: tables,
@@ -319,14 +319,50 @@ exports.downloadTableList = function (req, res) {
 };
 
 exports.uploadTableList = function (req, res) {
-  console.log(req.body);
   const csv = require('csvtojson')
   csvtojson()
     .fromString(req.body.csv)
-    .on('csv', (csvRow) => { // this func will be called 3 times
-      console.log(csvRow) // => [1,2,3] , [4,5,6]  , [7,8,9]
+    .on('csv', (csvRow) => {
+      // console.log(csvRow);
+      const table = new Table({
+        tableName: csvRow[0],
+        tableDescription: csvRow[1],
+        createdOn: csvRow[2],
+        createdBy: csvRow[3] == '' ? undefined : csvRow[3],
+        changedOn: csvRow[4],
+        changedBy: csvRow[5] == '' ? undefined : csvRow[5],
+        _schema: JSON.parse(csvRow[6])
+      });
+      console.log(table);
+      Table.find({
+        tableName: table.tableName
+      }).exec((err, tables) => {
+        if (err) {
+
+        }
+        if (tables.length > 0) {
+          // "Table Already Exist"
+        } else {
+          table.save((err) => {
+            if (err) {
+
+            }
+            MongoClient.connect(config.url, function (err, db) {
+              if (err) throw err;
+              var dbo = db.db(config.databaseName);
+              dbo.createCollection(table.tableName, function (err, response) {
+                if (err) throw err;
+                db.close();
+              });
+            });
+          });
+        }
+      });
     })
     .on('done', () => {
-      console.log('csvtojson end')
+      return res.json({
+        success: true,
+        message: 'Tables Uploaded'
+      });
     })
 };
