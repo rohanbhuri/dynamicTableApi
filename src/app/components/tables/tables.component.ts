@@ -106,8 +106,9 @@ export class TablesComponent implements AfterViewInit {
   uploadTable(event) {
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      const base64Data = e.target.result.replace(/^data:text\/[a-z]+;base64,/, '');
-      this.tableService.uploadTable({ csv: atob(base64Data) }).subscribe(res => {
+      const base64Data = e.target.result.split("base64,");
+      console.log(base64Data[1]);
+      this.tableService.uploadTable({ csv: atob(base64Data[1]) }).subscribe(res => {
         console.log(res);
         this.snackBar.open(res.message, 'OK', {
           duration: 3000,
