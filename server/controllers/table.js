@@ -7,6 +7,7 @@ const express = require('express');
 const FMAS = require('../configs/fileManipulationAndSaving')
 const config = require('../configs/database');
 const json2csv = require('json2csv');
+const csvtojson = require('csvtojson')
 
 
 
@@ -240,42 +241,6 @@ exports.deleteTable = function (req, res) {
   });
 }
 
-exports.downloadTable = function (req, res) {
-  console.log(req.body);
-  Table.findOne({
-    '_id': req.body.id
-  }, (err, table) => {
-    if (err) {
-      return res.json({
-        error: true,
-        message: err.message,
-        Info: err
-      });
-    }
-
-
-    var fields = ['field1', 'field2', 'field3'];
-    try {
-      var result = json2csv({
-        data: myData,
-        fields: fields
-      });
-      console.log(result);
-    } catch (err) {
-      console.error(err);
-      return res.json({
-        error: true,
-        message: err.message,
-        Info: err
-      });
-    }
-
-
-
-  })
-
-};
-
 exports.downloadTableList = function (req, res) {
   console.log(req.body);
   if (req.body.search) {
@@ -297,7 +262,8 @@ exports.downloadTableList = function (req, res) {
         tables.forEach(element => {
           console.log(typeof element.keys)
         });
-        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+        var fields = ['tableName', 'tableDescription', '_schema', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+        
         try {
           var result = json2csv({
             data: tables,
@@ -329,7 +295,7 @@ exports.downloadTableList = function (req, res) {
             Info: err
           });
         }
-        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+        var fields = ['tableName', 'tableDescription', '_schema', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
         try {
           var result = json2csv({
             data: tables,
@@ -350,4 +316,17 @@ exports.downloadTableList = function (req, res) {
         }
       });
   }
+};
+
+exports.uploadTableList = function (req, res) {
+  console.log(req.body);
+  const csv = require('csvtojson')
+  csvtojson()
+    .fromString(req.body.csv)
+    .on('csv', (csvRow) => { // this func will be called 3 times
+      console.log(csvRow) // => [1,2,3] , [4,5,6]  , [7,8,9]
+    })
+    .on('done', () => {
+      console.log('csvtojson end')
+    })
 };

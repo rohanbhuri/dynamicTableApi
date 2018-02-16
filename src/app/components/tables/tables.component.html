@@ -1,13 +1,18 @@
 <mat-card>
   <div class="table-header">
     <div class="row">
-      <div class="colomns small-10">
+      <div class="colomns small-8">
         <mat-form-field class="full-width">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
         </mat-form-field>
       </div>
       <div class="colomns small-2 text-center">
         <button mat-raised-button color="primary" [routerLink]="['/add-table']">Create Table</button>
+      </div>
+      <div class="colomns small-2 text-center">
+        <input id="uploadTable" class="display-none" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          (change)="uploadTable($event)" />
+        <button mat-raised-button color="accent" (click)="document.getElementById('uploadTable').click();">Upload Tables</button>
       </div>
     </div>
   </div>
@@ -78,8 +83,8 @@
       </mat-row>
     </mat-table>
     <div class="table-footer">
-    <button mat-raised-button color="accent" (click)="downloadTable()">Download</button>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
-  </div>
+      <button mat-raised-button color="accent" (click)="downloadTable()">Download</button>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
+    </div>
   </div>
 </mat-card>

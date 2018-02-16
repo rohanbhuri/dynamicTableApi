@@ -51,10 +51,10 @@ export class TableService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    downloadTable(data) {
+    uploadTable(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(environment.apiUrl + 'table/download', data, { headers: headers })
+        return this.http.post(environment.apiUrl + 'table/list/upload', data, { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

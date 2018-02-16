@@ -22,10 +22,10 @@ const schema = new mongoose.Schema({
       type: Number
     },
     unique: {
-      type: Boolean 
+      type: Boolean
     },
     null: {
-      type: Boolean 
+      type: Boolean
     },
     fieldDescription: {
       type: String
@@ -36,18 +36,16 @@ const schema = new mongoose.Schema({
     default: Date.now
   },
   createdBy: {
-    // type: Schema.Types.ObjectId,
-    // ref: 'User'
-    type: String
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
   changedOn: {
     type: Date,
     default: Date.now
   },
   changedBy: {
-    // type: Schema.Types.ObjectId,
-    // ref: 'User'
-    type: String
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
 });
 

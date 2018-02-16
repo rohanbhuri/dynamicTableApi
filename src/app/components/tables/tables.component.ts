@@ -16,6 +16,7 @@ export class TablesComponent implements AfterViewInit {
   dataSource: MatTableDataSource<any>;
   tables = undefined;
   total = 0;
+  document = document;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -102,4 +103,14 @@ export class TablesComponent implements AfterViewInit {
     });
   }
 
+  uploadTable(event) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const base64Data = e.target.result.replace(/^data:text\/[a-z]+;base64,/, '');
+      this.tableService.uploadTable({ csv: atob(base64Data) }).subscribe(res => {
+        console.log(res);
+      });
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
 }
