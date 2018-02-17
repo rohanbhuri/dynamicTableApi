@@ -2,8 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300');
 html {
-  body {
-  }
+  body {}
   a {}
   a:hover,
   a:active,
@@ -77,6 +76,9 @@ html {
   }
   .full-width {
     width: 100%
+  }
+  .full-height {
+    min-height: 100vh;
   }
   ul,
   ol {

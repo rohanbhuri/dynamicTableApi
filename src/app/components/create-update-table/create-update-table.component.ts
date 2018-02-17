@@ -30,6 +30,8 @@ export class CreateUpdateTableComponent implements OnInit {
   id;
   data;
 
+  loading = false;
+
   constructor(
     public tableService: TableService,
     public snackBar: MatSnackBar,
@@ -46,6 +48,7 @@ export class CreateUpdateTableComponent implements OnInit {
   setEditValues() {
     this.route.params.subscribe(params => {
       if (params['id']) {
+        this.loading = true;
         this.editing = true;
         this.id = params['id'];
         const data = {
@@ -66,6 +69,7 @@ export class CreateUpdateTableComponent implements OnInit {
               fieldDescription: new FormControl(element.fieldDescription, [Validators.required])
             });
           });
+          this.loading = false;
         });
       }
     });
@@ -73,6 +77,7 @@ export class CreateUpdateTableComponent implements OnInit {
 
   createTable() {
     if (this.checkValid()) {
+      this.loading = true;
       const _schema = [];
       this.fields.forEach(element => {
         _schema.push({
@@ -95,9 +100,11 @@ export class CreateUpdateTableComponent implements OnInit {
           this.snackBar.open(res.message, 'OK', {
             duration: 3000,
           });
+          this.loading = false;
           this.location.back();
         }
         if (res.error) {
+          this.loading = false;
           this.snackBar.open(res.message, 'OK', {
             duration: 3000,
           });
@@ -112,6 +119,7 @@ export class CreateUpdateTableComponent implements OnInit {
 
   updateTable() {
     if (this.checkValidOnEdit()) {
+      this.loading = true;
       const _schema = [];
       this.fields.forEach(element => {
         _schema.push({
@@ -135,9 +143,11 @@ export class CreateUpdateTableComponent implements OnInit {
           this.snackBar.open(res.message, 'OK', {
             duration: 3000,
           });
+          this.loading = false;
           this.location.back();
         }
         if (res.error) {
+          this.loading = false;
           this.snackBar.open(res.message, 'OK', {
             duration: 3000,
           });

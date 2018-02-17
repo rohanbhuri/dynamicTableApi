@@ -49,11 +49,19 @@ export class DeleteTableComponent implements OnInit {
     const data = {
       id: this.data._id
     };
+    this.data = undefined;
     this.tableService.deleteTable(data).subscribe((res) => {
-      this.snackBar.open(res.message, 'OK', {
-        duration: 3000,
-      });
-      this.location.back();
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.location.back();
+      } else {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.setValues();
+      }
     });
   }
 }
