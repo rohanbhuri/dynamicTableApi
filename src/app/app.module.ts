@@ -20,7 +20,8 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatDividerModule,
-  MatMenuModule
+  MatMenuModule,
+  MatTooltipModule
 } from '@angular/material';
 
 
@@ -82,6 +83,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatDividerModule,
     MatMenuModule,
+    MatTooltipModule,
 
     RouterModule.forRoot(appRoutes),
   ],

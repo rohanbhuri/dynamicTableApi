@@ -1,11 +1,26 @@
 .table-footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: distribute;
-    justify-content: space-between;
-    padding: 0rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: distribute;
+  justify-content: space-between;
+  padding: 0rem 1rem;
+}
+
+.toolbar {
+  mat-form-field {
+    font-size: 14px;
+    padding: 0px 4px;
+  }
+  .search-bar {
+    width: 80%;
+  }
+  .search-icon {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
 }

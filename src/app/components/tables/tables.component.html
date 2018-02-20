@@ -1,20 +1,22 @@
 <mat-card class="full-height">
-  <div class="table-header">
-    <div class="row">
-      <div class="colomns small-8">
-        <mat-form-field class="full-width">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
-        </mat-form-field>
-      </div>
-      <div class="colomns small-2 text-center">
-        <button mat-raised-button color="primary" [routerLink]="['/add-table']">Create Table</button>
-      </div>
-      <div class="colomns small-2 text-center">
-        <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-          (change)="uploadTable($event)" />
-        <button mat-raised-button color="accent" (click)="document.getElementById('uploadTable').click();">Upload Tables</button>
-      </div>
-    </div>
+
+  <div class="toolbar text-right">
+
+    <mat-form-field class="relative">
+      <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
+      <mat-icon color="accent" class="search-icon">search</mat-icon>
+    </mat-form-field>
+    <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/add-table']">
+      <mat-icon>library_add</mat-icon>
+    </button>
+    <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      (change)="uploadTable($event)" />
+    <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+      <mat-icon>file_upload</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
+      <mat-icon>file_download</mat-icon>
+    </button>
   </div>
 
   <div [ngClass]="{'display-none': tables}" class="full-width content-center margin-top-4 margin-bottom-4">
@@ -83,7 +85,23 @@
       </mat-row>
     </mat-table>
     <div class="table-footer">
-      <button mat-raised-button color="accent" (click)="downloadTable()">Download</button>
+      <div class="toolbar">
+        <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
+          <mat-icon>file_download</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+          <mat-icon>file_upload</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/add-table']">
+          <mat-icon>library_add</mat-icon>
+        </button>
+        <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          (change)="uploadTable($event)" />
+        <mat-form-field class="relative">
+          <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
+          <mat-icon color="accent" class="search-icon">search</mat-icon>
+        </mat-form-field>
+      </div>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
     </div>
   </div>

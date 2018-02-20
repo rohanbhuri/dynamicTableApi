@@ -23,12 +23,25 @@
     </div>
   </div>
   <br>
+  <div class="toolbar text-right">
+    <mat-form-field class="relative">
+      <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
+      <mat-icon color="accent" class="search-icon">search</mat-icon>
+    </mat-form-field>
+    <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      (change)="uploadTable($event)" />
+    <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+      <mat-icon>file_upload</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
+      <mat-icon>file_download</mat-icon>
+    </button>
+  </div>
   <table>
     <thead>
       <tr>
         <th>Field Name</th>
         <th>Type</th>
-        <th>Length</th>
         <th>Unique</th>
         <th>Null</th>
         <th>Field Description</th>
@@ -43,18 +56,31 @@
           {{field.type}}
         </td>
         <td>
-          {{field.length}}
-        </td>
-        <td>
           <mat-checkbox [ngModel]="field.unique"></mat-checkbox>
         </td>
         <td>
-          <mat-checkbox [ngModel]="field.unique"></mat-checkbox>
+          <mat-checkbox [ngModel]="field.null"></mat-checkbox>
         </td>
         <td>
           {{field.fieldDescription}}
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <div class="toolbar">
+        <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
+          <mat-icon>file_download</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+          <mat-icon>file_upload</mat-icon>
+        </button>
+        <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          (change)="uploadTable($event)" />
+        <mat-form-field class="relative">
+          <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
+          <mat-icon color="accent" class="search-icon">search</mat-icon>
+        </mat-form-field>
+      </div>
+    </tfoot>
   </table>
 </mat-card>

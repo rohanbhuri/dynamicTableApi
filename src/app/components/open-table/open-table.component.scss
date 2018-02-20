@@ -16,3 +16,18 @@ table {
     }
   }
 }
+
+.toolbar {
+  mat-form-field {
+    font-size: 14px;
+    padding: 0px 4px;
+  }
+  .search-bar {
+    width: 80%;
+  }
+  .search-icon {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+}

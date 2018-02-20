@@ -13,6 +13,7 @@ export class OpenTableComponent implements OnInit {
 
   id;
   data;
+  document = document;
 
   constructor(
     private route: ActivatedRoute,
