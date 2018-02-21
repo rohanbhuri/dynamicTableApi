@@ -69,27 +69,26 @@ export class OpenTableComponent implements OnInit {
   }
 
   downloadTable() {
-    // const params = {
-    //   search: this.dataSource.filter,
-    //   sort: { [this.sort.active]: this.sort.direction === 'desc' ? -1 : 1 }
-    // };
-    // this.tableService.downloadTableList(params).subscribe(res => {
-    //   console.log(res);
-    //   const parsedResponse = res.result;
-    //   const blob = new Blob([parsedResponse], { type: 'text/csv' });
-    //   const url = window.URL.createObjectURL(blob);
-    //   if (navigator.msSaveOrOpenBlob) {
-    //     navigator.msSaveBlob(blob, 'TableList.csv');
-    //   } else {
-    //     const a = document.createElement('a');
-    //     a.href = url;
-    //     a.download = 'TableList.csv';
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    //   }
-    //   window.URL.revokeObjectURL(url);
-    // });
+    const params = {
+      id: this.id
+    };
+    this.tableService.downloadTableSchema(params).subscribe(res => {
+      console.log(res);
+      const parsedResponse = res.result;
+      const blob = new Blob([parsedResponse], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveBlob(blob, 'TableList.csv');
+      } else {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'TableList.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      window.URL.revokeObjectURL(url);
+    });
   }
 
   uploadTable(event) {
@@ -97,12 +96,12 @@ export class OpenTableComponent implements OnInit {
     reader.onload = (e: any) => {
       const base64Data = e.target.result.split('base64,');
       console.log(base64Data[1]);
-      this.tableService.uploadTable({ csv: atob(base64Data[1]) }).subscribe(res => {
+      this.tableService.uploadTableSchema({ id: this.id, csv: atob(base64Data[1]) }).subscribe(res => {
         console.log(res);
         this.snackBar.open(res.message, 'OK', {
           duration: 3000,
         });
-        // this.getData();
+        this.setValues();
       });
     };
     reader.readAsDataURL(event.target.files[0]);

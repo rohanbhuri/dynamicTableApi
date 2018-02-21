@@ -51,7 +51,7 @@ export class TableService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    uploadTable(data) {
+    uploadTableList(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post(environment.apiUrl + 'table/list/upload', data, { headers: headers })
@@ -63,6 +63,22 @@ export class TableService {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post(environment.apiUrl + 'table/list/download', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    uploadTableSchema(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'table/schema/upload', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    downloadTableSchema(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'table/schema/download', data, { headers: headers })
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

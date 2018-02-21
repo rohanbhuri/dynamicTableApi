@@ -259,9 +259,9 @@ exports.downloadTableList = function (req, res) {
             Info: err
           });
         }
-        tables.forEach(element => {
-          console.log(typeof element.keys)
-        });
+        // tables.forEach(element => {
+        //   console.log(typeof element.keys)
+        // });
         var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
 
         try {
@@ -377,4 +377,104 @@ exports.uploadTableList = function (req, res) {
         message: 'Tables Uploaded'
       });
     })
+};
+
+
+exports.downloadTableSchema = function (req, res) {
+  console.log(req.body);
+  Table
+    .findOne({
+      '_id': req.body.id
+    })
+    .exec((err, tables) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+      var fields = ['fieldName', 'type', 'unique', 'null', 'fieldDescription'];
+
+      try {
+        var result = json2csv({
+          data: tables._schema,
+          fields: fields
+        });
+        return res.json({
+          success: true,
+          message: 'Table Downloaded',
+          result: result
+        });
+      } catch (err) {
+        console.error(err);
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+    });
+};
+
+exports.uploadTableSchema = function (req, res) {
+  console.log(req.body)
+  const csv = require('csvtojson')
+  let error = undefined;
+  let schema = [];
+  Table
+    .findOne({
+      '_id': req.body.id
+    })
+    .exec((err, table) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+      schema = table._schema;
+      csvtojson()
+        .fromString(req.body.csv)
+        .on('csv', (csvRow) => {
+          if (csvRow.length !== 5) {
+            error = {
+              message: 'Not A Valid CSV File'
+            }
+          } else {
+            schema.push({
+              fieldName: csvRow[0],
+              type: csvRow[1] == '' ? undefined : csvRow[1],
+              unique: csvRow[2],
+              null: csvRow[3],
+              fieldDescription: csvRow[4] == '' ? undefined : csvRow[4]
+            });
+          }
+        })
+        .on('done', () => {
+          if (error) {
+            return res.json({
+              error: true,
+              message: error.message
+            });
+          }
+          table._schema = schema
+          console.log(table);
+          Table.findOneAndUpdate(req.body._id, table, (err, table) => {
+            if (err) {
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            } else {
+              return res.json({
+                success: true,
+                message: 'Tables Uploaded'
+              });
+            }
+          })
+        })
+    });
 };
