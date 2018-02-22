@@ -434,7 +434,7 @@ exports.uploadTableSchema = function (req, res) {
           Info: err
         });
       }
-      schema = table._schema;
+      // schema = table._schema;
       csvtojson()
         .fromString(req.body.csv)
         .on('csv', (csvRow) => {
@@ -460,9 +460,10 @@ exports.uploadTableSchema = function (req, res) {
             });
           }
           table._schema = schema
-          console.log(table);
+          // console.log(table);
           Table.findOneAndUpdate(req.body._id, table, (err, table) => {
             if (err) {
+              console.log(err);
               return res.json({
                 error: true,
                 message: err.message,

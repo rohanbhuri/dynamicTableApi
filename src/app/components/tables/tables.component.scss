@@ -24,3 +24,11 @@
     right: 0px;
   }
 }
+
+mat-row.mat-row:hover {
+  background-color: #efefef;
+}
+
+mat-row.mat-row {
+  cursor: pointer;
+}

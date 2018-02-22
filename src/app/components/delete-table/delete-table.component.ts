@@ -3,6 +3,7 @@ import { TableService } from '../../services/table.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 
@@ -21,6 +22,7 @@ export class DeleteTableComponent implements OnInit {
     private location: Location,
     private tableService: TableService,
     public snackBar: MatSnackBar,
+    public dialog: MatDialog
 
   ) {
     this.setValues();
@@ -45,6 +47,15 @@ export class DeleteTableComponent implements OnInit {
     });
   }
 
+  deleteTableDilog() {
+    const dialogRef = this.dialog.open(DeleteTableDilog, {
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.deleteTable();
+    });
+  }
+
   deleteTable() {
     const data = {
       id: this.data._id
@@ -63,5 +74,26 @@ export class DeleteTableComponent implements OnInit {
         this.setValues();
       }
     });
+  }
+}
+
+
+@Component({
+  selector: 'app-delete-table',
+  template: `
+  <mat-card>
+  <h4>are you sure you want to delete?</h4>
+  
+  </mat-card
+    `
+})
+export class DeleteTableDilog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteTableDilog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

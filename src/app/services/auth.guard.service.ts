@@ -10,9 +10,9 @@ export class AuthGuardService {
 
     canActivate() {
         if (localStorage.getItem('currentUser')) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 }

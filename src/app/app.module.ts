@@ -38,16 +38,23 @@ import { CreateUpdateTableComponent } from './components/create-update-table/cre
 import { TablesComponent } from './components/tables/tables.component';
 import { OpenTableComponent } from './components/open-table/open-table.component';
 import { DeleteTableComponent } from './components/delete-table/delete-table.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'tables', component: TablesComponent },
-  { path: 'add-table', component: CreateUpdateTableComponent },
-  { path: 'edit-table/:id', component: CreateUpdateTableComponent },
-  { path: 'open-table/:id', component: OpenTableComponent },
-  { path: 'delete-table/:id', component: DeleteTableComponent },
+  { path: 'tables', component: TablesComponent, canActivate: [AuthGuardService] },
+  { path: 'add-table', component: CreateUpdateTableComponent, canActivate: [AuthGuardService] },
+  { path: 'edit-table/:id', component: CreateUpdateTableComponent, canActivate: [AuthGuardService] },
+  { path: 'open-table/:id', component: OpenTableComponent, canActivate: [AuthGuardService] },
+  { path: 'delete-table/:id', component: DeleteTableComponent, canActivate: [AuthGuardService] },
+  { path: 'signup', component: SignupComponent },
+  { path: 'signin', component: SigninComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] }
+
 ];
 
 @NgModule({
@@ -59,6 +66,9 @@ const appRoutes: Routes = [
     TablesComponent,
     OpenTableComponent,
     DeleteTableComponent,
+    SigninComponent,
+    SignupComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

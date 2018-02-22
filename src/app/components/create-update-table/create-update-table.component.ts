@@ -62,7 +62,7 @@ export class CreateUpdateTableComponent implements OnInit {
           this.tableDescription.setValue(this.data.tableDescription);
           this.data._schema.forEach(element => {
             this.fields.push({
-              fieldName: new FormControl(element.fieldName, [Validators.required]),
+              fieldName: new FormControl(element.fieldName, [Validators.required, Validators.pattern('^[a-z._-]+$')]),
               type: new FormControl(element.type, [Validators.required]),
               unique: new FormControl(element.unique),
               null: new FormControl(element.null),
@@ -76,7 +76,7 @@ export class CreateUpdateTableComponent implements OnInit {
   }
 
   createTable() {
-    if (this.checkValid()) {
+    if (this.checkValid() || this.checkDuplicatefield()) {
       this.loading = true;
       const _schema = [];
       this.fields.forEach(element => {
@@ -118,7 +118,7 @@ export class CreateUpdateTableComponent implements OnInit {
   }
 
   updateTable() {
-    if (this.checkValidOnEdit()) {
+    if (this.checkValidOnEdit() || this.checkDuplicatefield()) {
       this.loading = true;
       const _schema = [];
       this.fields.forEach(element => {
@@ -162,7 +162,7 @@ export class CreateUpdateTableComponent implements OnInit {
 
   addField() {
     this.fields.push({
-      fieldName: new FormControl(undefined, [Validators.required]),
+      fieldName: new FormControl(undefined, [Validators.required, Validators.pattern('^[a-z._-]+$')]),
       type: new FormControl(undefined, [Validators.required]),
       unique: new FormControl(undefined),
       null: new FormControl(undefined),
@@ -172,6 +172,21 @@ export class CreateUpdateTableComponent implements OnInit {
 
   removeField(i) {
     this.fields.splice(i, 1);
+  }
+
+  checkDuplicatefield(): boolean {
+    let duplicacy = true;
+    this.fields.forEach((element1, key1) => {
+      this.fields.forEach((element2, key2) => {
+        if (element1.fieldName.value === element2.fieldName.value) {
+          if (key1 !== key2) {
+            duplicacy = false;
+            return duplicacy;
+          }
+        }
+      });
+    });
+    return duplicacy;
   }
 
   checkValid(): boolean {

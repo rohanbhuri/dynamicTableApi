@@ -5,9 +5,14 @@
         <h5>Dynamic Table Api</h5>
       </button>
     </div>
-    
-    <div class="small-6 large-6 columns text-right">
-      <button mat-button routerLink="/tables">Tables List</button>
+
+    <div *ngIf="!localStorage.getItem('currentUser')" class="small-6 large-6 columns text-right">
+      <button mat-button routerLink="/signup">Sign Up</button>
+      <button mat-button routerLink="/signin">Sign In</button>
     </div>
+    <div *ngIf="localStorage.getItem('currentUser')" class="small-6 large-6 columns text-right">
+        <button mat-button routerLink="/tables">Tables List</button>
+        <button mat-button routerLink="/logout">Logout</button>
+      </div>
   </div>
 </mat-card>

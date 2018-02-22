@@ -28,6 +28,12 @@
       <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
       <mat-icon color="accent" class="search-icon">search</mat-icon>
     </mat-form-field>
+    <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/add-table']">
+      <mat-icon>library_add</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/edit-table', this.id]">
+      <mat-icon>mode_edit</mat-icon>
+    </button>
     <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
       (change)="uploadTable($event)" />
     <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
@@ -76,6 +82,12 @@
         </button>
         <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
           (change)="uploadTable($event)" />
+        <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/edit-table', this.id]">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/add-table']">
+          <mat-icon>library_add</mat-icon>
+        </button>
         <mat-form-field class="relative">
           <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables">
           <mat-icon color="accent" class="search-icon">search</mat-icon>
