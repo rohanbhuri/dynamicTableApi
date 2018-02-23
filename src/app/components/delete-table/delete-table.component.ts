@@ -48,11 +48,13 @@ export class DeleteTableComponent implements OnInit {
   }
 
   deleteTableDilog() {
-    const dialogRef = this.dialog.open(DeleteTableDilog, {
+    const dialogRef = this.dialog.open(DeleteTableDilogComponent, {
       width: '250px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.deleteTable();
+      if (result) {
+        this.deleteTable();
+      }
     });
   }
 
@@ -81,18 +83,22 @@ export class DeleteTableComponent implements OnInit {
 @Component({
   selector: 'app-delete-table',
   template: `
-  <mat-card>
-  <h4>are you sure you want to delete?</h4>
-  
-  </mat-card
+  <p>Are you sure you want to delete?</p>
+  <div class="full-width text-right">
+  <button mat-button (click)="onNoClick();">No</button>
+  <button mat-button (click)="onYesClick();">Yes</button>
+  </div>
     `
 })
-export class DeleteTableDilog {
+export class DeleteTableDilogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteTableDilog>,
+    public dialogRef: MatDialogRef<DeleteTableDilogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
+  onYesClick(): void {
+    this.dialogRef.close(true);
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

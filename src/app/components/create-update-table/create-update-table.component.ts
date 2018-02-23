@@ -92,6 +92,7 @@ export class CreateUpdateTableComponent implements OnInit {
       const data = {
         tableName: this.tableName.value,
         tableDescription: this.tableDescription.value,
+        createdBy: JSON.parse(localStorage.getItem('currentUser'))._id,
         _schema: _schema
       };
       this.tableService.createTable(data).subscribe(res => {
@@ -135,6 +136,8 @@ export class CreateUpdateTableComponent implements OnInit {
         id: this.data._id,
         tableName: this.tableName.value,
         tableDescription: this.tableDescription.value,
+        changedOn: Date.now(),
+        changedBy: JSON.parse(localStorage.getItem('currentUser'))._id,
         _schema: _schema
       };
       this.tableService.updateTable(data).subscribe(res => {

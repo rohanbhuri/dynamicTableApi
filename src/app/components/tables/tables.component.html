@@ -44,7 +44,7 @@
 
       <ng-container matColumnDef="changedBy">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Changed By</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]">{{item.changedBy}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]" matTooltip="{{item.changedBy?.email}}">{{item.changedBy?.username}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="createdOn">
@@ -54,7 +54,7 @@
 
       <ng-container matColumnDef="createdBy">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]">{{item.createdBy}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]" matTooltip="{{item.createdBy?.email}}">{{item.createdBy?.username}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">

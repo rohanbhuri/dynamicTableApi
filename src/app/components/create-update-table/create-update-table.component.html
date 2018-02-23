@@ -16,8 +16,8 @@
     </div>
   </div>
   <br>
-  <div class="row small-up-1 medium-up-2 large-up-3">
-    <div class="column">
+  <div class="row">
+    <div class="columns small-12 medium-3">
       <mat-form-field class="full-width">
         <input matInput placeholder="Table Name" [formControl]="tableName">
         <mat-error *ngIf="tableName.hasError('required')">
@@ -25,7 +25,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="column">
+    <div class="columns small-12 medium-4">
       <mat-form-field class="full-width">
         <input matInput placeholder="Table Description" [formControl]="tableDescription">
         <mat-error *ngIf="tableDescription.hasError('required')">
@@ -33,8 +33,22 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="column content-center">
-      <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
+    <div class="columns small-12 medium-5 content-center">
+
+
+      <div *ngIf="!editing">
+        <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
+        <button mat-raised-button color="accent" (click)="createTable()">Create Table</button>
+        <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+      </div>
+
+      <div *ngIf="editing">
+        <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
+        <button mat-raised-button color="accent" (click)="updateTable()">Update Table</button>
+        <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+      </div>
+
+
     </div>
   </div>
   <br>
@@ -93,22 +107,4 @@
       </tr>
     </tbody>
   </table>
-
-  <div class="row" *ngIf="!editing">
-    <div class="small-6 content-center">
-      <button mat-raised-button color="primary" (click)="createTable()">Create</button>
-    </div>
-    <div class="small-6 content-center">
-      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="editing">
-    <div class="small-6 content-center">
-      <button mat-raised-button color="primary" (click)="updateTable()">Update</button>
-    </div>
-    <div class="small-6 content-center">
-      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
-    </div>
-  </div>
 </mat-card>

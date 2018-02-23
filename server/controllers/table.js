@@ -20,6 +20,9 @@ exports.listTables = function (req, res) {
           $search: req.body.search
         }
       })
+      .lean()
+      .populate('createdBy', 'email username')
+      .populate('changedBy', 'email username')
       .limit(req.body.limit)
       .skip(req.body.page * req.body.limit)
       .sort(req.body.sort)
@@ -54,6 +57,9 @@ exports.listTables = function (req, res) {
   } else {
     Table
       .find({})
+      .lean()
+      .populate('createdBy', 'email username')
+      .populate('changedBy', 'email username')
       .limit(req.body.limit)
       .skip(req.body.page * req.body.limit)
       .sort(req.body.sort)
@@ -434,7 +440,6 @@ exports.uploadTableSchema = function (req, res) {
           Info: err
         });
       }
-      // schema = table._schema;
       csvtojson()
         .fromString(req.body.csv)
         .on('csv', (csvRow) => {
@@ -459,9 +464,9 @@ exports.uploadTableSchema = function (req, res) {
               message: error.message
             });
           }
-          table._schema = schema
-          // console.log(table);
-          Table.findOneAndUpdate(req.body._id, table, (err, table) => {
+          Table.findOneAndUpdate(req.body._id, {
+            _schema: schema
+          }, (err, table) => {
             if (err) {
               console.log(err);
               return res.json({
