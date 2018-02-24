@@ -6,14 +6,18 @@ var Schema = mongoose.Schema;
 
 const schema = new mongoose.Schema({
   tableName: {
-    type: String
+    type: String,
+    lowercase: true,
+    trim: true
   },
   tableDescription: {
     type: String
   },
   _schema: [{
     fieldName: {
-      type: String
+      type: String,
+      trim: true,
+      lowercase: true,
     },
     type: {
       type: String

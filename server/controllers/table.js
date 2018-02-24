@@ -111,9 +111,9 @@ exports.readTable = function (req, res) {
 
 exports.createTable = function (req, res) {
 
-  console.log(req.body);
+  // console.log(req.body);
   Table.find({
-    tableName: req.body.tableName
+    tableName: req.body.tableName.trim().toLowerCase()
   }).exec((err, tables) => {
     if (err) {
       return res.json({
@@ -129,59 +129,108 @@ exports.createTable = function (req, res) {
       });
     } else {
       const table = new Table(req.body);
-      table.save((err) => {
-        if (err) {
-          return res.json({
-            error: true,
-            message: err.message,
-            Info: err
-          });
-        }
-        MongoClient.connect(config.url, function (err, db) {
-          if (err) throw err;
-          var dbo = db.db(config.databaseName);
-          dbo.createCollection(req.body.tableName, function (err, response) {
-            if (err) throw err;
-            return res.json({
-              success: true,
-              message: 'Table Created'
-            });
-            db.close();
-          });
+      let validationError = false;
+      table._schema.forEach((element1, key1) => {
+        table._schema.forEach((element2, key2) => {
+          if (key1 !== key2) {
+            if (element1.fieldName.trim().toLowerCase() === element2.fieldName.trim().toLowerCase()) {
+              validationError = true;
+            }
+          }
+          console.log(key1 + 1, key2 + 1, req.body._schema.length)
+          if ((key1 + 1) === req.body._schema.length && (key2 + 1) === req.body._schema.length) {
+            if (validationError) {
+              return res.json({
+                error: true,
+                message: "Duplicate Field Name",
+              });
+            } else {
+              proceed()
+            }
+          }
         });
       });
+
+      function proceed() {
+        table.save((err) => {
+          if (err) {
+            return res.json({
+              error: true,
+              message: err.message,
+              Info: err
+            });
+          }
+          MongoClient.connect(config.url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(config.databaseName);
+            dbo.createCollection(req.body.tableName, function (err, response) {
+              if (err) throw err;
+              return res.json({
+                success: true,
+                message: 'Table Created'
+              });
+              db.close();
+            });
+          });
+        });
+      }
+
     }
   });
 }
 
 exports.updateTable = function (req, res) {
   console.log(req.body);
-  Table.findOne({
-    '_id': req.body.id
-  }, (err, table) => {
-    if (err) {
-      return res.json({
-        error: true,
-        message: err.message,
-        Info: err
-      });
-    }
-    Table.findByIdAndUpdate(table._id, req.body, (err, table) => {
+  let validationError = false;
+  req.body._schema.forEach((element1, key1) => {
+    req.body._schema.forEach((element2, key2) => {
+      if (key1 !== key2) {
+        if (element1.fieldName.trim().toLowerCase() === element2.fieldName.trim().toLowerCase()) {
+          validationError = true;
+        }
+      }
+      console.log(key1 + 1, key2 + 1, req.body._schema.length)
+      if ((key1 + 1) === req.body._schema.length && (key2 + 1) === req.body._schema.length) {
+        if (validationError) {
+          return res.json({
+            error: true,
+            message: "Duplicate Field Name",
+          });
+        } else {
+          proceed()
+        }
+      }
+    });
+  });
+
+  function proceed() {
+    Table.findOne({
+      '_id': req.body.id
+    }, (err, table) => {
       if (err) {
-        console.log(err)
         return res.json({
           error: true,
           message: err.message,
           Info: err
         });
-      }
-      return res.json({
-        success: true,
-        message: 'Table Updated',
-        table: table
-      });
+      } else
+        Table.findByIdAndUpdate(table._id, req.body, (err, table) => {
+          if (err) {
+            console.log(err)
+            return res.json({
+              error: true,
+              message: err.message,
+              Info: err
+            });
+          }
+          return res.json({
+            success: true,
+            message: 'Table Updated',
+            table: table
+          });
+        });
     });
-  });
+  }
 }
 
 exports.insert = function (req, res) {

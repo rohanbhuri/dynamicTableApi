@@ -62,11 +62,11 @@ export class CreateUpdateTableComponent implements OnInit {
           this.tableDescription.setValue(this.data.tableDescription);
           this.data._schema.forEach(element => {
             this.fields.push({
-              fieldName: new FormControl(element.fieldName, [Validators.required, Validators.pattern('^[a-z._-]+$')]),
+              fieldName: new FormControl(element.fieldName, [Validators.required]),
               type: new FormControl(element.type, [Validators.required]),
               unique: new FormControl(element.unique),
               null: new FormControl(element.null),
-              fieldDescription: new FormControl(element.fieldDescription, [Validators.required])
+              fieldDescription: new FormControl(element.fieldDescription)
             });
           });
           this.loading = false;
@@ -165,11 +165,11 @@ export class CreateUpdateTableComponent implements OnInit {
 
   addField() {
     this.fields.push({
-      fieldName: new FormControl(undefined, [Validators.required, Validators.pattern('^[a-z._-]+$')]),
+      fieldName: new FormControl(undefined, [Validators.required]),
       type: new FormControl(undefined, [Validators.required]),
       unique: new FormControl(undefined),
       null: new FormControl(undefined),
-      fieldDescription: new FormControl(undefined, [Validators.required])
+      fieldDescription: new FormControl(undefined)
     });
   }
 
