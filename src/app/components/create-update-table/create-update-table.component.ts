@@ -30,6 +30,8 @@ export class CreateUpdateTableComponent implements OnInit {
 
   loading = false;
 
+  document = document;
+
   constructor(
     public tableService: TableService,
     public snackBar: MatSnackBar,
@@ -178,6 +180,58 @@ export class CreateUpdateTableComponent implements OnInit {
 
   removeField(i) {
     this.fields.splice(i, 1);
+  }
+
+  uploadFields(event) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const base64Data = e.target.result.split('base64,');
+      // console.log(base64Data[1]);
+      const csv = atob(base64Data[1]);
+      // console.log(atob(base64Data[1]));
+      console.log(this.csvJSON(csv));
+      const csvData = JSON.parse(this.csvJSON(csv));
+
+      csvData.forEach(element => {
+        console.log(element['\"unique\"'].replace(/"/g, ''));
+        this.fields.push({
+          fieldName: new FormControl(element['\"fieldName\"'].replace(/"/g, ''), [Validators.required]),
+          type: new FormControl(element['\"type\"'].replace(/"/g, ''), [Validators.required]),
+          length: new FormControl(element['\"length\"'].replace(/"/g, '')),
+          unique: new FormControl(element['\"unique\"'].replace(/"/g, '') === 'true' ? true : false),
+          null: new FormControl(element['\"null\"'].replace(/"/g, '') === 'true' ? true : false),
+          fieldDescription: new FormControl(element['\"fieldDescription\"'].replace(/"/g, ''))
+        });
+        // console.log(this.fields);
+      });
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  csvJSON(csv) {
+
+    const lines = csv.split('\n');
+
+    const result = [];
+
+    const headers = lines[0].split(',');
+
+    for (let i = 1; i < lines.length; i++) {
+
+      const obj = {};
+      const currentline = lines[i].split(',');
+
+      for (let j = 0; j < headers.length; j++) {
+        headers[j] = headers[j].replace('/"', '')
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+
+    }
+
+    // return result; //JavaScript object
+    return JSON.stringify(result); // JSON
   }
 
 }

@@ -35,19 +35,23 @@
     </div>
     <div class="columns small-12 medium-5 content-center">
 
-
       <div *ngIf="!editing">
         <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
+        <input id="uploadFields" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          (change)="uploadFields($event)" />
+        <button mat-raised-button color="primary" (click)="document.getElementById('uploadFields').click();">Upload Fields</button>
         <button mat-raised-button color="accent" (click)="createTable()">Create Table</button>
         <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
       </div>
 
       <div *ngIf="editing">
         <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
+        <input id="uploadFields" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          (change)="uploadFields($event)" />
+        <button mat-raised-button color="primary" (click)="document.getElementById('uploadFields').click();">Upload Fields</button>
         <button mat-raised-button color="accent" (click)="updateTable()">Update Table</button>
         <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
       </div>
-
 
     </div>
   </div>
