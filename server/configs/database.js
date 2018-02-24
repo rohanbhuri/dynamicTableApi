@@ -6,7 +6,7 @@ var config = require('./database')
 
 exports.databaseName = 'dynamictableapi';
 
-exports.url = "mongodb://root:root@ds229878.mlab.com:29878/" + config.databaseName;
+exports.url = "mongodb://root:root@ds247688.mlab.com:47688/" + config.databaseName;
 
 // MongoClient.connect(config.url, function (err, db) {
 //   if (err) throw err;
