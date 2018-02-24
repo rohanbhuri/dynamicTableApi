@@ -11,9 +11,9 @@
     </button>
     <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
       (change)="uploadTable($event)" />
-    <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+    <!-- <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
       <mat-icon>file_upload</mat-icon>
-    </button>
+    </button> -->
     <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
       <mat-icon>file_download</mat-icon>
     </button>
@@ -89,9 +89,9 @@
         <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
           <mat-icon>file_download</mat-icon>
         </button>
-        <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+        <!-- <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
           <mat-icon>file_upload</mat-icon>
-        </button>
+        </button> -->
         <button mat-icon-button color="primary" matTooltip="Add Table" [routerLink]="['/add-table']">
           <mat-icon>library_add</mat-icon>
         </button>

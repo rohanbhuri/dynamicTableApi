@@ -103,19 +103,19 @@ export class TablesComponent implements AfterViewInit {
     });
   }
 
-  uploadTable(event) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const base64Data = e.target.result.split('base64,');
-      console.log(base64Data[1]);
-      this.tableService.uploadTableList({ csv: atob(base64Data[1]) }).subscribe(res => {
-        console.log(res);
-        this.snackBar.open(res.message, 'OK', {
-          duration: 3000,
-        });
-        this.getData();
-      });
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  }
+  // uploadTable(event) {
+  //   const reader = new FileReader();
+  //   reader.onload = (e: any) => {
+  //     const base64Data = e.target.result.split('base64,');
+  //     console.log(base64Data[1]);
+  //     this.tableService.uploadTableList({ csv: atob(base64Data[1]) }).subscribe(res => {
+  //       console.log(res);
+  //       this.snackBar.open(res.message, 'OK', {
+  //         duration: 3000,
+  //       });
+  //       this.getData();
+  //     });
+  //   };
+  //   reader.readAsDataURL(event.target.files[0]);
+  // }
 }

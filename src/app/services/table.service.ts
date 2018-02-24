@@ -51,13 +51,13 @@ export class TableService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    uploadTableList(data) {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(environment.apiUrl + 'table/list/upload', data, { headers: headers })
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
+    // uploadTableList(data) {
+    //     const headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     return this.http.post(environment.apiUrl + 'table/list/upload', data, { headers: headers })
+    //         .map((res: Response) => res.json())
+    //         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    // }
 
     downloadTableList(data) {
         const headers = new Headers();

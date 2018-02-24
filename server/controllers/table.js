@@ -324,66 +324,66 @@ exports.downloadTableList = function (req, res) {
   }
 };
 
-exports.uploadTableList = function (req, res) {
-  const csv = require('csvtojson')
-  let error = undefined;
-  csvtojson()
-    .fromString(req.body.csv)
-    .on('csv', (csvRow) => {
-      console.log(csvRow.length);
-      if (csvRow.length !== 6) {
-        error = {
-          message: 'Not A Valid CSV File'
-        }
-      } else {
-        const table = new Table({
-          tableName: csvRow[0],
-          tableDescription: csvRow[1],
-          createdOn: csvRow[2],
-          createdBy: csvRow[3] == '' ? undefined : csvRow[3],
-          changedOn: csvRow[4],
-          changedBy: csvRow[5] == '' ? undefined : csvRow[5],
-        });
-        console.log(table);
-        Table.find({
-          tableName: table.tableName
-        }).exec((err, tables) => {
-          if (err) {
-            error = err;
-          }
-          if (tables.length > 0) {
-            // "Table Already Exist"
-          } else {
-            table.save((err) => {
-              if (err) {
-                error = err;
-              }
-              MongoClient.connect(config.url, function (err, db) {
-                if (err) throw err;
-                var dbo = db.db(config.databaseName);
-                dbo.createCollection(table.tableName, function (err, response) {
-                  if (err) throw err;
-                  db.close();
-                });
-              });
-            });
-          }
-        });
-      }
-    })
-    .on('done', () => {
-      if (error) {
-        return res.json({
-          error: true,
-          message: error.message
-        });
-      }
-      return res.json({
-        success: true,
-        message: 'Tables Uploaded'
-      });
-    })
-};
+// exports.uploadTableList = function (req, res) {
+//   const csv = require('csvtojson')
+//   let error = undefined;
+//   csvtojson()
+//     .fromString(req.body.csv)
+//     .on('csv', (csvRow) => {
+//       console.log(csvRow.length);
+//       if (csvRow.length !== 6) {
+//         error = {
+//           message: 'Not A Valid CSV File'
+//         }
+//       } else {
+//         const table = new Table({
+//           tableName: csvRow[0],
+//           tableDescription: csvRow[1],
+//           createdOn: csvRow[2],
+//           createdBy: csvRow[3] == '' ? undefined : csvRow[3],
+//           changedOn: csvRow[4],
+//           changedBy: csvRow[5] == '' ? undefined : csvRow[5],
+//         });
+//         console.log(table);
+//         Table.find({
+//           tableName: table.tableName
+//         }).exec((err, tables) => {
+//           if (err) {
+//             error = err;
+//           }
+//           if (tables.length > 0) {
+//             // "Table Already Exist"
+//           } else {
+//             table.save((err) => {
+//               if (err) {
+//                 error = err;
+//               }
+//               MongoClient.connect(config.url, function (err, db) {
+//                 if (err) throw err;
+//                 var dbo = db.db(config.databaseName);
+//                 dbo.createCollection(table.tableName, function (err, response) {
+//                   if (err) throw err;
+//                   db.close();
+//                 });
+//               });
+//             });
+//           }
+//         });
+//       }
+//     })
+//     .on('done', () => {
+//       if (error) {
+//         return res.json({
+//           error: true,
+//           message: error.message
+//         });
+//       }
+//       return res.json({
+//         success: true,
+//         message: 'Tables Uploaded'
+//       });
+//     })
+// };
 
 
 exports.downloadTableSchema = function (req, res) {
