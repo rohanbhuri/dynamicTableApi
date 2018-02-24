@@ -222,10 +222,8 @@ export class CreateUpdateTableComponent implements OnInit {
       const currentline = lines[i].split(',');
 
       for (let j = 0; j < headers.length; j++) {
-        headers[j] = headers[j].replace('/"', '')
         obj[headers[j]] = currentline[j];
       }
-
       result.push(obj);
 
     }
