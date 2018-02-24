@@ -8,7 +8,8 @@ const schema = new mongoose.Schema({
   tableName: {
     type: String,
     lowercase: true,
-    trim: true
+    trim: true,
+    required: true
   },
   tableDescription: {
     type: String
@@ -18,9 +19,13 @@ const schema = new mongoose.Schema({
       type: String,
       trim: true,
       lowercase: true,
+      required: true
     },
     type: {
       type: String
+    },
+    length: {
+      type: Number
     },
     unique: {
       type: Boolean

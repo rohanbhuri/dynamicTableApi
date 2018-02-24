@@ -32,6 +32,7 @@
       <tr>
         <th>Field Name</th>
         <th>Type</th>
+        <th>Length</th>
         <th>Unique</th>
         <th>Null</th>
         <th>Field Description</th>
@@ -46,10 +47,13 @@
           {{field.type}}
         </td>
         <td>
-          <mat-checkbox [ngModel]="field.unique"></mat-checkbox>
+          {{field.length}}
         </td>
         <td>
-          <mat-checkbox [ngModel]="field.null"></mat-checkbox>
+          <mat-checkbox disabled [ngModel]="field.unique"></mat-checkbox>
+        </td>
+        <td>
+          <mat-checkbox disabled [ngModel]="field.null"></mat-checkbox>
         </td>
         <td>
           {{field.fieldDescription}}

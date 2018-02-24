@@ -58,7 +58,7 @@ export class OpenTableComponent implements OnInit {
         array = res.table._schema;
         array.forEach((element, key) => {
           console.log(element.fieldName === filterValue);
-          if (element.fieldName === filterValue) {
+          if (new RegExp('^' + filterValue, 'i').test(element.fieldName)) {
             this.data._schema.push(element);
           } else {
             this.data._schema.splice(key, 1);

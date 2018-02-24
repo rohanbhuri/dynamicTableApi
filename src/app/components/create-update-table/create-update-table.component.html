@@ -57,6 +57,7 @@
       <tr>
         <th>Field Name</th>
         <th>Type</th>
+        <th>Length</th>
         <th>Unique</th>
         <th>Null</th>
         <th>Field Description</th>
@@ -86,6 +87,11 @@
           </mat-form-field>
         </td>
         <td>
+          <mat-form-field class="full-width" *ngIf="field.type.value === 'Double' || field.type.value === 'Integer' || field.type.value ===  'Number' || field.type.value === 'String'">
+            <input matInput type="number" [formControl]="field.length">
+          </mat-form-field>
+        </td>
+        <td>
           <mat-checkbox [formControl]="field.unique"></mat-checkbox>
         </td>
         <td>
@@ -94,9 +100,6 @@
         <td>
           <mat-form-field class="full-width">
             <input matInput [formControl]="field.fieldDescription">
-            <mat-error *ngIf="field.fieldDescription.hasError('required')">
-              Please fill the required field
-            </mat-error>
           </mat-form-field>
         </td>
         <td>

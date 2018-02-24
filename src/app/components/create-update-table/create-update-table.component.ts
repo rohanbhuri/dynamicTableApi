@@ -16,12 +16,10 @@ export class CreateUpdateTableComponent implements OnInit {
   tableName = new FormControl(undefined, [
     Validators.required,
   ]);
-  tableDescription = new FormControl(undefined, [
-    Validators.required,
-  ]);
+  tableDescription = new FormControl(undefined);
 
-  Types = ['String', 'Number', 'Boolean', 'Double', 'Object', 'Object Id', 'Array',
-    'Date', 'Timestamp', 'Binary Data', 'Null', 'Regular Expression', 'JavaScript', 'Symbol', 'Integer'];
+  Types = ['Array', 'Boolean', 'Binary Data', 'Date', 'Double', 'Integer', 'JavaScript', 'Number', 'Null', 'Object', 'Object Id',
+    'Regular Expression', 'String', 'Symbol', 'Timestamp'];
 
   editing = false;
 
@@ -64,6 +62,7 @@ export class CreateUpdateTableComponent implements OnInit {
             this.fields.push({
               fieldName: new FormControl(element.fieldName, [Validators.required]),
               type: new FormControl(element.type, [Validators.required]),
+              length: new FormControl(element.length),
               unique: new FormControl(element.unique),
               null: new FormControl(element.null),
               fieldDescription: new FormControl(element.fieldDescription)
@@ -75,98 +74,102 @@ export class CreateUpdateTableComponent implements OnInit {
     });
   }
 
-  createTable() {
-    if (this.checkValid() || this.checkDuplicatefield()) {
-      this.loading = true;
-      const _schema = [];
-      this.fields.forEach(element => {
-        _schema.push({
-          fieldName: element.fieldName.value,
-          type: element.type.value,
-          unique: element.unique.value,
-          null: element.null.value,
-          fieldDescription: element.fieldDescription.value
-        });
-      });
-
-      const data = {
-        tableName: this.tableName.value,
-        tableDescription: this.tableDescription.value,
-        createdBy: JSON.parse(localStorage.getItem('currentUser'))._id,
-        _schema: _schema
-      };
-      this.tableService.createTable(data).subscribe(res => {
-        console.log(res);
-        if (res.success) {
-          this.snackBar.open(res.message, 'OK', {
-            duration: 3000,
-          });
-          this.loading = false;
-          this.location.back();
-        }
-        if (res.error) {
-          this.loading = false;
-          this.snackBar.open(res.message, 'OK', {
-            duration: 3000,
-          });
-        }
-      });
+  checkTypeAssignLength(element): String {
+    if (
+      element.type.value === 'Double' ||
+      element.type.value === 'Integer' ||
+      element.type.value === 'Number' ||
+      element.type.value === 'String'
+    ) {
+      return element.length.value;
     } else {
-      this.snackBar.open('Invalid Table Specifications', 'OK', {
-        duration: 3000,
-      });
+      return undefined;
     }
   }
 
-  updateTable() {
-    if (this.checkValidOnEdit() || this.checkDuplicatefield()) {
-      this.loading = true;
-      const _schema = [];
-      this.fields.forEach(element => {
-        _schema.push({
-          fieldName: element.fieldName.value,
-          type: element.type.value,
-          unique: element.unique.value,
-          null: element.null.value,
-          fieldDescription: element.fieldDescription.value
-        });
+  createTable() {
+    this.loading = true;
+    const _schema = [];
+    this.fields.forEach(element => {
+      _schema.push({
+        fieldName: element.fieldName.value,
+        type: element.type.value,
+        length: this.checkTypeAssignLength(element),
+        unique: element.unique.value,
+        null: element.null.value,
+        fieldDescription: element.fieldDescription.value
       });
+    });
 
-      const data = {
-        id: this.data._id,
-        tableName: this.tableName.value,
-        tableDescription: this.tableDescription.value,
-        changedOn: Date.now(),
-        changedBy: JSON.parse(localStorage.getItem('currentUser'))._id,
-        _schema: _schema
-      };
-      this.tableService.updateTable(data).subscribe(res => {
-        console.log(res);
-        if (res.success) {
-          this.snackBar.open(res.message, 'OK', {
-            duration: 3000,
-          });
-          this.loading = false;
-          this.location.back();
-        }
-        if (res.error) {
-          this.loading = false;
-          this.snackBar.open(res.message, 'OK', {
-            duration: 3000,
-          });
-        }
+    const data = {
+      tableName: this.tableName.value,
+      tableDescription: this.tableDescription.value,
+      createdBy: JSON.parse(localStorage.getItem('currentUser'))._id,
+      _schema: _schema
+    };
+    this.tableService.createTable(data).subscribe(res => {
+      console.log(res);
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.loading = false;
+        this.location.back();
+      }
+      if (res.error) {
+        this.loading = false;
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+
+  updateTable() {
+    this.loading = true;
+    const _schema = [];
+    this.fields.forEach(element => {
+      _schema.push({
+        fieldName: element.fieldName.value,
+        type: element.type.value,
+        length: this.checkTypeAssignLength(element),
+        unique: element.unique.value,
+        null: element.null.value,
+        fieldDescription: element.fieldDescription.value
       });
-    } else {
-      this.snackBar.open('Invalid Table Specifications', 'OK', {
-        duration: 3000,
-      });
-    }
+    });
+
+    const data = {
+      id: this.data._id,
+      tableName: this.tableName.value,
+      tableDescription: this.tableDescription.value,
+      changedOn: Date.now(),
+      changedBy: JSON.parse(localStorage.getItem('currentUser'))._id,
+      _schema: _schema
+    };
+    this.tableService.updateTable(data).subscribe(res => {
+      console.log(res);
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.loading = false;
+        this.location.back();
+      }
+      if (res.error) {
+        this.loading = false;
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+      }
+    });
   }
 
   addField() {
     this.fields.push({
       fieldName: new FormControl(undefined, [Validators.required]),
       type: new FormControl(undefined, [Validators.required]),
+      length: new FormControl(undefined),
       unique: new FormControl(undefined),
       null: new FormControl(undefined),
       fieldDescription: new FormControl(undefined)
@@ -177,77 +180,4 @@ export class CreateUpdateTableComponent implements OnInit {
     this.fields.splice(i, 1);
   }
 
-  checkDuplicatefield(): boolean {
-    let duplicacy = true;
-    this.fields.forEach((element1, key1) => {
-      this.fields.forEach((element2, key2) => {
-        if (element1.fieldName.value === element2.fieldName.value) {
-          if (key1 !== key2) {
-            duplicacy = false;
-            return duplicacy;
-          }
-        }
-      });
-    });
-    return duplicacy;
-  }
-
-  checkValid(): boolean {
-    let valid = false;
-    if (
-      this.tableName.valid &&
-      this.tableDescription.valid
-    ) {
-      this.fields.forEach(element => {
-        console.log(element.fieldName.valid &&
-          element.fieldDescription.valid &&
-          element.type.valid &&
-          element.null.valid &&
-          element.unique.valid
-        );
-        if (
-          element.fieldName.valid &&
-          element.fieldDescription.valid &&
-          element.type.valid &&
-          element.null.valid &&
-          element.unique.valid
-        ) {
-          valid = true;
-        } else {
-          valid = false;
-        }
-      });
-    } else {
-      valid = false;
-    }
-    return valid;
-  }
-  checkValidOnEdit(): boolean {
-    let valid = false;
-    if (
-      this.tableDescription.valid
-    ) {
-      this.fields.forEach(element => {
-        console.log(element.fieldName.valid &&
-          element.fieldDescription.valid &&
-          element.type.valid &&
-          element.unique.valid &&
-          element.null.valid);
-        if (
-          element.fieldName.valid &&
-          element.fieldDescription.valid &&
-          element.type.valid &&
-          element.unique.valid &&
-          element.null.valid
-        ) {
-          valid = true;
-        } else {
-          valid = false;
-        }
-      });
-    } else {
-      valid = false;
-    }
-    return valid;
-  }
 }

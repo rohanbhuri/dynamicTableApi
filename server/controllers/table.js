@@ -16,8 +16,8 @@ exports.listTables = function (req, res) {
   if (req.body.search) {
     Table
       .find({
-        $text: {
-          $search: req.body.search
+        'tableName': {
+          $regex: new RegExp("^" + req.body.search.toLowerCase(), "i")
         }
       })
       .lean()
@@ -110,8 +110,12 @@ exports.readTable = function (req, res) {
 };
 
 exports.createTable = function (req, res) {
-
-  // console.log(req.body);
+  if (!req.body.tableName || req.body.tableName.trim().toLowerCase() == '') {
+    return res.json({
+      error: true,
+      message: "Table Name Required",
+    });
+  }
   Table.find({
     tableName: req.body.tableName.trim().toLowerCase()
   }).exec((err, tables) => {
@@ -130,6 +134,8 @@ exports.createTable = function (req, res) {
     } else {
       const table = new Table(req.body);
       let validationError = false;
+      let validationError2 = false;
+      let validationError3 = false;
       table._schema.forEach((element1, key1) => {
         table._schema.forEach((element2, key2) => {
           if (key1 !== key2) {
@@ -137,12 +143,30 @@ exports.createTable = function (req, res) {
               validationError = true;
             }
           }
+          if (!element2.fieldName || element2.fieldName.trim().toLowerCase() == '') {
+            validationError2 = true;
+          }
+          if (!element2.type || element2.type.trim().toLowerCase() == '') {
+            validationError3 = true;
+          }
           console.log(key1 + 1, key2 + 1, req.body._schema.length)
           if ((key1 + 1) === req.body._schema.length && (key2 + 1) === req.body._schema.length) {
             if (validationError) {
               return res.json({
                 error: true,
                 message: "Duplicate Field Name",
+              });
+            }
+            if (validationError2) {
+              return res.json({
+                error: true,
+                message: "Empty Field Name Not Allowed",
+              });
+            }
+            if (validationError3) {
+              return res.json({
+                error: true,
+                message: "Empty Type Field Not Allowed",
               });
             } else {
               proceed()
@@ -180,13 +204,20 @@ exports.createTable = function (req, res) {
 }
 
 exports.updateTable = function (req, res) {
-  console.log(req.body);
   let validationError = false;
+  let validationError2 = false;
+  let validationError3 = false;
   req.body._schema.forEach((element1, key1) => {
     req.body._schema.forEach((element2, key2) => {
       if (key1 !== key2) {
         if (element1.fieldName.trim().toLowerCase() === element2.fieldName.trim().toLowerCase()) {
           validationError = true;
+        }
+        if (!element2.fieldName || element2.fieldName.trim().toLowerCase() == '') {
+          validationError2 = true;
+        }
+        if (!element2.type || element2.type.trim().toLowerCase() == '') {
+          validationError3 = true;
         }
       }
       console.log(key1 + 1, key2 + 1, req.body._schema.length)
@@ -195,6 +226,18 @@ exports.updateTable = function (req, res) {
           return res.json({
             error: true,
             message: "Duplicate Field Name",
+          });
+        }
+        if (validationError2) {
+          return res.json({
+            error: true,
+            message: "Empty Field Name Not Allowed",
+          });
+        }
+        if (validationError3) {
+          return res.json({
+            error: true,
+            message: "Empty Type Field Not Allowed",
           });
         } else {
           proceed()
@@ -449,7 +492,7 @@ exports.downloadTableSchema = function (req, res) {
           Info: err
         });
       }
-      var fields = ['fieldName', 'type', 'unique', 'null', 'fieldDescription'];
+      var fields = ['fieldName', 'type', 'length', 'unique', 'null', 'fieldDescription'];
 
       try {
         var result = json2csv({
@@ -492,7 +535,7 @@ exports.uploadTableSchema = function (req, res) {
       csvtojson()
         .fromString(req.body.csv)
         .on('csv', (csvRow) => {
-          if (csvRow.length !== 5) {
+          if (csvRow.length !== 6) {
             error = {
               message: 'Not A Valid CSV File'
             }
@@ -500,9 +543,10 @@ exports.uploadTableSchema = function (req, res) {
             schema.push({
               fieldName: csvRow[0],
               type: csvRow[1] == '' ? undefined : csvRow[1],
-              unique: csvRow[2],
-              null: csvRow[3],
-              fieldDescription: csvRow[4] == '' ? undefined : csvRow[4]
+              length: csvRow[2] == '' ? undefined : csvRow[2],
+              unique: csvRow[3],
+              null: csvRow[4],
+              fieldDescription: csvRow[5] == '' ? undefined : csvRow[5]
             });
           }
         })
