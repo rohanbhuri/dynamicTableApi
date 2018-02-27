@@ -41,9 +41,12 @@ import { DeleteTableComponent, DeleteTableDilogComponent } from './components/de
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { DisplayRecordsComponent } from './components/display-records/display-records.component';
+import { CreateRecordsComponent } from './components/create-records/create-records.component';
 
 
 const appRoutes: Routes = [
+
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'tables', component: TablesComponent, canActivate: [AuthGuardService] },
@@ -53,7 +56,9 @@ const appRoutes: Routes = [
   { path: 'delete-table/:id', component: DeleteTableComponent, canActivate: [AuthGuardService] },
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] }
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
+  { path: 'add-records/:id', component: CreateRecordsComponent, canActivate: [AuthGuardService] },
+  { path: 'display-records/:id', component: DisplayRecordsComponent, canActivate: [AuthGuardService] },
 
 ];
 
@@ -69,7 +74,9 @@ const appRoutes: Routes = [
     SigninComponent,
     SignupComponent,
     LogoutComponent,
-    DeleteTableDilogComponent
+    DeleteTableDilogComponent,
+    DisplayRecordsComponent,
+    CreateRecordsComponent
   ],
   imports: [
     BrowserModule,

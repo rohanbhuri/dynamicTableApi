@@ -1,0 +1,55 @@
+<div *ngIf="!data" class="full-width content-center margin-top-4 margin-bottom-4">
+  <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
+</div>
+
+<mat-card class="full-height" *ngIf="data">
+  <div class="row">
+    <div class=" small-12 columns content-center">
+      <strong class="margin-top-2 margin-bottom-2">
+        <h4>Table {{data.tableName}}</h4>
+      </strong>
+    </div>
+  </div>
+  <br>
+  <div class="row small-up-1 medium-up-2 large-up-3">
+    <div class="column">
+      <label>Table: </label>{{data.tableName}}
+    </div>
+    <div class="column">
+      <label>Description: </label>{{data.tableDescription}}
+    </div>
+    <div class="column content-center">
+      <button mat-raised-button color="primary" (click)="addRecord()">Add Record</button>
+      <button mat-raised-button color="accent" (click)="createRecords()">Create Records</button>
+      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+    </div>
+  </div>
+  <br>
+
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let field of schema; let i = index">{{field.fieldName}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of fieldData; let j = index">
+        <td *ngFor="let field of schema;">
+          <mat-form-field class="full-width">
+            <input matInput [(ngModel)]="data[field.fieldName]">
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <div class="toolbar">
+
+      </div>
+    </tfoot>
+  </table>
+
+
+
+
+
+</mat-card>

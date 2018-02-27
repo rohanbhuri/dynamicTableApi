@@ -1,0 +1,34 @@
+table {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+    thead,
+    tfoot {
+      background: #fff;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 12px;
+      font-weight: 500;
+      border: none;
+    }
+    tbody {
+      border: none;
+      background-color: #fff;
+      tr:nth-child(even) {
+        background-color: #fff;
+      }
+    }
+  }
+  
+  .toolbar {
+    mat-form-field {
+      font-size: 14px;
+      padding: 0px 4px;
+    }
+    .search-bar {
+      width: 80%;
+    }
+    .search-icon {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+    }
+  }
+  

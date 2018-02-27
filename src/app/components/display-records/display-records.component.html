@@ -1,0 +1,80 @@
+<div *ngIf="!data" class="full-width content-center margin-top-4 margin-bottom-4">
+  <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
+</div>
+
+<mat-card class="full-height" *ngIf="data">
+  <div class="row">
+    <div class=" small-12 columns content-center">
+      <strong class="margin-top-2 margin-bottom-2">
+        <h4>Table {{data.tableName}}</h4>
+      </strong>
+    </div>
+  </div>
+  <br>
+  <div class="row small-up-1 medium-up-2 large-up-3">
+    <div class="column">
+      <label>Table: </label>{{data.tableName}}
+    </div>
+    <div class="column">
+      <label>Description: </label>{{data.tableDescription}}
+    </div>
+    <div class="column content-center">
+      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+    </div>
+  </div>
+  <br>
+  <div class="toolbar text-right">
+    <mat-form-field class="relative">
+      <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
+      <mat-icon color="accent" class="search-icon">search</mat-icon>
+    </mat-form-field>
+    <button mat-icon-button color="primary" matTooltip="Add Records" [routerLink]="['/add-records', this.id]">
+      <mat-icon>library_add</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Edit Table" [routerLink]="['/edit-table', this.id]">
+      <mat-icon>mode_edit</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Delete Table" [routerLink]="['/delete-table', this.id]">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      (change)="uploadTable($event)" />
+    <button mat-icon-button color="accent" matTooltip="Upload Tables" (click)="document.getElementById('uploadTable').click();">
+      <mat-icon>file_upload</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Download Table" (click)="downloadTable()">
+      <mat-icon>file_download</mat-icon>
+    </button>
+  </div>
+
+
+  <!-- <div [ngClass]="{'display-none': records}" class="full-width content-center margin-top-4 margin-bottom-4">
+    <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
+  </div> -->
+
+  <div class="table-container mat-elevation-z8">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="{{field.fieldName}}" *ngFor="let field of data._schema let i = index">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{field.fieldName}}</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{item.tableName}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let item; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    <div class="table-footer">
+      <div class="toolbar">
+        <!-- put tool bar here -->
+      </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
+    </div>
+  </div>
+
+
+
+
+
+</mat-card>

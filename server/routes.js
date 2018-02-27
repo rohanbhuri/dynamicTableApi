@@ -1,5 +1,6 @@
 const express = require('express');
 var table = require('./controllers/table');
+var record = require('./controllers/record');
 var auth = require('./controllers/auth');
 const router = express.Router();
 
@@ -23,8 +24,11 @@ router.post('/table/list/download', (req, res) => { table.downloadTableList(req,
 router.post('/table/schema/download', (req, res) => { table.downloadTableSchema(req, res) });
 router.post('/table/schema/upload', (req, res) => { table.uploadTableSchema(req, res) });
 
-
-router.post('/insert', (req, res) => { table.insert(req, res) });
+router.post('/records/list', (req, res) => { record.listRecords(req, res) });
+router.post('/records/read', (req, res) => { record.readRecords(req, res) });
+router.post('/records/create', (req, res) => { record.createRecords(req, res) });
+router.post('/records/update', (req, res) => { record.updateRecords(req, res) });
+router.post('/records/delete', (req, res) => { record.deleteRecords(req, res) });
 
 module.exports = router;
 

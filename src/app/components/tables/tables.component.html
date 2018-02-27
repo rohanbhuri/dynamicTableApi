@@ -29,32 +29,32 @@
 
       <ng-container matColumnDef="tableName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Table Name</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]">{{item.tableName}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-records', item._id]">{{item.tableName}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="tableDescription">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Table Description</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]">{{item.tableDescription}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-records', item._id]">{{item.tableDescription}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="changedOn">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Changed On</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]">{{item.changedOn | date: 'dd/MM/yyyy'}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-records', item._id]">{{item.changedOn | date: 'dd/MM/yyyy'}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="changedBy">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Changed By</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]" matTooltip="{{item.changedBy?.email}}">{{item.changedBy?.username}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-records', item._id]" matTooltip="{{item.changedBy?.email}}">{{item.changedBy?.username}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="createdOn">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Created On</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]">{{item.createdOn | date: 'dd/MM/yyyy'}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-records', item._id]">{{item.createdOn | date: 'dd/MM/yyyy'}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="createdBy">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
-        <mat-cell *matCellDef="let item" [routerLink]="['/open-table', item._id]" matTooltip="{{item.createdBy?.email}}">{{item.createdBy?.username}}</mat-cell>
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-records', item._id]" matTooltip="{{item.createdBy?.email}}">{{item.createdBy?.username}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">

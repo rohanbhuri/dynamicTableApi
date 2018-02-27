@@ -276,24 +276,6 @@ exports.updateTable = function (req, res) {
   }
 }
 
-exports.insert = function (req, res) {
-  console.log(req.body);
-  MongoClient.connect(config.url, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    var myobj = {
-      name: "Company Inc",
-      address: "Highway 37"
-    };
-    dbo.collection(req.body.tableName).insertOne(req.body.data, function (err, res) {
-      if (err) throw err;
-      console.log("1 document inserted");
-      db.close();
-    });
-  });
-
-}
-
 exports.deleteTable = function (req, res) {
   console.log(req.body);
   Table.findOne({
@@ -344,11 +326,13 @@ exports.downloadTableList = function (req, res) {
   if (req.body.search) {
     Table
       .find({
-        $text: {
-          $search: req.body.search
+        'tableName': {
+          $regex: new RegExp("^" + req.body.search.toLowerCase(), "i")
         }
       })
       .sort(req.body.sort)
+      .populate('createdBy', 'username')
+      .populate('changedBy', 'username')
       .exec((err, tables) => {
         if (err) {
           return res.json({
@@ -357,34 +341,47 @@ exports.downloadTableList = function (req, res) {
             Info: err
           });
         }
-        // tables.forEach(element => {
-        //   console.log(typeof element.keys)
-        // });
-        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
 
-        try {
-          var result = json2csv({
-            data: tables,
-            fields: fields
-          });
-          return res.json({
-            success: true,
-            message: 'Table Downloaded',
-            result: result
-          });
-        } catch (err) {
-          console.error(err);
-          return res.json({
-            error: true,
-            message: err.message,
-            Info: err
-          });
-        }
+        let newTable = [];
+        tables.forEach((element, key) => {
+          newTable.push({
+            tableName: element.tableName,
+            tableDescription: element.tableDescription,
+            createdOn: element.createdOn,
+            createdBy: element.createdBy == null || undefined ? undefined : element.createdBy.username,
+            changedOn: element.changedOn,
+            changedBy: element.changedBy == null || undefined ? undefined : element.changedBy.username,
+          })
+          if (key + 1 === tables.length) {
+            var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+            try {
+              var result = json2csv({
+                data: newTable,
+                fields: fields
+              });
+              return res.json({
+                success: true,
+                message: 'Table Downloaded',
+                result: result
+              });
+            } catch (err) {
+              console.error(err);
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            }
+          }
+        });
+
       });
   } else {
     Table
       .find({})
       .sort(req.body.sort)
+      .populate('createdBy', 'username')
+      .populate('changedBy', 'username')
       .exec((err, tables) => {
         if (err) {
           return res.json({
@@ -393,25 +390,42 @@ exports.downloadTableList = function (req, res) {
             Info: err
           });
         }
-        var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
-        try {
-          var result = json2csv({
-            data: tables,
-            fields: fields
-          });
-          return res.json({
-            success: true,
-            message: 'Table Downloaded',
-            result: result
-          });
-        } catch (err) {
-          console.error(err);
-          return res.json({
-            error: true,
-            message: err.message,
-            Info: err
-          });
-        }
+
+        let newTable = [];
+        tables.forEach((element, key) => {
+          newTable.push({
+            tableName: element.tableName,
+            tableDescription: element.tableDescription,
+            createdOn: element.createdOn,
+            createdBy: element.createdBy == null || undefined ? undefined : element.createdBy.username,
+            changedOn: element.changedOn,
+            changedBy: element.changedBy == null || undefined ? undefined : element.changedBy.username,
+          })
+          if (key + 1 === tables.length) {
+
+            var fields = ['tableName', 'tableDescription', 'createdOn', 'createdBy', 'changedOn', 'changedBy'];
+            try {
+              var result = json2csv({
+                data: newTable,
+                fields: fields
+              });
+              return res.json({
+                success: true,
+                message: 'Table Downloaded',
+                result: result
+              });
+            } catch (err) {
+              console.error(err);
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            }
+          }
+        });
+
+
       });
   }
 };

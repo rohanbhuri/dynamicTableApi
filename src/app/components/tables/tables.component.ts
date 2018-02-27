@@ -17,6 +17,7 @@ export class TablesComponent implements AfterViewInit {
   tables = undefined;
   total = 0;
   document = document;
+  search = undefined;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -69,8 +70,10 @@ export class TablesComponent implements AfterViewInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     if (filterValue === '') {
       this.dataSource.filter = undefined;
+      this.search = undefined;
     } else {
       this.dataSource.filter = filterValue;
+      this.search = filterValue;
     }
     this.getData();
   }
@@ -81,7 +84,7 @@ export class TablesComponent implements AfterViewInit {
 
   downloadTable() {
     const params = {
-      search: this.dataSource.filter,
+      search: this.search,
       sort: { [this.sort.active]: this.sort.direction === 'desc' ? -1 : 1 }
     };
     this.tableService.downloadTableList(params).subscribe(res => {
