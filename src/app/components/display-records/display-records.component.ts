@@ -13,11 +13,14 @@ import { MatSnackBar } from '@angular/material';
 export class DisplayRecordsComponent implements AfterViewInit {
 
   id;
-  data;
+  data = {
+    _schema: []
+  };
   document = document;
 
   records = undefined;
   total = 0;
+  search;
 
   displayedColumns = [];
   dataSource: MatTableDataSource<any>;
@@ -31,13 +34,15 @@ export class DisplayRecordsComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private location: Location,
     private tableService: TableService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource(this.records);
   }
 
   ngAfterViewInit() {
-    this.setFields();
+    setTimeout(() => {
+      this.setFields();
+    }, 0);
   }
 
   setFields() {
@@ -65,9 +70,11 @@ export class DisplayRecordsComponent implements AfterViewInit {
   }
 
   getData() {
+    console.log(this.paginator);
     this.records = undefined;
     const params = {
-      search: this.dataSource.filter,
+      id: this.id,
+      search: this.search,
       page: this.paginator.pageIndex,
       limit: this.paginator.pageSize,
       sort: { [this.sort.active]: this.sort.direction === 'desc' ? -1 : 1 }
@@ -80,17 +87,30 @@ export class DisplayRecordsComponent implements AfterViewInit {
         });
       }
       if (res.success) {
-        // this.records = res.records;
-        // this.total = res.total;
-        // this.ngZone.run(() => {
-        //   this.dataSource = new MatTableDataSource(this.records);
-        // });
+        this.records = res.records;
+        this.total = res.total;
+        this.ngZone.run(() => {
+          this.dataSource = new MatTableDataSource(this.records);
+        });
       }
     });
   }
 
   applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    if (filterValue === '') {
+      this.dataSource.filter = undefined;
+      this.search = undefined;
+    } else {
+      this.dataSource.filter = filterValue;
+      this.search = filterValue;
+    }
+    this.getData();
+  }
 
+  onPageChange(event) {
+    this.getData();
   }
 
 }

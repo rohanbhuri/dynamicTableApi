@@ -1,8 +1,8 @@
-<div *ngIf="!data" class="full-width content-center margin-top-4 margin-bottom-4">
+<div *ngIf="loading" class="full-width content-center margin-top-4 margin-bottom-4">
   <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
 </div>
 
-<mat-card class="full-height" *ngIf="data">
+<mat-card *ngIf="!loading" class="full-height">
   <div class="row">
     <div class=" small-12 columns content-center">
       <strong class="margin-top-2 margin-bottom-2">
@@ -30,14 +30,20 @@
     <thead>
       <tr>
         <th *ngFor="let field of schema; let i = index">{{field.fieldName}}</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of fieldData; let j = index">
-        <td *ngFor="let field of schema;">
+        <td *ngFor="let field of schema; let k = index">
           <mat-form-field class="full-width">
             <input matInput [(ngModel)]="data[field.fieldName]">
           </mat-form-field>
+        </td>
+        <td>
+          <button mat-icon-button (click)="removeRecord(j);">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -47,9 +53,6 @@
       </div>
     </tfoot>
   </table>
-
-
-
 
 
 </mat-card>

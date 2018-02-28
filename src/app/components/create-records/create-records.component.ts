@@ -23,6 +23,7 @@ export class CreateRecordsComponent implements OnInit {
 
   schema = [];
 
+  loading = false;
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -42,10 +43,12 @@ export class CreateRecordsComponent implements OnInit {
         const data = {
           id: this.id
         };
+        this.loading = true;
         this.tableService.getTable(data).subscribe(res => {
           console.log(res);
           this.data = res.table;
           this.schema = res.table._schema;
+          this.loading = false;
           this.addRecord();
         });
       }
@@ -61,13 +64,31 @@ export class CreateRecordsComponent implements OnInit {
     console.log(this.fieldData);
   }
 
+  removeRecord(i) {
+    this.fieldData.splice(i, 1);
+  }
+
   createRecords() {
     const data = {
       id: this.id,
       records: this.fieldData
     };
+    this.loading = true;
     this.tableService.createRecords(data).subscribe(res => {
       console.log(res);
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.loading = false;
+        this.location.back();
+      }
+      if (res.error) {
+        this.loading = false;
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+      }
     });
   }
 
