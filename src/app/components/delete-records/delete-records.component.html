@@ -6,7 +6,7 @@
   <div class="row">
     <div class=" small-12 columns content-center">
       <strong class="margin-top-2 margin-bottom-2">
-        <h4>Table {{data.tableName}}</h4>
+        <h4>Delete {{data.tableName}} Table Records</h4>
       </strong>
     </div>
   </div>
@@ -19,6 +19,7 @@
       <label>Description: </label>{{data.tableDescription}}
     </div>
     <div class="column content-center">
+      <button mat-raised-button color="accent" (click)="deleteRecords();">Delete</button>
       <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
     </div>
   </div>
@@ -28,25 +29,7 @@
       <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
       <mat-icon color="accent" class="search-icon">search</mat-icon>
     </mat-form-field>
-    <button mat-icon-button color="primary" matTooltip="Add Records" [routerLink]="['/add-records', this.id]">
-      <mat-icon>library_add</mat-icon>
-    </button>
-    <button mat-icon-button color="primary" matTooltip="Edit Records" [routerLink]="['/edit-records', this.id]">
-      <mat-icon>mode_edit</mat-icon>
-    </button>
-    <button mat-icon-button color="primary" matTooltip="Delete Records" [routerLink]="['/delete-records', this.id]">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <!-- <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-      (change)="uploadTable($event)" /> -->
-    <!-- <button mat-icon-button color="accent" matTooltip="Upload Records" (click)="document.getElementById('uploadTable').click();">
-      <mat-icon>file_upload</mat-icon>
-    </button> -->
-    <!-- <button mat-icon-button color="primary" matTooltip="Download Records" (click)="downloadTable()">
-      <mat-icon>file_download</mat-icon>
-    </button> -->
   </div>
-
 
   <div [ngClass]="{'display-none': records}" class="full-width content-center margin-top-4 margin-bottom-4">
     <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
@@ -55,6 +38,20 @@
   <div class="table-container mat-elevation-z8" [ngClass]="{'display-none': !records}">
 
     <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="Select">
+        <mat-header-cell *matHeaderCellDef> Select
+          <!-- <mat-checkbox matTooltip="Select all">
+            <span class="white">.</span>
+          </mat-checkbox> -->
+        </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          <mat-checkbox [ngModel]="item.select" (ngModelChange)="selectUnselectItems(item)">
+            <span class="white">.</span>
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="{{field.fieldName}}" *ngFor="let field of data._schema let i = index">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{field.fieldName}}</mat-header-cell>
         <mat-cell *matCellDef="let item">
@@ -71,35 +68,13 @@
 
     <div class="table-footer">
       <div class="toolbar">
-        <!-- <button mat-icon-button color="primary" matTooltip="Download Records" (click)="downloadTable()">
-          <mat-icon>file_download</mat-icon>
-        </button> -->
-        <!-- <button mat-icon-button color="accent" matTooltip="Upload Records" (click)="document.getElementById('uploadTable').click();">
-          <mat-icon>file_upload</mat-icon>
-        </button> -->
-        <button mat-icon-button color="primary" matTooltip="Delete Records" [routerLink]="['/delete-records', this.id]">
-          <mat-icon>delete</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" matTooltip="Edit Records" [routerLink]="['/edit-records', this.id]">
-          <mat-icon>mode_edit</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" matTooltip="Add Records" [routerLink]="['/add-records', this.id]">
-          <mat-icon>library_add</mat-icon>
-        </button>
-        <!-- <input id="uploadTable" style="width: 0px; visibility: hidden;" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-          (change)="uploadTable($event)" /> -->
         <mat-form-field class="relative">
           <input class="search-bar" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Tables ">
           <mat-icon color="accent" class="search-icon">search</mat-icon>
         </mat-form-field>
-
       </div>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
     </div>
   </div>
-
-
-
-
 
 </mat-card>

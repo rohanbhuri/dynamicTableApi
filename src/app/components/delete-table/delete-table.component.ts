@@ -19,7 +19,7 @@ export class DeleteTableComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location,
+    public location: Location,
     private tableService: TableService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog

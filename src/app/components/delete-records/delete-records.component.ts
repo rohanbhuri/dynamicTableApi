@@ -6,11 +6,11 @@ import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-  selector: 'app-display-records',
-  templateUrl: './display-records.component.html',
-  styleUrls: ['./display-records.component.scss']
+  selector: 'app-delete-records',
+  templateUrl: './delete-records.component.html',
+  styleUrls: ['./delete-records.component.scss']
 })
-export class DisplayRecordsComponent implements AfterViewInit {
+export class DeleteRecordsComponent implements AfterViewInit {
 
   id;
   data = {
@@ -24,8 +24,10 @@ export class DisplayRecordsComponent implements AfterViewInit {
   total = 0;
   search;
 
-  displayedColumns = [];
+  displayedColumns = ['Select'];
   dataSource: MatTableDataSource<any>;
+
+  selectedIds = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -113,6 +115,37 @@ export class DisplayRecordsComponent implements AfterViewInit {
 
   onPageChange(event) {
     this.getData();
+  }
+
+  selectUnselectItems(item) {
+    if (this.selectedIds.indexOf(item._id) > -1) {
+      this.selectedIds.splice(this.selectedIds.indexOf(item._id, 1));
+    } else {
+      this.selectedIds.push(item._id);
+    }
+    console.log(this.selectedIds);
+  }
+
+  deleteRecords() {
+    const data = {
+      id: this.id,
+      delete: this.selectedIds
+    };
+
+    this.tableService.deleteRecords(data).subscribe(res => {
+      console.log(res);
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.location.back();
+      }
+      if (res.error) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+      }
+    });
   }
 
 }

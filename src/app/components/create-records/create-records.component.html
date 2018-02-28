@@ -6,7 +6,7 @@
   <div class="row">
     <div class=" small-12 columns content-center">
       <strong class="margin-top-2 margin-bottom-2">
-        <h4>Table {{data.tableName}}</h4>
+        <h4>Create {{data.tableName}} Table Records</h4>
       </strong>
     </div>
   </div>
@@ -36,8 +36,17 @@
     <tbody>
       <tr *ngFor="let data of fieldData; let j = index">
         <td *ngFor="let field of schema; let k = index">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" *ngIf="field.type == 'String'">
             <input matInput [(ngModel)]="data[field.fieldName]">
+          </mat-form-field>
+          <mat-form-field class="full-width" *ngIf="field.type == 'Date'">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="data[field.fieldName]">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-checkbox *ngIf="field.type == 'Boolean'" [(ngModel)]="data[field.fieldName]"></mat-checkbox>
+          <mat-form-field class="full-width" *ngIf="field.type == 'Number'">
+            <input matInput type="number" [(ngModel)]="data[field.fieldName]">
           </mat-form-field>
         </td>
         <td>

@@ -45,13 +45,7 @@ exports.listRecords = function (req, res) {
           findQuery.push(obj)
         });
         someTable
-          .find(
-            //   {
-            //   'tableName': {
-            //     $regex: new RegExp("^" + req.body.search, "i")
-            //   }
-            // }
-          )
+          .find()
           .or(findQuery)
           .lean()
           .limit(req.body.limit)
@@ -185,6 +179,48 @@ exports.createRecords = function (req, res) {
           });
         });
       }
+    });
+}
+
+
+
+
+exports.deleteRecords = function (req, res) {
+  console.log(req.body);
+  Table.findOne({
+      '_id': req.body.id
+    })
+    .exec((err, table) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+      var someTable = createModel(table);
+      let error = undefined;
+      req.body.delete.forEach((element, key) => {
+        someTable.findByIdAndRemove(element, (err) => {
+          if (err) {
+            error = err;
+          }
+          if (req.body.delete.length === (key + 1) && !error) {
+            return res.json({
+              success: true,
+              message: 'Records Deleted'
+            });
+          }
+          if (req.body.delete.length === (key + 1) && error) {
+            console.log(assert.ok(error2))
+            return res.json({
+              error: true,
+              message: error.message,
+              Info: error,
+            });
+          }
+        });
+      });
     });
 }
 

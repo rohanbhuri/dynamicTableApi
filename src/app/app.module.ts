@@ -21,7 +21,9 @@ import {
   MatDialogModule,
   MatDividerModule,
   MatMenuModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 
@@ -43,7 +45,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { DisplayRecordsComponent } from './components/display-records/display-records.component';
 import { CreateRecordsComponent } from './components/create-records/create-records.component';
-
+import { DeleteRecordsComponent } from './components/delete-records/delete-records.component';
 
 const appRoutes: Routes = [
 
@@ -59,6 +61,8 @@ const appRoutes: Routes = [
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
   { path: 'add-records/:id', component: CreateRecordsComponent, canActivate: [AuthGuardService] },
   { path: 'display-records/:id', component: DisplayRecordsComponent, canActivate: [AuthGuardService] },
+  { path: 'delete-records/:id', component: DeleteRecordsComponent, canActivate: [AuthGuardService] },
+
 
 ];
 
@@ -76,7 +80,8 @@ const appRoutes: Routes = [
     LogoutComponent,
     DeleteTableDilogComponent,
     DisplayRecordsComponent,
-    CreateRecordsComponent
+    CreateRecordsComponent,
+    DeleteRecordsComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +107,8 @@ const appRoutes: Routes = [
     MatDividerModule,
     MatMenuModule,
     MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
     RouterModule.forRoot(appRoutes),
   ],

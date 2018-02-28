@@ -102,4 +102,11 @@ export class TableService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
+    deleteRecords(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'records/delete', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
 }

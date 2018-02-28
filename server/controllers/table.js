@@ -289,7 +289,7 @@ exports.deleteTable = function (req, res) {
       });
     }
 
-    Table.findByIdAndRemove(table._id, req.body, (err) => {
+    Table.findByIdAndRemove(table._id, (err) => {
       if (err) {
         return res.json({
           error: true,
