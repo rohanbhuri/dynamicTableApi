@@ -75,6 +75,8 @@ export class CreateUpdateTableComponent implements OnInit {
           });
           this.loading = false;
         });
+      } else {
+        this.addField();
       }
     });
   }

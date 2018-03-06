@@ -115,4 +115,27 @@ export class DisplayRecordsComponent implements AfterViewInit {
     this.getData();
   }
 
+  downloadTable() {
+    const params = {
+      id: this.id
+    };
+    this.tableService.downloadRecords(params).subscribe(res => {
+      console.log(res);
+      const parsedResponse = res.result;
+      const blob = new Blob([parsedResponse], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveBlob(blob, 'TableList.csv');
+      } else {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'TableList.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
 }

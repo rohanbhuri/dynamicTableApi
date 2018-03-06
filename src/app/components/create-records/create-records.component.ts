@@ -92,4 +92,54 @@ export class CreateRecordsComponent implements OnInit {
     });
   }
 
+  uploadRecords(event) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const base64Data = e.target.result.split('base64,');
+      // console.log(base64Data[1]);
+      const csv = atob(base64Data[1]);
+      // console.log(atob(base64Data[1]));
+      console.log(this.csvJSON(csv));
+      const csvData = JSON.parse(this.csvJSON(csv));
+      console.log(csvData);
+
+      csvData.forEach(element => {
+        const obj = {};
+        this.data._schema.forEach(element2 => {
+          console.log('\"' + element2.fieldName + '\"');
+          obj[element2.fieldName] = element['\"' + element2.fieldName + '\"'].replace(/"/g, '');
+          console.log(obj, 'objjjjjj');
+        });
+        this.fieldData.push(obj);
+      });
+
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  csvJSON(csv) {
+
+    const lines = csv.split('\n');
+
+    const result = [];
+
+    const headers = lines[0].split(',');
+
+    for (let i = 1; i < lines.length; i++) {
+
+      const obj = {};
+      const currentline = lines[i].split(',');
+
+      for (let j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+      result.push(obj);
+
+    }
+
+    // return result; //JavaScript object
+    return JSON.stringify(result); // JSON
+  }
+
+
 }

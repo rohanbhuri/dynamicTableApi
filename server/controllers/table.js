@@ -110,6 +110,12 @@ exports.readTable = function (req, res) {
 };
 
 exports.createTable = function (req, res) {
+  if (req.body._schema.length <= 0) {
+    return res.json({
+      error: true,
+      message: "Minimum one field is required.",
+    });
+  }
   if (!req.body.tableName || req.body.tableName.trim().toLowerCase() == '') {
     return res.json({
       error: true,

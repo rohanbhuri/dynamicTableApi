@@ -19,7 +19,6 @@ var assert = require('assert')
 
 exports.listRecords = function (req, res) {
   console.log(req.body);
-
   // find Table
   Table.findOne({
       '_id': req.body.id
@@ -120,6 +119,12 @@ exports.listRecords = function (req, res) {
 
 exports.createRecords = function (req, res) {
   console.log(req.body.records);
+  if (req.body.records.length <= 0) {
+    return res.json({
+      error: true,
+      message: 'Minimum one Record is required.',
+    });
+  }
   Table.findOne({
       '_id': req.body.id
     })
@@ -224,6 +229,148 @@ exports.deleteRecords = function (req, res) {
     });
 }
 
+exports.DownloadRecords = function (req, res) {
+  console.log(req.body);
+  // find Table
+  Table.findOne({
+      '_id': req.body.id
+    })
+    .exec((err, table) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+
+      var someTable = createModel(table)
+
+      if (req.body.search) {
+        let findQuery = [];
+        table._schema.forEach(element => {
+          let obj = {}
+          obj[element.fieldName] = {
+            $regex: new RegExp("^" + req.body.search, "i")
+          }
+          findQuery.push(obj)
+        });
+        someTable
+          .find()
+          .or(findQuery)
+          .lean()
+          .sort(req.body.sort)
+          .exec((err, tables) => {
+            if (err) {
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            }
+
+            var fields = [];
+            table._schema.forEach(element => {
+              fields.push(element.fieldName)
+            });
+            try {
+              var result = json2csv({
+                data: tables,
+                fields: fields
+              });
+              return res.json({
+                success: true,
+                message: 'Table Downloaded',
+                result: result
+              });
+            } catch (err) {
+              console.error(err);
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            }
+
+          });
+      } else {
+        someTable
+          .find({})
+          .lean()
+          .sort(req.body.sort)
+          .exec((err, tables) => {
+            if (err) {
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            }
+
+            var fields = [];
+            table._schema.forEach(element => {
+              fields.push(element.fieldName)
+            });
+            try {
+              var result = json2csv({
+                data: tables,
+                fields: fields
+              });
+              return res.json({
+                success: true,
+                message: 'Table Downloaded',
+                result: result
+              });
+            } catch (err) {
+              console.error(err);
+              return res.json({
+                error: true,
+                message: err.message,
+                Info: err
+              });
+            }
+
+
+          });
+      }
+    });
+}
+
+
+exports.readRecords = function (req, res) {
+
+  Table.findOne({
+      '_id': req.body.tableId
+    })
+    .exec((err, table) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+      var someTable = createModel(table)
+
+      someTable.findOne({
+          '_id': req.body.recordId
+        })
+        .exec((err, data) => {
+          if (err) {
+            return res.json({
+              error: true,
+              message: err.message,
+              Info: err
+            });
+          }
+          return res.json({
+            success: true,
+            message: 'Record',
+            record: data,
+          });
+        })
+    });
+}
 
 
 
@@ -236,12 +383,26 @@ function createModel(table) {
     },
   };
   table._schema.forEach(element => {
-    schemaObject[element.fieldName] = {
-      type: element.type,
-      text: true,
-      unique: element.unique,
-      required: [element.null == false ? true : false, element.fieldName + ' field required'],
-      max: [element.length, element.fieldName + ' field length exceeded']
+    if (element.type == 'String' || element.type == 'Number') {
+      schemaObject[element.fieldName] = {
+        type: element.type,
+        text: true,
+        unique: element.unique,
+        required: [element.null == false ? true : false, element.fieldName + ' field required'],
+        validate: {
+          validator: function (value) {
+            return element.length >= value.toString().length;
+          },
+          message: '{VALUE} Length Exceeds!'
+        },
+      }
+    } else {
+      schemaObject[element.fieldName] = {
+        type: element.type,
+        text: true,
+        unique: element.unique,
+        required: [element.null == false ? true : false, element.fieldName + ' field required'],
+      }
     }
   });
   const someSchema = new mongoose.Schema(schemaObject);

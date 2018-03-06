@@ -42,9 +42,9 @@
     <!-- <button mat-icon-button color="accent" matTooltip="Upload Records" (click)="document.getElementById('uploadTable').click();">
       <mat-icon>file_upload</mat-icon>
     </button> -->
-    <!-- <button mat-icon-button color="primary" matTooltip="Download Records" (click)="downloadTable()">
+    <button mat-icon-button color="primary" matTooltip="Download Records" (click)="downloadTable()">
       <mat-icon>file_download</mat-icon>
-    </button> -->
+    </button>
   </div>
 
 
@@ -57,7 +57,7 @@
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="{{field.fieldName}}" *ngFor="let field of data._schema let i = index">
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{field.fieldName}}</mat-header-cell>
-        <mat-cell *matCellDef="let item">
+        <mat-cell *matCellDef="let item" [routerLink]="['/display-record',id ,item._id]">
           <span *ngIf="field.type == 'Date'">{{item[field.fieldName] | date: 'dd/MM/yyyy'}}</span>
           <span *ngIf="field.type !== 'Date'">{{item[field.fieldName]}}</span>
         </mat-cell>
@@ -71,9 +71,9 @@
 
     <div class="table-footer">
       <div class="toolbar">
-        <!-- <button mat-icon-button color="primary" matTooltip="Download Records" (click)="downloadTable()">
+        <button mat-icon-button color="primary" matTooltip="Download Records" (click)="downloadTable()">
           <mat-icon>file_download</mat-icon>
-        </button> -->
+        </button>
         <!-- <button mat-icon-button color="accent" matTooltip="Upload Records" (click)="document.getElementById('uploadTable').click();">
           <mat-icon>file_upload</mat-icon>
         </button> -->

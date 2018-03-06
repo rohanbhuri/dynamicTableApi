@@ -46,6 +46,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { DisplayRecordsComponent } from './components/display-records/display-records.component';
 import { CreateRecordsComponent } from './components/create-records/create-records.component';
 import { DeleteRecordsComponent } from './components/delete-records/delete-records.component';
+import { DisplaySingleRecordComponent } from './components/display-single-record/display-single-record.component';
 
 const appRoutes: Routes = [
 
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
   { path: 'add-records/:id', component: CreateRecordsComponent, canActivate: [AuthGuardService] },
   { path: 'display-records/:id', component: DisplayRecordsComponent, canActivate: [AuthGuardService] },
   { path: 'delete-records/:id', component: DeleteRecordsComponent, canActivate: [AuthGuardService] },
+  { path: 'display-record/:id/:record', component: DisplaySingleRecordComponent, canActivate: [AuthGuardService] },
 
 
 ];
@@ -81,7 +83,8 @@ const appRoutes: Routes = [
     DeleteTableDilogComponent,
     DisplayRecordsComponent,
     CreateRecordsComponent,
-    DeleteRecordsComponent
+    DeleteRecordsComponent,
+    DisplaySingleRecordComponent
   ],
   imports: [
     BrowserModule,
