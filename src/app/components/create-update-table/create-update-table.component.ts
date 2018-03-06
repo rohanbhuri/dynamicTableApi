@@ -21,7 +21,7 @@ export class CreateUpdateTableComponent implements OnInit {
   // Types = ['Array', 'Binary Data', 'Boolean', 'Date', 'Double', 'Integer', 'JavaScript', 'Null', 'Number', 'Object', 'Object Id',
   //   'Regular Expression', 'String', 'Symbol', 'Timestamp'];
 
-  Types = ['Boolean', 'Date', 'Integer', 'Null', 'Number', 'String', 'Timestamp'];
+  Types = ['Boolean', 'Date', 'Number', 'String'];
 
 
   editing = false;
