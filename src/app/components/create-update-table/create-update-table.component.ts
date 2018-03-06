@@ -18,8 +18,11 @@ export class CreateUpdateTableComponent implements OnInit {
   ]);
   tableDescription = new FormControl(undefined);
 
-  Types = ['Array', 'Binary Data', 'Boolean', 'Date', 'Double', 'Integer', 'JavaScript', 'Null', 'Number', 'Object', 'Object Id',
-    'Regular Expression', 'String', 'Symbol', 'Timestamp'];
+  // Types = ['Array', 'Binary Data', 'Boolean', 'Date', 'Double', 'Integer', 'JavaScript', 'Null', 'Number', 'Object', 'Object Id',
+  //   'Regular Expression', 'String', 'Symbol', 'Timestamp'];
+
+  Types = ['Boolean', 'Date', 'Integer', 'Null', 'Number', 'String', 'Timestamp'];
+
 
   editing = false;
 
