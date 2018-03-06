@@ -7,6 +7,4 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3001/api/',
   siteUrl: 'http://localhost:3001/',
-//   apiUrl: 'https://dynamictableapi.appspot.com/api/',
-//   siteUrl: 'https://dynamictableapi.appspot.com/',
 };
