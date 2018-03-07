@@ -42,7 +42,7 @@ export class UpdateRecordsComponent implements AfterViewInit {
   constructor(
     public ngZone: NgZone,
     private route: ActivatedRoute,
-    private location: Location,
+    public location: Location,
     private tableService: TableService,
     public snackBar: MatSnackBar
   ) {
