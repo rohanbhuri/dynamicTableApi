@@ -118,6 +118,22 @@ export class TableService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    updateRecord(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'record/update', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    updateRecords(data) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(environment.apiUrl + 'records/update', data, { headers: headers })
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
     downloadRecords(data) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

@@ -6,11 +6,11 @@ import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-  selector: 'app-display-single-record',
-  templateUrl: './display-single-record.component.html',
-  styleUrls: ['./display-single-record.component.scss']
+  selector: 'app-update-single-record',
+  templateUrl: './update-single-record.component.html',
+  styleUrls: ['./update-single-record.component.scss']
 })
-export class DisplaySingleRecordComponent implements OnInit {
+export class UpdateSingleRecordComponent implements OnInit {
 
   tableId;
   recordId;
@@ -43,6 +43,29 @@ export class DisplaySingleRecordComponent implements OnInit {
           if (res.success) {
             this.record = res.record;
           }
+        });
+      }
+    });
+  }
+
+  updateRecord() {
+    console.log(this.record);
+    const data = {
+      id: this.tableId,
+      record: this.record
+    };
+
+    this.tableService.updateRecord(data).subscribe(res => {
+      console.log(res);
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.location.back();
+      }
+      if (res.error) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
         });
       }
     });

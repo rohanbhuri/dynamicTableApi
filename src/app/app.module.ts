@@ -26,12 +26,9 @@ import {
   MatNativeDateModule
 } from '@angular/material';
 
-
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth.guard.service';
 import { TableService } from './services/table.service';
-
-
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -47,6 +44,9 @@ import { DisplayRecordsComponent } from './components/display-records/display-re
 import { CreateRecordsComponent } from './components/create-records/create-records.component';
 import { DeleteRecordsComponent } from './components/delete-records/delete-records.component';
 import { DisplaySingleRecordComponent } from './components/display-single-record/display-single-record.component';
+import { UpdateSingleRecordComponent } from './components/update-single-record/update-single-record.component';
+import { UpdateRecordsComponent } from './components/update-records/update-records.component';
+
 
 const appRoutes: Routes = [
 
@@ -64,7 +64,8 @@ const appRoutes: Routes = [
   { path: 'display-records/:id', component: DisplayRecordsComponent, canActivate: [AuthGuardService] },
   { path: 'delete-records/:id', component: DeleteRecordsComponent, canActivate: [AuthGuardService] },
   { path: 'display-record/:id/:record', component: DisplaySingleRecordComponent, canActivate: [AuthGuardService] },
-
+  { path: 'update-record/:id/:record', component: UpdateSingleRecordComponent, canActivate: [AuthGuardService] },
+  { path: 'update-records/:id', component: UpdateRecordsComponent, canActivate: [AuthGuardService] },
 
 ];
 
@@ -84,7 +85,9 @@ const appRoutes: Routes = [
     DisplayRecordsComponent,
     CreateRecordsComponent,
     DeleteRecordsComponent,
-    DisplaySingleRecordComponent
+    DisplaySingleRecordComponent,
+    UpdateSingleRecordComponent,
+    UpdateRecordsComponent
   ],
   imports: [
     BrowserModule,

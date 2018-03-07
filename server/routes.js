@@ -27,6 +27,7 @@ router.post('/table/schema/upload', (req, res) => { table.uploadTableSchema(req,
 router.post('/records/list', (req, res) => { record.listRecords(req, res) });
 router.post('/records/read', (req, res) => { record.readRecords(req, res) });
 router.post('/records/create', (req, res) => { record.createRecords(req, res) });
+router.post('/record/update', (req, res) => { record.updateRecord(req, res) });
 router.post('/records/update', (req, res) => { record.updateRecords(req, res) });
 router.post('/records/delete', (req, res) => { record.deleteRecords(req, res) });
 router.post('/records/download', (req, res) => { record.DownloadRecords(req, res) });

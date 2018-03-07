@@ -2,11 +2,11 @@
   <mat-spinner class=" margin-top-4 margin-bottom-4"></mat-spinner>
 </div>
 
-<mat-card class="full-height" [ngClass]="{'display-none': !data}">
+<mat-card class="full-height" [ngClass]="{'display-none': !data || editing}">
   <div class="row">
     <div class=" small-12 columns content-center">
       <strong class="margin-top-2 margin-bottom-2">
-        <h4>Delete {{data.tableName}} Table Records</h4>
+        <h4>Select {{data.tableName}} Table Records For Update</h4>
       </strong>
     </div>
   </div>
@@ -19,8 +19,8 @@
       <label>Description: </label>{{data.tableDescription}}
     </div>
     <div class="column content-center">
-      <button mat-raised-button color="accent" (click)="deleteRecords();">Delete</button>
-      <button mat-raised-button color="primary" (click)="location.back();">Back</button>
+      <button mat-raised-button color="accent" (click)="editing = true;" *ngIf="selectedRecords.length > 0">Edit Selected Records</button>
+      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
     </div>
   </div>
   <br>
@@ -41,9 +41,6 @@
 
       <ng-container matColumnDef="Select">
         <mat-header-cell *matHeaderCellDef> Select
-          <!-- <mat-checkbox matTooltip="Select all">
-            <span class="white">.</span>
-          </mat-checkbox> -->
         </mat-header-cell>
         <mat-cell *matCellDef="let item">
           <mat-checkbox [ngModel]="item.select" (ngModelChange)="selectUnselectItems(item)">
@@ -76,5 +73,82 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="total" (page)="onPageChange($event)"></mat-paginator>
     </div>
   </div>
+
+</mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<mat-card class="full-height" [ngClass]="{'display-none': !data || !editing}">
+  <div class="row">
+    <div class=" small-12 columns content-center">
+      <strong class="margin-top-2 margin-bottom-2">
+        <h4>Selected {{data.tableName}} Table Records For Update</h4>
+      </strong>
+    </div>
+  </div>
+  <br>
+  <div class="row small-up-1 medium-up-2 large-up-3">
+    <div class="column">
+      <label>Table: </label>{{data.tableName}}
+    </div>
+    <div class="column">
+      <label>Description: </label>{{data.tableDescription}}
+    </div>
+    <div class="column content-center">
+      <button mat-raised-button color="accent" (click)="updateRecords()">Update Records</button>
+      <button mat-raised-button color="primary" (click)="location.back();">Cancel</button>
+    </div>
+  </div>
+  <br>
+
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let field of data._schema; let i = index">{{field.fieldName}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of selectedRecords; let j = index">
+        <td *ngFor="let field of schema; let k = index">
+          <mat-form-field class="full-width" *ngIf="field.type == 'String'">
+            <input matInput [(ngModel)]="data[field.fieldName]">
+          </mat-form-field>
+          <mat-form-field class="full-width" *ngIf="field.type == 'Date'">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="data[field.fieldName]">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-checkbox *ngIf="field.type == 'Boolean'" [(ngModel)]="data[field.fieldName]"></mat-checkbox>
+          <mat-form-field class="full-width" *ngIf="field.type == 'Number'">
+            <input matInput type="number" [(ngModel)]="data[field.fieldName]">
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
 </mat-card>

@@ -217,7 +217,6 @@ exports.deleteRecords = function (req, res) {
             });
           }
           if (req.body.delete.length === (key + 1) && error) {
-            console.log(assert.ok(error2))
             return res.json({
               error: true,
               message: error.message,
@@ -336,11 +335,10 @@ exports.DownloadRecords = function (req, res) {
     });
 }
 
-
 exports.readRecords = function (req, res) {
 
   Table.findOne({
-      '_id': req.body.tableId
+      '_id': req.body.id
     })
     .exec((err, table) => {
       if (err) {
@@ -365,13 +363,87 @@ exports.readRecords = function (req, res) {
           }
           return res.json({
             success: true,
-            message: 'Record',
+            message: 'Single Record',
             record: data,
           });
         })
     });
 }
 
+
+exports.updateRecord = function (req, res) {
+  Table.findOne({
+      '_id': req.body.id
+    })
+    .exec((err, table) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+      var someTable = createModel(table)
+
+      someTable.findByIdAndUpdate({
+          '_id': req.body.record._id
+        }, req.body.record)
+        .exec((err, data) => {
+          if (err) {
+            return res.json({
+              error: true,
+              message: err.message,
+              Info: err
+            });
+          }
+          return res.json({
+            success: true,
+            message: 'Record Updated',
+          });
+        })
+    });
+}
+
+exports.updateRecords = function (req, res) {
+  Table.findOne({
+      '_id': req.body.id
+    })
+    .exec((err, table) => {
+      if (err) {
+        return res.json({
+          error: true,
+          message: err.message,
+          Info: err
+        });
+      }
+      var someTable = createModel(table)
+
+      var error = undefined;
+      req.body.records.forEach((element, key) => {
+        someTable.findByIdAndUpdate({
+            '_id': element._id
+          }, element)
+          .exec((err, data) => {
+            if (err) {
+              error = err
+            }
+            if (req.body.records.length === (key + 1) && !error) {
+              return res.json({
+                success: true,
+                message: 'Records Updated'
+              });
+            }
+            if (req.body.records.length === (key + 1) && error) {
+              return res.json({
+                error: true,
+                message: error.message,
+                Info: error,
+              });
+            }
+          })
+      });
+    });
+}
 
 
 function createModel(table) {

@@ -1,16 +1,23 @@
-import { Component, AfterViewInit, Inject, NgZone, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { TableService } from '../../services/table.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+
 
 @Component({
-  selector: 'app-display-records',
-  templateUrl: './display-records.component.html',
-  styleUrls: ['./display-records.component.scss']
+  selector: 'app-update-records',
+  templateUrl: './update-records.component.html',
+  styleUrls: ['./update-records.component.scss']
 })
-export class DisplayRecordsComponent implements AfterViewInit {
+export class UpdateRecordsComponent implements AfterViewInit {
+
+
+  fieldData = [];
+  loading = false;
+  editing = false;
+  schema = [];
 
   id;
   data = {
@@ -20,26 +27,28 @@ export class DisplayRecordsComponent implements AfterViewInit {
   };
   document = document;
 
-  records = undefined;
+  records;
   total = 0;
   search;
 
-  displayedColumns = [];
+  displayedColumns = ['Select'];
   dataSource: MatTableDataSource<any>;
+
+  selectedRecords = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-
   constructor(
     public ngZone: NgZone,
     private route: ActivatedRoute,
-    public location: Location,
+    private location: Location,
     private tableService: TableService,
-    public snackBar: MatSnackBar,
+    public snackBar: MatSnackBar
   ) {
     this.dataSource = new MatTableDataSource(this.records);
   }
+
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -57,11 +66,9 @@ export class DisplayRecordsComponent implements AfterViewInit {
         this.tableService.getTable(data).subscribe(res => {
           console.log(res);
           this.data = res.table;
-          res.table._schema.forEach((element, key) => {
+          this.schema = res.table._schema;
+          res.table._schema.forEach(element => {
             this.displayedColumns.push(element.fieldName);
-            if (res.table._schema.length === key + 1) {
-              this.displayedColumns.push('actions');
-            }
           });
           this.getData();
           this.dataSource.paginator = this.paginator;
@@ -118,27 +125,35 @@ export class DisplayRecordsComponent implements AfterViewInit {
     this.getData();
   }
 
-  downloadTable() {
-    const params = {
-      id: this.id
-    };
-    this.tableService.downloadRecords(params).subscribe(res => {
-      console.log(res);
-      const parsedResponse = res.result;
-      const blob = new Blob([parsedResponse], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      if (navigator.msSaveOrOpenBlob) {
-        navigator.msSaveBlob(blob, 'TableList.csv');
-      } else {
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'TableList.csv';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-      window.URL.revokeObjectURL(url);
-    });
+  selectUnselectItems(item) {
+    if (this.selectedRecords.indexOf(item._id) > -1) {
+      this.selectedRecords.splice(this.selectedRecords.indexOf(item._id, 1));
+    } else {
+      this.selectedRecords.push(item);
+    }
+    console.log(this.selectedRecords);
   }
 
+  updateRecords() {
+    console.log(this.selectedRecords);
+    const data = {
+      id: this.id,
+      records: this.selectedRecords
+    };
+
+    this.tableService.updateRecords(data).subscribe(res => {
+      console.log(res);
+      if (res.success) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.location.back();
+      }
+      if (res.error) {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+      }
+    });
+  }
 }

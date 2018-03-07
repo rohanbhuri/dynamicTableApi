@@ -6,7 +6,7 @@
   <div class="row">
     <div class=" small-12 columns content-center">
       <strong class="margin-top-2 margin-bottom-2">
-        <h4>Table {{data.tableName}}</h4>
+        <h4>Update Table {{data.tableName}}</h4>
       </strong>
     </div>
   </div>
@@ -19,6 +19,7 @@
       <label>Description: </label>{{data.tableDescription}}
     </div>
     <div class="column content-center">
+      <button mat-raised-button color="accent" (click)="updateRecord()">Update Record</button>
       <button mat-raised-button color="primary" (click)="location.back();">Back</button>
     </div>
   </div>
@@ -33,8 +34,18 @@
     <tr *ngFor="let field of data._schema let i = index">
       <td>{{field.fieldName}}</td>
       <td>
-        <span *ngIf="field.type == 'Date'">{{record[field.fieldName] | date: 'dd/MM/yyyy'}}</span>
-        <span *ngIf="field.type !== 'Date'">{{record[field.fieldName]}}</span>
+        <mat-form-field class="full-width" *ngIf="field.type == 'String'">
+          <input matInput [(ngModel)]="record[field.fieldName]">
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="field.type == 'Date'">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="record[field.fieldName]">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-checkbox *ngIf="field.type == 'Boolean'" [(ngModel)]="record[field.fieldName]"></mat-checkbox>
+        <mat-form-field class="full-width" *ngIf="field.type == 'Number'">
+          <input matInput type="number" [(ngModel)]="record[field.fieldName]">
+        </mat-form-field>
       </td>
     </tr>
   </table>
