@@ -21,8 +21,23 @@ export class CreateUpdateTableComponent implements OnInit {
   // Types = ['Array', 'Binary Data', 'Boolean', 'Date', 'Double', 'Integer', 'JavaScript', 'Null', 'Number', 'Object', 'Object Id',
   //   'Regular Expression', 'String', 'Symbol', 'Timestamp'];
 
-  Types = ['Boolean', 'Date', 'Number', 'String'];
+  // Types = ['Boolean', 'Date', 'Number', 'String', 'Decimal'];
 
+  Types = [
+    'Boolean',
+    'Date',
+    'Number',
+    'String',
+    'Decimal',
+    'NumberDouble',
+    'NumberInt',
+    'NumberLong',
+    'ObjectID',
+    'Binary',
+    'Array',
+    'Object',
+    'Time'
+  ];
 
   editing = false;
 
@@ -109,7 +124,7 @@ export class CreateUpdateTableComponent implements OnInit {
     });
 
     const data = {
-      tableName: this.tableName.value,
+      tableName: this.tableName.value.replace(/\s/g, ''),
       tableDescription: this.tableDescription.value,
       createdBy: JSON.parse(localStorage.getItem('currentUser'))._id,
       _schema: _schema

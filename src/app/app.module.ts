@@ -23,8 +23,12 @@ import {
   MatMenuModule,
   MatTooltipModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
 } from '@angular/material';
+import {
+  CalendarModule
+} from 'primeng/calendar';
+
 
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth.guard.service';
@@ -46,6 +50,8 @@ import { DeleteRecordsComponent } from './components/delete-records/delete-recor
 import { DisplaySingleRecordComponent } from './components/display-single-record/display-single-record.component';
 import { UpdateSingleRecordComponent } from './components/update-single-record/update-single-record.component';
 import { UpdateRecordsComponent } from './components/update-records/update-records.component';
+import { AddEditObjectComponent } from './components/add-edit-object/add-edit-object.component';
+import { AddEditArrayComponent } from './components/add-edit-array/add-edit-array.component';
 
 
 const appRoutes: Routes = [
@@ -87,7 +93,9 @@ const appRoutes: Routes = [
     DeleteRecordsComponent,
     DisplaySingleRecordComponent,
     UpdateSingleRecordComponent,
-    UpdateRecordsComponent
+    UpdateRecordsComponent,
+    AddEditObjectComponent,
+    AddEditArrayComponent
   ],
   imports: [
     BrowserModule,
@@ -117,9 +125,13 @@ const appRoutes: Routes = [
     MatNativeDateModule,
 
     RouterModule.forRoot(appRoutes),
+
+    CalendarModule
   ],
   entryComponents: [
-    DeleteTableDilogComponent
+    DeleteTableDilogComponent,
+    AddEditObjectComponent,
+    AddEditArrayComponent
   ],
   providers: [AuthService, AuthGuardService, TableService],
   bootstrap: [AppComponent]

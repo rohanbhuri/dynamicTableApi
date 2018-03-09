@@ -1,0 +1,62 @@
+<table>
+  <tr>
+    <th class="text-left">Fields</th>
+    <th class="text-left">Type</th>
+    <th class="text-left">Value</th>
+    <th class="text-left">Delete</th>
+  </tr>
+  <tr *ngFor="let field of fields let i = index">
+    <td>{{field.fieldName}}</td>
+    <td>
+      <mat-select [(ngModel)]="field.type">
+        <mat-option *ngFor="let type of Types" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </td>
+
+    <td>
+
+      <mat-form-field class="full-width" *ngIf="field.type == 'String'">
+        <input matInput [(ngModel)]="field.value">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" *ngIf="field.type == 'Date'">
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="field.value">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <p-calendar [(ngModel)]="field.value" timeOnly="true" showTime="true" hourFormat="12" *ngIf="field.type == 'Time'"></p-calendar>
+
+      <mat-checkbox *ngIf="field.type == 'Boolean'" [(ngModel)]="field.value"></mat-checkbox>
+
+      <mat-form-field class="full-width" *ngIf="field.type == 'Number'">
+        <input matInput type="number" [(ngModel)]="field.value">
+      </mat-form-field>
+
+      <span *ngIf="field.type == undefiend">{{field.value}}</span>
+
+    </td>
+    <td>
+      <button mat-icon-button (click)="removeField(i);">
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
+    </td>
+
+  </tr>
+</table>
+<div class=" full-width content-center">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Field Name" [(ngModel)]="fieldName">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="addField()">Add Field</button>
+</div>
+<br>
+
+<hr>
+
+<div class=" full-width content-center">
+  <button mat-raised-button color="primary" (click)="onNoClick()">Cancle</button>
+  <button mat-raised-button color="accent" (click)="onYesClick()">Done</button>
+</div>

@@ -39,18 +39,41 @@
     <tbody>
       <tr *ngFor="let data of fieldData; let j = index">
         <td *ngFor="let field of schema; let k = index">
-          <mat-form-field class="full-width" *ngIf="field.type == 'String'">
+
+          <mat-form-field class="full-width" *ngIf="field.type == 'String' || field.type == 'ObjectID'">
             <input matInput [(ngModel)]="data[field.fieldName]">
           </mat-form-field>
+
           <mat-form-field class="full-width" *ngIf="field.type == 'Date'">
             <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="data[field.fieldName]">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+
+          <p-calendar [(ngModel)]="data[field.fieldName]" timeOnly="true" showTime="true" hourFormat="12" *ngIf="field.type == 'Time'"></p-calendar>
+
           <mat-checkbox *ngIf="field.type == 'Boolean'" [(ngModel)]="data[field.fieldName]"></mat-checkbox>
-          <mat-form-field class="full-width" *ngIf="field.type == 'Number'">
+
+          <mat-form-field class="full-width" *ngIf="field.type == 'Number' || field.type == 'NumberDouble' || field.type == 'NumberInt' || field.type == 'NumberLong' || field.type == 'Decimal' ">
             <input matInput type="number" [(ngModel)]="data[field.fieldName]">
           </mat-form-field>
+
+          <div *ngIf="field.type == 'Object'">
+            <button *ngIf="!data[field.fieldName]" mat-icon-button color="primary" matTooltip="Add Object" (click)="addObject(j,k)">
+              <mat-icon>add_box</mat-icon>
+            </button>
+            <button *ngIf="data[field.fieldName]" mat-icon-button color="primary" matTooltip="Edit Object" (click)="addObject(j,k)">
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+          </div>
+
+          <div *ngIf="field.type == 'Array'">
+
+            <button mat-icon-button color="primary" matTooltip="Add Array" (click)="addArray()">
+              <mat-icon>library_add</mat-icon>
+            </button>
+          </div>
+
         </td>
         <td>
           <button mat-icon-button (click)="removeRecord(j);">

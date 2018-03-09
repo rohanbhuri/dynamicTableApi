@@ -3,6 +3,9 @@ import { TableService } from '../../services/table.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
+import { AddEditObjectComponent } from '../add-edit-object/add-edit-object.component';
+import { AddEditArrayComponent } from '../add-edit-array/add-edit-array.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-create-records',
@@ -28,7 +31,8 @@ export class CreateRecordsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private tableService: TableService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
   }
 
@@ -139,6 +143,26 @@ export class CreateRecordsComponent implements OnInit {
 
     // return result; //JavaScript object
     return JSON.stringify(result); // JSON
+  }
+
+
+  addObject(j, k) {
+    let dialogRef;
+    if (this.fieldData[j][this.schema[k].fieldName]) {
+      dialogRef = this.dialog.open(AddEditObjectComponent, {
+        width: '900px',
+        data: this.fieldData[j][this.schema[k].fieldName]
+      });
+
+    } else {
+      dialogRef = this.dialog.open(AddEditObjectComponent, {
+        width: '900px',
+      });
+    }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      this.fieldData[j][this.schema[k].fieldName] = result;
+    });
   }
 
 

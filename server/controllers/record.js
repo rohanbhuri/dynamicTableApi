@@ -455,28 +455,49 @@ function createModel(table) {
     },
   };
   table._schema.forEach(element => {
-    if (element.type == 'String' || element.type == 'Number') {
-      schemaObject[element.fieldName] = {
-        type: element.type,
-        text: true,
-        unique: element.unique,
-        required: [element.null == false ? true : false, element.fieldName + ' field required'],
-        validate: {
-          validator: function (value) {
-            return element.length >= value.toString().length;
-          },
-          message: '{VALUE} Length Exceeds!'
+    schemaObject[element.fieldName] = {
+      type: setDataTypes(element.type),
+      text: true,
+      unique: element.unique,
+      required: [element.null == false ? true : false, element.fieldName + ' field required'],
+      validate: {
+        validator: function (value) {
+          if (element.length) {
+            if (element.length >= value.toString().length) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
         },
-      }
-    } else {
-      schemaObject[element.fieldName] = {
-        type: element.type,
-        text: true,
-        unique: element.unique,
-        required: [element.null == false ? true : false, element.fieldName + ' field required'],
-      }
+        message: '{VALUE} Length Exceeds!'
+      },
     }
   });
   const someSchema = new mongoose.Schema(schemaObject);
   return mongoose.models[table.tableName] || mongoose.model(table.tableName, someSchema);
+}
+
+
+
+function setDataTypes(dataType) {
+  if (dataType == 'ObjectId') {
+    return Schema.Types.ObjectId;
+  }
+  if (dataType == 'Time') {
+    return Schema.Types.Date;
+  }
+  if (dataType == 'Array') {
+    return Schema.Types.Array;
+  }
+  if (dataType == 'Object') {
+    return Schema.Types.Mixed;
+  }
+  if (dataType == 'NumberDouble' || 'NumberInt' || 'NumberLong' || 'Decimal') {
+    return Schema.Types.Number;
+  } else {
+    return dataType;
+  }
 }

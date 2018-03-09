@@ -59,7 +59,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>{{field.fieldName}}</mat-header-cell>
         <mat-cell *matCellDef="let item" [routerLink]="['/display-record',id ,item._id]">
           <span *ngIf="field.type == 'Date'">{{item[field.fieldName] | date: 'dd/MM/yyyy'}}</span>
-          <span *ngIf="field.type !== 'Date'">{{item[field.fieldName]}}</span>
+          <span *ngIf="field.type == 'Time'">{{item[field.fieldName] | date: 'h:mm:a'}}</span>          
+          <span *ngIf="field.type !== 'Date' && field.type !== 'Time'">{{item[field.fieldName]}}</span>
         </mat-cell>
       </ng-container>
 

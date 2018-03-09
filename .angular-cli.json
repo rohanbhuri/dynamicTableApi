@@ -23,7 +23,9 @@
       "../src/assets/lib/foundation/foundation.css",
       "../src/assets/lib/foundation/foundation-flex.css",
       "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-      "../src/assets/lib/font-awesome-4.7.0/css/font-awesome.css"
+      "../src/assets/lib/font-awesome-4.7.0/css/font-awesome.css",
+      "../node_modules/primeng/resources/themes/omega/theme.css",
+      "../node_modules/primeng/resources/primeng.min.css"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",
