@@ -4,6 +4,7 @@ import { TableService } from '../../services/table.service';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { timeout } from 'q';
 
 
 @Component({
@@ -24,18 +25,18 @@ export class CreateUpdateTableComponent implements OnInit {
   // Types = ['Boolean', 'Date', 'Number', 'String', 'Decimal'];
 
   Types = [
+    'Array',
+    'Binary',
     'Boolean',
     'Date',
-    'Number',
-    'String',
     'Decimal',
+    'Number',
     'NumberDouble',
     'NumberInt',
     'NumberLong',
-    'ObjectID',
-    'Binary',
-    'Array',
     'Object',
+    'ObjectID',
+    'String',
     'Time'
   ];
 
@@ -111,6 +112,14 @@ export class CreateUpdateTableComponent implements OnInit {
 
   createTable() {
     this.loading = true;
+    setTimeout(() => {
+      if (this.loading === true) {
+        this.loading = false;
+        this.snackBar.open('Server not responding, Please try again later!', 'OK', {
+          duration: 3000,
+        });
+      }
+    }, 10000);
     const _schema = [];
     this.fields.forEach(element => {
       _schema.push({
@@ -149,6 +158,14 @@ export class CreateUpdateTableComponent implements OnInit {
 
   updateTable() {
     this.loading = true;
+    setTimeout(() => {
+      if (this.loading === true) {
+        this.loading = false;
+        this.snackBar.open('Server not responding, Please try again later!', 'OK', {
+          duration: 3000,
+        });
+      }
+    }, 10000);
     const _schema = [];
     this.fields.forEach(element => {
       _schema.push({

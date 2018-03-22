@@ -63,7 +63,16 @@ export class DeleteTableComponent implements OnInit {
       id: this.data._id
     };
     this.data = undefined;
+    const timer = setTimeout(() => {
+      this.location.back();
+      if (this.data === undefined) {
+        this.snackBar.open('Server not responding, Please try again later!', 'OK', {
+          duration: 3000,
+        });
+      }
+    }, 10000);
     this.tableService.deleteTable(data).subscribe((res) => {
+      clearTimeout(timer);
       if (res.success) {
         this.snackBar.open(res.message, 'OK', {
           duration: 3000,

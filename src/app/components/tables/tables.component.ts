@@ -42,6 +42,15 @@ export class TablesComponent implements AfterViewInit {
 
   getData() {
     this.tables = undefined;
+
+    const timer = setTimeout(() => {
+      if (this.tables === undefined) {
+        this.snackBar.open('Server not responding, Please try again later!', 'OK', {
+          duration: 3000,
+        });
+        this.tables = [];
+      }
+    }, 10000);
     const params = {
       search: this.dataSource.filter,
       page: this.paginator.pageIndex,
@@ -50,6 +59,7 @@ export class TablesComponent implements AfterViewInit {
     };
     this.tableService.allTablesSearch(params).subscribe(res => {
       console.log(res);
+      clearTimeout(timer);
       if (res.error) {
         this.snackBar.open(res.message, 'OK', {
           duration: 3000,
@@ -97,7 +107,7 @@ export class TablesComponent implements AfterViewInit {
       } else {
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'TableList.csv';
+        a.download = 'Table.csv';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
