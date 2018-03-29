@@ -12,7 +12,11 @@ const csvtojson = require('csvtojson')
 
 
 exports.listTables = function (req, res) {
+  req.body.sort = req.body.sort.hasOwnProperty('undefined') ? {
+    createdOn: -1
+  } : req.body.sort;
   console.log(req.body);
+
   if (req.body.search) {
     Table
       .find({
