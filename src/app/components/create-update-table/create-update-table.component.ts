@@ -133,7 +133,7 @@ export class CreateUpdateTableComponent implements OnInit {
     });
 
     const data = {
-      tableName: this.tableName.value.replace(/\s/g, ''),
+      tableName: this.tableName.value ? this.tableName.value.replace(/\s/g, '') : undefined,
       tableDescription: this.tableDescription.value,
       createdBy: JSON.parse(localStorage.getItem('currentUser'))._id,
       _schema: _schema

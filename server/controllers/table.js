@@ -148,15 +148,17 @@ exports.createTable = function (req, res) {
       let validationError3 = false;
       table._schema.forEach((element1, key1) => {
         table._schema.forEach((element2, key2) => {
+          element1.fieldName = element1.fieldName ? element1.fieldName.trim().toLowerCase() : undefined;
+          element2.fieldName = element2.fieldName ? element2.fieldName.trim().toLowerCase() : undefined;
           if (key1 !== key2) {
-            if (element1.fieldName.trim().toLowerCase() === element2.fieldName.trim().toLowerCase()) {
+            if (element1.fieldName === element2.fieldName) {
               validationError = true;
             }
           }
-          if (!element2.fieldName || element2.fieldName.trim().toLowerCase() == '') {
+          if (!element2.fieldName || element2.fieldName == '') {
             validationError2 = true;
           }
-          if (!element2.type || element2.type.trim().toLowerCase() == '') {
+          if (!element2.type || element2.type == '') {
             validationError3 = true;
           }
           console.log(key1 + 1, key2 + 1, req.body._schema.length)
@@ -219,14 +221,16 @@ exports.updateTable = function (req, res) {
   let validationError3 = false;
   req.body._schema.forEach((element1, key1) => {
     req.body._schema.forEach((element2, key2) => {
+      element1.fieldName = element1.fieldName ? element1.fieldName.trim().toLowerCase() : undefined;
+      element2.fieldName = element2.fieldName ? element2.fieldName.trim().toLowerCase() : undefined;
       if (key1 !== key2) {
-        if (element1.fieldName.trim().toLowerCase() === element2.fieldName.trim().toLowerCase()) {
+        if (element1.fieldName === element2.fieldName) {
           validationError = true;
         }
-        if (!element2.fieldName || element2.fieldName.trim().toLowerCase() == '') {
+        if (!element2.fieldName || element2.fieldName == '') {
           validationError2 = true;
         }
-        if (!element2.type || element2.type.trim().toLowerCase() == '') {
+        if (!element2.type || element2.type == '') {
           validationError3 = true;
         }
       }
