@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "gcloud-deploy": "gcloud auth login && gcloud config set account erajaykumar321@gmail.com && gcloud config set project angular-wcf && gcloud app deploy"
+    "gcloud-deploy": "gcloud auth login && gcloud config set account dynamictables@gmail.com && gcloud config set project dynamictableapi && gcloud app deploy"
   },
   "private": true,
   "dependencies": {
