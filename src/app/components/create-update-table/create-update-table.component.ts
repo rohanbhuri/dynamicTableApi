@@ -229,7 +229,7 @@ export class CreateUpdateTableComponent implements OnInit {
       console.log(this.csvJSON(csv));
       const csvData = JSON.parse(this.csvJSON(csv));
 
-      csvData.forEach(element => {
+      csvData.forEach((element, key) => {
         // console.log(element['\"unique\"'].replace(/"/g, ''));
         if (element.hasOwnProperty('\"fieldName\"')) {
           this.fields.push({
@@ -239,6 +239,16 @@ export class CreateUpdateTableComponent implements OnInit {
             unique: new FormControl(element['\"unique\"'].replace(/"/g, '') === 'true' ? true : false),
             null: new FormControl(element['\"null\"'].replace(/"/g, '') === 'true' ? true : false),
             fieldDescription: new FormControl(element['\"fieldDescription\"'].replace(/"/g, ''))
+          });
+        } else {
+          this.snackBar.open('Not A Valid CSV', 'OK', {
+            duration: 3000,
+          });
+          return;
+        }
+        if ((key + 1) === csvData.length) {
+          this.snackBar.open('Fields Updated', 'OK', {
+            duration: 3000,
           });
         }
         // console.log(this.fields);

@@ -103,11 +103,11 @@ export class TablesComponent implements AfterViewInit {
       const blob = new Blob([parsedResponse], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       if (navigator.msSaveOrOpenBlob) {
-        navigator.msSaveBlob(blob, 'TableList.csv');
+        navigator.msSaveBlob(blob, 'Tables.csv');
       } else {
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'Table.csv';
+        a.download = 'Tables.csv';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
