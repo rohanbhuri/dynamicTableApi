@@ -230,15 +230,17 @@ export class CreateUpdateTableComponent implements OnInit {
       const csvData = JSON.parse(this.csvJSON(csv));
 
       csvData.forEach(element => {
-        console.log(element['\"unique\"'].replace(/"/g, ''));
-        this.fields.push({
-          fieldName: new FormControl(element['\"fieldName\"'].replace(/"/g, ''), [Validators.required]),
-          type: new FormControl(element['\"type\"'].replace(/"/g, ''), [Validators.required]),
-          length: new FormControl(element['\"length\"'].replace(/"/g, '')),
-          unique: new FormControl(element['\"unique\"'].replace(/"/g, '') === 'true' ? true : false),
-          null: new FormControl(element['\"null\"'].replace(/"/g, '') === 'true' ? true : false),
-          fieldDescription: new FormControl(element['\"fieldDescription\"'].replace(/"/g, ''))
-        });
+        // console.log(element['\"unique\"'].replace(/"/g, ''));
+        if (element.hasOwnProperty('\"fieldName\"')) {
+          this.fields.push({
+            fieldName: new FormControl(element['\"fieldName\"'].replace(/"/g, ''), [Validators.required]),
+            type: new FormControl(element['\"type\"'].replace(/"/g, ''), [Validators.required]),
+            length: new FormControl(element['\"length\"'].replace(/"/g, '')),
+            unique: new FormControl(element['\"unique\"'].replace(/"/g, '') === 'true' ? true : false),
+            null: new FormControl(element['\"null\"'].replace(/"/g, '') === 'true' ? true : false),
+            fieldDescription: new FormControl(element['\"fieldDescription\"'].replace(/"/g, ''))
+          });
+        }
         // console.log(this.fields);
       });
     };

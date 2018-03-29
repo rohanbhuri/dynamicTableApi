@@ -78,11 +78,11 @@ export class OpenTableComponent implements OnInit {
       const blob = new Blob([parsedResponse], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       if (navigator.msSaveOrOpenBlob) {
-        navigator.msSaveBlob(blob, 'TableList.csv');
+        navigator.msSaveBlob(blob, 'TableFields.csv');
       } else {
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'TableList.csv';
+        a.download = 'TableFields.csv';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -97,11 +97,17 @@ export class OpenTableComponent implements OnInit {
       const base64Data = e.target.result.split('base64,');
       console.log(base64Data[1]);
       this.tableService.uploadTableSchema({ id: this.id, csv: atob(base64Data[1]) }).subscribe(res => {
-        console.log(res);
-        this.snackBar.open(res.message, 'OK', {
-          duration: 3000,
-        });
-        this.setValues();
+        if (res.success) {
+          this.snackBar.open(res.message, 'OK', {
+            duration: 3000,
+          });
+          this.setValues();
+        }
+        if (res.error) {
+          this.snackBar.open(res.message, 'OK', {
+            duration: 3000,
+          });
+        }
       });
     };
     reader.readAsDataURL(event.target.files[0]);
