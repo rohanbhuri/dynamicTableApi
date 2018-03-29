@@ -78,11 +78,11 @@ export class OpenTableComponent implements OnInit {
       const blob = new Blob([parsedResponse], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       if (navigator.msSaveOrOpenBlob) {
-        navigator.msSaveBlob(blob, 'TableFields.csv');
+        navigator.msSaveBlob(blob, 'Table.csv');
       } else {
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'TableFields.csv';
+        a.download = 'Table.csv';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
